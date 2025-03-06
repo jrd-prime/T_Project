@@ -1,0 +1,64 @@
+# Основные папки Unity
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+
+# Большие файлы и чувствительные данные
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+
+# JetBrains Rider (игнорируем всю папку .idea)
+.idea/
+
+# Visual Studio и другие IDE
+.vs/
+.gradle/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.VC.db
+
+# Генерируемые Unity мета-файлы
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# Отчёты о сбоях
+sysinfo.txt
+
+# Сборки
+*.apk
+*.aab
+*.unitypackage
+*.app
+
+# Addressables и StreamingAssets
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+/[Aa]ssets/[Ss]treamingAssets/aa/*
+/[Aa]ssets/[Ss]treamingAssets/aa.meta
+
+# Логи и кэш
+*.log
+*.log.*
+
+# Настройки и временные файлы
+*.prefs
+.DS_Store
+Thumbs.db
+
+# Тесты
+/[Aa]ssets/[Tt]ests/
+/[Pp]rojectSettings/TestRunner*
