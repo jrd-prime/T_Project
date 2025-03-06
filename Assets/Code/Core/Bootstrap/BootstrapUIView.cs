@@ -1,0 +1,46 @@
+﻿using System;
+using Code.Core.Data;
+using Code.Extensions;
+using Code.Tools;
+using R3;
+using UnityEngine;
+using UnityEngine.UIElements;
+using VContainer;
+
+namespace Code.Core.Bootstrap
+{
+    [RequireComponent(typeof(UIDocument))]
+    public sealed class BootstrapUIView : MonoBehaviour
+    {
+        private const string LoadingLabelId = "loading-label";
+        private const string AppNameLabelId = "app-name-label";
+
+        private IBootstrapUIViewModel _viewModel;
+        private Label _appName;
+        private Label _loadingLabel;
+
+        private readonly CompositeDisposable _disposables = new();
+
+        [Inject]
+        private void Construct(IBootstrapUIViewModel viewModel) => _viewModel = viewModel;
+
+        private void Awake()
+        {
+            Helper.CheckOnNull(_viewModel, "ViewModel", name);
+
+            var root = gameObject.GetComponent<UIDocument>().rootVisualElement ??
+                       throw new NullReferenceException("RootVisualElement is null.");
+
+            _appName = root.GetVisualElement<Label>(AppNameLabelId, name);
+            _appName.text = ProjectConstant.AppName;
+
+            _loadingLabel = root.GetVisualElement<Label>(LoadingLabelId, name);
+
+            _viewModel.TitleText.Subscribe(SetTitle).AddTo(_disposables);
+        }
+
+        private void SetTitle(string value) => _loadingLabel.text = !string.IsNullOrEmpty(value) ? value : "Not set";
+
+        private void OnDestroy() => _disposables?.Dispose();
+    }
+}

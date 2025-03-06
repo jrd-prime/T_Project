@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Code.Core.Bootstrap;
 using Code.Core.SO;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using VContainer;
 
@@ -24,13 +25,13 @@ namespace Code.Core.Providers
         [Inject]
         private void Construct(MainSettings mainSettings) => _mainSettings = mainSettings;
 
-        public void InitializationOnBoot()
+        public async UniTask InitializationOnBoot()
         {
             if (!_mainSettings) throw new Exception("MainSettings is null");
-            AddSettingsToCache();
+            await AddSettingsToCacheAsync();
         }
 
-        private void AddSettingsToCache()
+        private async UniTask AddSettingsToCacheAsync()
         {
             var fields = typeof(MainSettings)
                 .GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
@@ -38,6 +39,7 @@ namespace Code.Core.Providers
             foreach (var field in fields)
             {
                 if (!typeof(SettingsBase).IsAssignableFrom(field.FieldType)) continue;
+
                 var settings = (SettingsBase)field.GetValue(_mainSettings);
 
                 if (!_cache.TryAdd(settings.GetType(), settings))
@@ -46,7 +48,8 @@ namespace Code.Core.Providers
                 Debug.Log("Settings added to cache: " + settings.GetType().Name);
             }
 
-            Debug.Log("Settings count: " + _cache.Count);
+            Debug.Log("Settings added to cache: " + _cache.Count);
+            await UniTask.CompletedTask;
         }
 
         public T GetSettings<T>() where T : SettingsBase

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Code.Core.Bootstrap.Bootstrap;
 using Cysharp.Threading.Tasks;
 using VContainer;
 using VContainer.Unity;
@@ -9,7 +8,7 @@ namespace Code.Core.Bootstrap
 {
     public interface IBootable
     {
-        public void InitializationOnBoot();
+        public UniTask InitializationOnBoot();
         public string Description { get; }
     }
 
@@ -38,10 +37,10 @@ namespace Code.Core.Bootstrap
                 try
                 {
                     _bootstrapUIModel.SetLoadingText($"Loading: {service.Description}..");
-                    service.InitializationOnBoot();
+                    await service.InitializationOnBoot();
 
-                    // await UniTask.Delay(100); // fake delay per service
-                    await UniTask.Yield();
+                    await UniTask.Delay(3000); // fake delay per service
+                    // await UniTask.Yield();
                 }
                 catch (Exception ex)
                 {
