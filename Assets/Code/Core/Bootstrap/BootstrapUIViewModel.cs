@@ -7,12 +7,14 @@ namespace Code.Core.Bootstrap
 {
     public interface IBootstrapUIViewModel : IInitializable
     {
-        public ReactiveProperty<string> TitleText { get; }
+        public ReadOnlyReactiveProperty<string> TitleText { get; }
+        public ReadOnlyReactiveProperty<float> Opacity { get; }
     }
 
     public class BootstrapUIViewModel : IBootstrapUIViewModel
     {
-        public ReactiveProperty<string> TitleText => _model.LoadingText;
+        public ReadOnlyReactiveProperty<string> TitleText => _model.LoadingText;
+        public ReadOnlyReactiveProperty<float> Opacity => _model.Opacity;
 
         private IBootstrapUIModel _model;
 

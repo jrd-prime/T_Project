@@ -31,6 +31,7 @@ namespace Code.Core.Context
 
             builder.Register<ISettingsProvider, SettingsProvider>(Lifetime.Singleton);
             builder.Register<IAssetProvider, AssetProvider>(Lifetime.Singleton);
+            builder.Register<FirstSceneProvider>(Lifetime.Singleton).AsSelf();
         }
 
         private void OnApplicationQuit()

@@ -1,7 +1,6 @@
-﻿using System;
-using Code.Core.Bootstrap;
-using Code.Core.Data;
+﻿using Code.Core.Bootstrap;
 using Code.Core.Providers;
+using Code.Extensions;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -23,28 +22,27 @@ namespace Code
 
         private async UniTask InitializeAsync()
         {
-            var bootstrapLoader = _resolver.Resolve<BootstrapLoader>() ??
-                                  throw new NullReferenceException("BootstrapLoader is null.");
+            var bootstrapLoader = _resolver.ResolveAndCheckOnNull<BootstrapLoader>();
+            var bootstrapUIModel = _resolver.ResolveAndCheckOnNull<IBootstrapUIModel>();
 
-            var settingsProvider = _resolver.Resolve<ISettingsProvider>() ??
-                                   throw new NullReferenceException("SettingsProvider is null.");
-            var assetProvider = _resolver.Resolve<IAssetProvider>() ??
-                                throw new NullReferenceException("AssetProvider is null.");
+            // Bootable services
+            var settingsProvider = _resolver.ResolveAndCheckOnNull<ISettingsProvider>();
+            var assetProvider = _resolver.ResolveAndCheckOnNull<IAssetProvider>();
+            var firstSceneProvider = _resolver.ResolveAndCheckOnNull<FirstSceneProvider>();
 
             bootstrapLoader.AddForBootstrapInitialization(settingsProvider);
             bootstrapLoader.AddForBootstrapInitialization(assetProvider);
-
-            var bootTask = bootstrapLoader.StartServicesInitializationAsync();
-            var sceneTask = assetProvider.LoadSceneAsync(AssetNameConst.GameScene, LoadSceneMode.Single);
+            bootstrapLoader.AddForBootstrapInitialization(firstSceneProvider);
 
             Debug.Log("Starting Services initialization...");
-            await UniTask.WhenAll(bootTask, sceneTask);
+            await bootstrapLoader.StartServicesInitializationAsync();
             Debug.Log("End Services initialization...");
 
-            var gameScene = sceneTask.GetAwaiter().GetResult();
+            await bootstrapUIModel.FadeOut(1f);
 
-            // TODO FadeOut loading screen view 
-            SceneManager.SetActiveScene(gameScene.Scene);
+            var bootstrapScene = SceneManager.GetActiveScene();
+            SceneManager.SetActiveScene(firstSceneProvider.FirstScene.Scene);
+            SceneManager.UnloadSceneAsync(bootstrapScene);
 
             Debug.LogWarning("<color=green><b>=== APP STARTED! ===</b></color>");
         }

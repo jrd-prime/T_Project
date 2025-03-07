@@ -1,6 +1,7 @@
 ﻿using Code.Core.Bootstrap;
 using Code.Core.Data;
 using Cysharp.Threading.Tasks;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.ResourceProviders;
@@ -15,19 +16,14 @@ namespace Code.Core.Providers
         public GameObject Instantiate(AssetReferenceGameObject assetId, Transform parent = null);
     }
 
+    [UsedImplicitly]
     public sealed class AssetProvider : IAssetProvider
     {
         public string Description => "Asset Provider";
+        public async UniTask InitializationOnBoot() => await Addressables.InitializeAsync();
 
-        public async UniTask InitializationOnBoot()
-        {
-            await Addressables.InitializeAsync();
-        }
-
-        public async UniTask<SceneInstance> LoadSceneAsync(string assetId, LoadSceneMode loadSceneMode)
-        {
-            return await Addressables.LoadSceneAsync(AssetNameConst.GameScene, loadSceneMode).Task;
-        }
+        public async UniTask<SceneInstance> LoadSceneAsync(string assetId, LoadSceneMode loadSceneMode) =>
+            await Addressables.LoadSceneAsync(AssetNameConst.GameScene, loadSceneMode);
 
         public async UniTask<GameObject> InstantiateAsync(AssetReference assetId, Transform parent = null)
         {
@@ -35,9 +31,7 @@ namespace Code.Core.Providers
             return await handle.Task;
         }
 
-        public GameObject Instantiate(AssetReferenceGameObject assetId, Transform parent = null)
-        {
-            return Addressables.InstantiateAsync(assetId, parent).Result;
-        }
+        public GameObject Instantiate(AssetReferenceGameObject assetId, Transform parent = null) =>
+            Addressables.InstantiateAsync(assetId, parent).Result;
     }
 }

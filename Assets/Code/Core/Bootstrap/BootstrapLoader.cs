@@ -39,7 +39,7 @@ namespace Code.Core.Bootstrap
                     _bootstrapUIModel.SetLoadingText($"Loading: {service.Description}..");
                     await service.InitializationOnBoot();
 
-                    await UniTask.Delay(3000); // fake delay per service
+                    await UniTask.Delay(1000); // fake delay per service
                     // await UniTask.Yield();
                 }
                 catch (Exception ex)
