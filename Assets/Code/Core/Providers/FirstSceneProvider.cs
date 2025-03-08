@@ -22,7 +22,7 @@ namespace Code.Core.Providers
         public async UniTask InitializationOnBoot()
         {
             FirstScene = await Addressables.LoadSceneAsync(_mainSettings.FirstScene, LoadSceneMode.Additive);
-            Debug.LogWarning("Loaded scene: " + FirstScene.Scene.name + " (" + FirstScene.Scene.buildIndex + ")");
+            Debug.Log("Loaded scene: " + FirstScene.Scene.name + " (" + FirstScene.Scene.buildIndex + ")");
         }
     }
 }
