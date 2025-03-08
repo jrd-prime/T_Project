@@ -33,6 +33,7 @@ namespace Code.Hero
         private void Move(Vector3 position)
         {
             Debug.LogWarning("move hero");
+            transform.position = position;
         }
 
         private void OnDestroy()

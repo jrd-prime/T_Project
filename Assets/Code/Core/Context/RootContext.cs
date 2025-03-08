@@ -1,4 +1,5 @@
 ﻿using System;
+using Code.Core.Input;
 using Code.Core.Providers;
 using Code.Core.SO;
 using JetBrains.Annotations;
@@ -26,8 +27,8 @@ namespace Code.Core.Context
             builder.RegisterComponent(mainSettings).AsSelf();
             builder.RegisterComponent(eventSystem).AsSelf();
 
-            // var input = gameObject.AddComponent<MobileInput>();
-            // builder.RegisterComponent(component).AsSelf();
+            var input = gameObject.AddComponent<DesktopInput>();
+            builder.RegisterComponent(input).As<IInput>();
 
             builder.Register<ISettingsProvider, SettingsProvider>(Lifetime.Singleton);
             builder.Register<IAssetProvider, AssetProvider>(Lifetime.Singleton);

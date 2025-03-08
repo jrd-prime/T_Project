@@ -21,7 +21,7 @@ namespace Code.Core.Context
 
             builder.Register<CameraFollowSystem>(Lifetime.Singleton).AsSelf();
 
-            builder.Register<IHeroModel, HeroModel>(Lifetime.Singleton).As<IInitializable>();
+            builder.Register<IHeroModel, HeroModel>(Lifetime.Singleton).As<IInitializable, IFixedTickable>();
         }
     }
 }
