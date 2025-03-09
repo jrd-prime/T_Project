@@ -28,7 +28,9 @@ namespace Code.Core.Context
             builder.RegisterComponent(eventSystem).AsSelf();
 
             var input = gameObject.AddComponent<DesktopInput>();
-            builder.RegisterComponent(input).As<IInput>();
+            builder.RegisterComponent(input).AsSelf();
+
+            builder.Register<InputHandler>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.Register<ISettingsProvider, SettingsProvider>(Lifetime.Singleton);
             builder.Register<IAssetProvider, AssetProvider>(Lifetime.Singleton);

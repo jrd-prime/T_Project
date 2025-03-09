@@ -37,9 +37,9 @@ public partial class @JInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Click"",
+                    ""name"": ""ActionPanel"",
                     ""type"": ""Button"",
-                    ""id"": ""2f065022-4992-4746-a7d4-26779bfa0f53"",
+                    ""id"": ""2fbeb582-4f4e-4c1e-9d4d-172361debf42"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -60,12 +60,56 @@ public partial class @JInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5efe0710-2690-4c16-89d5-63505275d248"",
-                    ""path"": ""<Touchscreen>/Press"",
+                    ""id"": ""107211c5-872c-4468-bca1-dc4006d5e948"",
+                    ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Click"",
+                    ""groups"": "";keyboard_and_mouse"",
+                    ""action"": ""ActionPanel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""08d25a6d-fb35-4bcb-8468-412a2dd667a9"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";keyboard_and_mouse"",
+                    ""action"": ""ActionPanel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f5065714-ac58-4cfa-9df5-f36db2eafa46"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";keyboard_and_mouse"",
+                    ""action"": ""ActionPanel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e6d5bff2-6455-4b21-9ba9-568b7d8a87f5"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";keyboard_and_mouse"",
+                    ""action"": ""ActionPanel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0c138d3b-4152-4217-a45b-6c9952358e0a"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";keyboard_and_mouse"",
+                    ""action"": ""ActionPanel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -142,6 +186,118 @@ public partial class @JInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""GamePlay"",
+            ""id"": ""2856040a-65e9-4cda-bcef-ffbdd2cfa455"",
+            ""actions"": [
+                {
+                    ""name"": ""MouseClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""a00543d4-eb06-4cf4-97ea-2378db512d07"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SomeActions"",
+                    ""type"": ""Button"",
+                    ""id"": ""9444fcaa-9398-4b60-a21c-c532a5c77ae6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""35615349-81e5-4dce-86fe-e0ada364cfe8"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""2e7c3247-949b-49ee-ac83-0e4e6631ab0c"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";keyboard_and_mouse"",
+                    ""action"": ""MouseClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""61558759-f57d-4e7e-afd6-4db62507ec09"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";keyboard_and_mouse"",
+                    ""action"": ""MouseClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dbf320eb-f84d-440f-95e9-54c0b43726ab"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";keyboard_and_mouse"",
+                    ""action"": ""MouseClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a90bbd43-9288-4961-bdfa-0a828effc412"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";keyboard_and_mouse"",
+                    ""action"": ""SomeActions"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2f46686f-af0b-47d0-badb-1560ec84edcd"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";keyboard_and_mouse"",
+                    ""action"": ""SomeActions"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3c6ab433-9311-415a-9d60-778dfbf2fb4b"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";keyboard_and_mouse"",
+                    ""action"": ""SomeActions"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""86fe73ee-4b64-47e2-b121-291f70dbc498"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";keyboard_and_mouse"",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -188,16 +344,22 @@ public partial class @JInputActions: IInputActionCollection2, IDisposable
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_TouchPosition = m_UI.FindAction("TouchPosition", throwIfNotFound: true);
-        m_UI_Click = m_UI.FindAction("Click", throwIfNotFound: true);
+        m_UI_ActionPanel = m_UI.FindAction("ActionPanel", throwIfNotFound: true);
         // Hero
         m_Hero = asset.FindActionMap("Hero", throwIfNotFound: true);
         m_Hero_Move = m_Hero.FindAction("Move", throwIfNotFound: true);
+        // GamePlay
+        m_GamePlay = asset.FindActionMap("GamePlay", throwIfNotFound: true);
+        m_GamePlay_MouseClick = m_GamePlay.FindAction("MouseClick", throwIfNotFound: true);
+        m_GamePlay_SomeActions = m_GamePlay.FindAction("SomeActions", throwIfNotFound: true);
+        m_GamePlay_MousePosition = m_GamePlay.FindAction("MousePosition", throwIfNotFound: true);
     }
 
     ~@JInputActions()
     {
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, JInputActions.UI.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Hero.enabled, "This will cause a leak and performance issues, JInputActions.Hero.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_GamePlay.enabled, "This will cause a leak and performance issues, JInputActions.GamePlay.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -260,13 +422,13 @@ public partial class @JInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_TouchPosition;
-    private readonly InputAction m_UI_Click;
+    private readonly InputAction m_UI_ActionPanel;
     public struct UIActions
     {
         private @JInputActions m_Wrapper;
         public UIActions(@JInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @TouchPosition => m_Wrapper.m_UI_TouchPosition;
-        public InputAction @Click => m_Wrapper.m_UI_Click;
+        public InputAction @ActionPanel => m_Wrapper.m_UI_ActionPanel;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -279,9 +441,9 @@ public partial class @JInputActions: IInputActionCollection2, IDisposable
             @TouchPosition.started += instance.OnTouchPosition;
             @TouchPosition.performed += instance.OnTouchPosition;
             @TouchPosition.canceled += instance.OnTouchPosition;
-            @Click.started += instance.OnClick;
-            @Click.performed += instance.OnClick;
-            @Click.canceled += instance.OnClick;
+            @ActionPanel.started += instance.OnActionPanel;
+            @ActionPanel.performed += instance.OnActionPanel;
+            @ActionPanel.canceled += instance.OnActionPanel;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -289,9 +451,9 @@ public partial class @JInputActions: IInputActionCollection2, IDisposable
             @TouchPosition.started -= instance.OnTouchPosition;
             @TouchPosition.performed -= instance.OnTouchPosition;
             @TouchPosition.canceled -= instance.OnTouchPosition;
-            @Click.started -= instance.OnClick;
-            @Click.performed -= instance.OnClick;
-            @Click.canceled -= instance.OnClick;
+            @ActionPanel.started -= instance.OnActionPanel;
+            @ActionPanel.performed -= instance.OnActionPanel;
+            @ActionPanel.canceled -= instance.OnActionPanel;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -355,6 +517,68 @@ public partial class @JInputActions: IInputActionCollection2, IDisposable
         }
     }
     public HeroActions @Hero => new HeroActions(this);
+
+    // GamePlay
+    private readonly InputActionMap m_GamePlay;
+    private List<IGamePlayActions> m_GamePlayActionsCallbackInterfaces = new List<IGamePlayActions>();
+    private readonly InputAction m_GamePlay_MouseClick;
+    private readonly InputAction m_GamePlay_SomeActions;
+    private readonly InputAction m_GamePlay_MousePosition;
+    public struct GamePlayActions
+    {
+        private @JInputActions m_Wrapper;
+        public GamePlayActions(@JInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MouseClick => m_Wrapper.m_GamePlay_MouseClick;
+        public InputAction @SomeActions => m_Wrapper.m_GamePlay_SomeActions;
+        public InputAction @MousePosition => m_Wrapper.m_GamePlay_MousePosition;
+        public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GamePlayActions set) { return set.Get(); }
+        public void AddCallbacks(IGamePlayActions instance)
+        {
+            if (instance == null || m_Wrapper.m_GamePlayActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GamePlayActionsCallbackInterfaces.Add(instance);
+            @MouseClick.started += instance.OnMouseClick;
+            @MouseClick.performed += instance.OnMouseClick;
+            @MouseClick.canceled += instance.OnMouseClick;
+            @SomeActions.started += instance.OnSomeActions;
+            @SomeActions.performed += instance.OnSomeActions;
+            @SomeActions.canceled += instance.OnSomeActions;
+            @MousePosition.started += instance.OnMousePosition;
+            @MousePosition.performed += instance.OnMousePosition;
+            @MousePosition.canceled += instance.OnMousePosition;
+        }
+
+        private void UnregisterCallbacks(IGamePlayActions instance)
+        {
+            @MouseClick.started -= instance.OnMouseClick;
+            @MouseClick.performed -= instance.OnMouseClick;
+            @MouseClick.canceled -= instance.OnMouseClick;
+            @SomeActions.started -= instance.OnSomeActions;
+            @SomeActions.performed -= instance.OnSomeActions;
+            @SomeActions.canceled -= instance.OnSomeActions;
+            @MousePosition.started -= instance.OnMousePosition;
+            @MousePosition.performed -= instance.OnMousePosition;
+            @MousePosition.canceled -= instance.OnMousePosition;
+        }
+
+        public void RemoveCallbacks(IGamePlayActions instance)
+        {
+            if (m_Wrapper.m_GamePlayActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IGamePlayActions instance)
+        {
+            foreach (var item in m_Wrapper.m_GamePlayActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_GamePlayActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public GamePlayActions @GamePlay => new GamePlayActions(this);
     private int m_TouchScreenSchemeIndex = -1;
     public InputControlScheme TouchScreenScheme
     {
@@ -385,10 +609,16 @@ public partial class @JInputActions: IInputActionCollection2, IDisposable
     public interface IUIActions
     {
         void OnTouchPosition(InputAction.CallbackContext context);
-        void OnClick(InputAction.CallbackContext context);
+        void OnActionPanel(InputAction.CallbackContext context);
     }
     public interface IHeroActions
     {
         void OnMove(InputAction.CallbackContext context);
+    }
+    public interface IGamePlayActions
+    {
+        void OnMouseClick(InputAction.CallbackContext context);
+        void OnSomeActions(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
     }
 }
