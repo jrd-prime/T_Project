@@ -8,6 +8,6 @@ namespace Code.Core.Input
         public Observable<int> ActionPanelIndex { get; }
         public ReadOnlyReactiveProperty<Vector3> MoveDirection { get; }
         public Observable<GameplayAction> GameplayAction { get; }
-        public Observable<MouseClickData> MouseClick { get; }
+        public Observable<ClickData> MouseClick { get; }
     }
 }

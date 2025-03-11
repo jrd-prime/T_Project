@@ -5,7 +5,7 @@ namespace Code.Core.Managers
 {
     public interface IFollowable
     {
-        public ReactiveProperty<Vector3> Position { get; }
-        public ReactiveProperty<Quaternion> Rotation { get; }
+        public ReadOnlyReactiveProperty<Vector3> Position { get; }
+        public ReadOnlyReactiveProperty<Quaternion> Rotation { get; }
     }
 }

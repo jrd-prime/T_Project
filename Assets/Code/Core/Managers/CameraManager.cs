@@ -27,28 +27,26 @@ namespace Code.Core.Managers
             public void Initialize()
             {
                 if (!mainCamera) throw new NullReferenceException($"MainCamera is null. {this}");
-                SetCameraPosition(cameraOffset);
+                mainCamera.transform.position = cameraOffset;
             }
 
             private void SetCameraPosition(Vector3 position)
             {
-                if (mainCamera.transform.position == position) return;
-                mainCamera.transform.position = position + cameraOffset;
+                var newPosition = position + cameraOffset;
+                if (mainCamera.transform.position == newPosition) return;
+                mainCamera.transform.position = newPosition;
             }
 
             public override void SetTarget(IFollowable target)
             {
                 if (target == null) throw new ArgumentNullException($"Target is null. {this}");
+                if (_targetModel == target) return;
 
-                SetCameraPosition(target.Position.Value);
+                _disposables.Clear();
 
-                if (_targetModel != null) ResubscribeToNewTarget(target);
-            }
+                _targetModel = target;
 
-            private void ResubscribeToNewTarget(IFollowable target)
-            {
-                _disposables?.Dispose();
-                SubscribeToTargetPosition(target);
+                _targetModel.Position.Subscribe(SetCameraPosition).AddTo(_disposables);
             }
 
             public override void RemoveTarget()
@@ -60,13 +58,6 @@ namespace Code.Core.Managers
             public override Camera GetMainCamera() => mainCamera;
             public override Vector3 GetCamEulerAngles() => mainCamera.transform.eulerAngles;
             public override Quaternion GetCamRotation() => mainCamera.transform.rotation;
-
-            private void SubscribeToTargetPosition(IFollowable target)
-            {
-                _targetModel = target;
-                _targetModel.Position.Subscribe(SetCameraPosition).AddTo(_disposables);
-            }
-
             private void OnDestroy() => _disposables?.Dispose();
         }
     }

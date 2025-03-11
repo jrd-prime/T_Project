@@ -4,17 +4,16 @@
     {
         // Names
         private const string MainMenu = ProjectConstant.AppName + "/";
-        private const string Config = "settings/";
+        private const string Config = "Settings/";
+        private const string Main = "Main/";
         private const string UI = "ui/";
         private const string Character = "character/";
-        private const string Interactable = "interactable/";
+
 
         // Paths
         public const string Settings = MainMenu + Config;
+        public const string MainSettings = Settings + Main;
         public const string CharacterPath = MainMenu + Config + Character;
         public const string UIPath = MainMenu + Config + UI;
-        public const string WorldObject = MainMenu + Config + Interactable + "WorldObject/";
-        public const string InGameItem = MainMenu + "In Game Item/";
-        public const string InWorldItem = MainMenu + "In World Item/";
     }
 }

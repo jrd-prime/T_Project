@@ -27,14 +27,11 @@ namespace Code.Hero
         {
             if (_model == null) throw new NullReferenceException("Model is null. " + name);
 
-            _model.Position.Subscribe(Move).AddTo(_disposables);
+            _model.Position.Subscribe(SetPosition).AddTo(_disposables);
         }
 
-        private void Move(Vector3 position)
-        {
-            Debug.LogWarning("move hero");
-            transform.position = position;
-        }
+        private void SetPosition(Vector3 position) => transform.position = position;
+
 
         private void OnDestroy()
         {

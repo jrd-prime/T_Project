@@ -54,7 +54,7 @@ namespace Code.Core.Input
                 _ => MouseButton.None
             };
 
-            InputSender.SendMouseClick(new MouseClickData(mouseButton, clickPosition));
+            InputSender.SendMouseClick(new ClickData(mouseButton, clickPosition));
         }
 
         private void OnSomeAction(InputAction.CallbackContext obj)
@@ -66,18 +66,6 @@ namespace Code.Core.Input
         {
             var dir = context.ReadValue<Vector2>();
             InputSender.SendMoveDirection(new Vector3(dir.x, 0, dir.y));
-        }
-    }
-
-    public struct MouseClickData
-    {
-        public MouseButton Button { get; private set; }
-        public Vector2 Position { get; private set; }
-
-        public MouseClickData(MouseButton button, Vector2 position)
-        {
-            Button = button;
-            Position = position;
         }
     }
 
