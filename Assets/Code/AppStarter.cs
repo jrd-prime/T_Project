@@ -1,4 +1,5 @@
 ﻿using Code.Core.Bootstrap;
+using Code.Core.GameStateMachine;
 using Code.Core.Providers;
 using Code.Extensions;
 using Cysharp.Threading.Tasks;
@@ -8,6 +9,7 @@ using UnityEngine.SceneManagement;
 using VContainer;
 using VContainer.Unity;
 
+//TODO turn on input after app start
 namespace Code
 {
     [UsedImplicitly]
@@ -22,6 +24,8 @@ namespace Code
 
         private async UniTask InitializeAsync()
         {
+            var stateMachine = _resolver.ResolveAndCheckOnNull<IGameStateMachine>();
+
             var bootstrapLoader = _resolver.ResolveAndCheckOnNull<BootstrapLoader>();
             var bootstrapUIModel = _resolver.ResolveAndCheckOnNull<IBootstrapUIModel>();
 
@@ -45,6 +49,8 @@ namespace Code
             SceneManager.UnloadSceneAsync(bootstrapScene);
 
             Debug.LogWarning("<color=green><b>=== APP STARTED! ===</b></color>");
+
+            stateMachine.ChangeStateTo(StateType.Menu);
         }
     }
 }

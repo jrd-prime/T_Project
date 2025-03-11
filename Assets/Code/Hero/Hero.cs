@@ -5,12 +5,14 @@ using VContainer;
 
 namespace Code.Hero
 {
-    [RequireComponent(typeof(Animator), typeof(Collider))]
+    [RequireComponent(typeof(Rigidbody), typeof(Animator), typeof(Collider))]
     public sealed class Hero : MonoBehaviour
     {
+        private IHeroModel _model;
+
         private Animator _animator;
         private Collider _collider;
-        private IHeroModel _model;
+        private Rigidbody _rigidbody;
 
         private readonly CompositeDisposable _disposables = new();
 
@@ -19,6 +21,7 @@ namespace Code.Hero
 
         private void Awake()
         {
+            _rigidbody = GetComponent<Rigidbody>();
             _animator = GetComponent<Animator>();
             _collider = GetComponent<Collider>();
         }
@@ -28,14 +31,13 @@ namespace Code.Hero
             if (_model == null) throw new NullReferenceException("Model is null. " + name);
 
             _model.Position.Subscribe(SetPosition).AddTo(_disposables);
+            _model.Rotation.Subscribe(SetRotation).AddTo(_disposables);
         }
 
-        private void SetPosition(Vector3 position) => transform.position = position;
+        private void SetPosition(Vector3 position) => _rigidbody.position = position;
+        private void SetRotation(Quaternion rotation) => _rigidbody.rotation = rotation;
 
 
-        private void OnDestroy()
-        {
-            _disposables?.Dispose();
-        }
+        private void OnDestroy() => _disposables?.Dispose();
     }
 }

@@ -30,7 +30,6 @@ namespace Code.Core.Input
             _gameInputActions = new JInputActions();
             _gameInputActions.Enable();
 
-            // Move
             _gameInputActions.Hero.Move.performed += OnMoveAction;
             _gameInputActions.Hero.Move.canceled += _ => InputSender.ResetMoveDirection();
 

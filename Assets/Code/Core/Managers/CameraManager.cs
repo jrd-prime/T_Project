@@ -19,13 +19,14 @@ namespace Code.Core.Managers
         public sealed class CameraManager : CameraManagerBase, IInitializable
         {
             [SerializeField] private Vector3 cameraOffset = new(0, 10, -5);
-            [SerializeField] private Camera mainCamera;
+            private Camera mainCamera;
 
             private IFollowable _targetModel;
             private readonly CompositeDisposable _disposables = new();
 
             public void Initialize()
             {
+                mainCamera = Camera.main;
                 if (!mainCamera) throw new NullReferenceException($"MainCamera is null. {this}");
                 mainCamera.transform.position = cameraOffset;
             }
@@ -43,9 +44,7 @@ namespace Code.Core.Managers
                 if (_targetModel == target) return;
 
                 _disposables.Clear();
-
                 _targetModel = target;
-
                 _targetModel.Position.Subscribe(SetCameraPosition).AddTo(_disposables);
             }
 

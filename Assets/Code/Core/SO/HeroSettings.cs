@@ -10,5 +10,6 @@ namespace Code.Core.SO
     public class HeroSettings : SettingsBase
     {
         [field: SerializeField] public float Speed { get; private set; } = 5f;
+        [field: SerializeField] public float RotationSpeed { get; private set; } = 5f;
     }
 }

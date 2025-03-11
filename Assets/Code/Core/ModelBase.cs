@@ -7,8 +7,8 @@ namespace Code.Core
 {
     public abstract class ModelBase
     {
-        protected IObjectResolver Resolver;
-        protected ISettingsProvider SettingsProvider;
+        protected IObjectResolver Resolver { get; private set; }
+        protected ISettingsProvider SettingsProvider { get; private set; }
 
         protected readonly CompositeDisposable Disposables = new();
 

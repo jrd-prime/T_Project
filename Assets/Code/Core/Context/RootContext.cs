@@ -1,5 +1,7 @@
 ﻿using System;
+using Code.Core.Game;
 using Code.Core.Input;
+using Code.Core.Managers.UI;
 using Code.Core.Providers;
 using Code.Core.SO;
 using JetBrains.Annotations;
@@ -16,16 +18,21 @@ namespace Code.Core.Context
     {
         [SerializeField] private MainSettings mainSettings;
         [SerializeField] private EventSystem eventSystem;
+        [SerializeField] private GameManager gameManager;
 
         protected override void Configure(IContainerBuilder builder)
         {
             Debug.Log("<color=cyan>Root context</color>");
 
-            if (!mainSettings) throw new NullReferenceException("MainSettings is null.");
-            if (!eventSystem) throw new NullReferenceException("EventSystem is null.");
-
+            if (!mainSettings) throw new NullReferenceException("MainSettings is null. " + name);
             builder.RegisterComponent(mainSettings).AsSelf();
+
+            if (!eventSystem) throw new NullReferenceException("EventSystem is null. " + name);
             builder.RegisterComponent(eventSystem).AsSelf();
+
+            if (!gameManager) throw new NullReferenceException("GameManager is null. " + name);
+            builder.RegisterComponent(gameManager).AsSelf();
+
 
             var input = gameObject.AddComponent<DesktopInput>();
             builder.RegisterComponent(input).AsSelf();

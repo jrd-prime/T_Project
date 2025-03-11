@@ -13,6 +13,7 @@ namespace Code.Hero
 {
     public interface IHeroModel : IFollowable
     {
+        public ReadOnlyReactiveProperty<float> Health { get; }
     }
 
     [UsedImplicitly]
@@ -20,9 +21,11 @@ namespace Code.Hero
     {
         public ReadOnlyReactiveProperty<Vector3> Position { get; private set; }
         public ReadOnlyReactiveProperty<Quaternion> Rotation { get; private set; }
+        public ReadOnlyReactiveProperty<float> Health { get; private set; }
 
         private readonly ReactiveProperty<Vector3> _position = new(Vector3.zero);
         private readonly ReactiveProperty<Quaternion> _rotation = new(Quaternion.identity);
+        private readonly ReactiveProperty<float> _health = new(100);
 
         private IInput _input;
         private Vector3 _direction;
@@ -32,6 +35,7 @@ namespace Code.Hero
         {
             Position = _position.ToReadOnlyReactiveProperty();
             Rotation = _rotation.ToReadOnlyReactiveProperty();
+            Health = _health.ToReadOnlyReactiveProperty();
 
             var cameraFollowSystem = Resolver.ResolveAndCheckOnNull<CameraFollowSystem>();
             cameraFollowSystem.SetTarget(this);
@@ -42,11 +46,16 @@ namespace Code.Hero
             _input.MoveDirection.Subscribe(SetDirection).AddTo(Disposables);
         }
 
-        private void SetDirection(Vector3 direction) => _direction = direction;
-
         public void FixedTick()
         {
             _position.Value += _direction * Time.fixedDeltaTime * _heroSettings.Speed;
+
+            if (_direction == Vector3.zero) return;
+
+            _rotation.Value = Quaternion.Slerp(_rotation.Value, Quaternion.LookRotation(_direction),
+                Time.fixedDeltaTime * _heroSettings.RotationSpeed);
         }
+
+        private void SetDirection(Vector3 direction) => _direction = direction;
     }
 }

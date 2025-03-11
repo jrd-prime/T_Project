@@ -252,12 +252,17 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6399233765956380003, guid: ed23ef446f3b2b345af9964b575e35a7, type: 3}
   m_PrefabInstance: {fileID: 4268530816713780863}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1140298415}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52cac34faed52c24b9ec2d084680da92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1140298415 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2536634183466622330, guid: ed23ef446f3b2b345af9964b575e35a7, type: 3}
+  m_PrefabInstance: {fileID: 4268530816713780863}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2378682323416492880
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -310,6 +315,10 @@ PrefabInstance:
       propertyPath: bootstrapUIView
       value: 
       objectReference: {fileID: 453228724}
+    - target: {fileID: 3031357117473891413, guid: cf9c654fbf20d824599fe8a708eac77a, type: 3}
+      propertyPath: 'autoInjectGameObjects.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1140298415}
     - target: {fileID: 7208156651482488198, guid: cf9c654fbf20d824599fe8a708eac77a, type: 3}
       propertyPath: m_Name
       value: BootstrapContext
