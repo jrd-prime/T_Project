@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using R3;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using VContainer;
 
@@ -9,11 +7,11 @@ namespace Code.Core.Input
 {
     public abstract class JInput : MonoBehaviour
     {
-        protected IInputHandlerReceiver InputHandlerReceiver;
+        protected IInputSender InputSender;
 
         [Inject]
-        private void Construct(IInputHandlerReceiver inputHandlerReceiver) =>
-            InputHandlerReceiver = inputHandlerReceiver;
+        private void Construct(IInputSender inputSender) =>
+            InputSender = inputSender;
     }
 
     public sealed class DesktopInput : JInput
@@ -34,53 +32,66 @@ namespace Code.Core.Input
 
             // Move
             _gameInputActions.Hero.Move.performed += OnMoveAction;
-            _gameInputActions.Hero.Move.canceled += _ => InputHandlerReceiver.ResetMoveDirection();
+            _gameInputActions.Hero.Move.canceled += _ => InputSender.ResetMoveDirection();
 
             _gameInputActions.GamePlay.SomeActions.performed += OnSomeAction;
             _gameInputActions.GamePlay.SomeActions.canceled +=
-                _ => InputHandlerReceiver.SetGameplayAction(GameplayAction.None);
+                _ => InputSender.SendGameplayAction(GameplayAction.None);
 
             _gameInputActions.GamePlay.MouseClick.performed += OnMouseClick;
         }
 
         private void OnMouseClick(InputAction.CallbackContext obj)
         {
-            // Определяем, какая кнопка была нажата
             var path = obj.control.path;
-            Debug.LogWarning("path: " + path);
-            Vector2 clickPosition = Mouse.current.position.ReadValue(); // Позиция клика
+            var clickPosition = Mouse.current.position.ReadValue();
 
-            switch (path)
+            var mouseButton = path switch
             {
-                case "/mouse/LeftClick":
-                    Debug.Log($"Left Click at: {clickPosition}");
-                    break;
-                case "/mouse/RightClick":
-                    Debug.Log($"Right Click at: {clickPosition}");
-                    break;
-                case "/mouse/MiddleClick":
-                    Debug.Log($"Middle Click at: {clickPosition}");
-                    break;
-                default:
-                    break;
-            }
+                "/Mouse/leftButton" => MouseButton.Left,
+                "/Mouse/rightButton" => MouseButton.Right,
+                "/Mouse/middleButton" => MouseButton.Middle,
+                _ => MouseButton.None
+            };
+
+            InputSender.SendMouseClick(new MouseClickData(mouseButton, clickPosition));
         }
 
         private void OnSomeAction(InputAction.CallbackContext obj)
         {
-            if (_actions.TryGetValue(obj.control.path, out var action)) InputHandlerReceiver.SetGameplayAction(action);
+            if (_actions.TryGetValue(obj.control.path, out var action)) InputSender.SendGameplayAction(action);
         }
 
         private void OnMoveAction(InputAction.CallbackContext context)
         {
             var dir = context.ReadValue<Vector2>();
-            InputHandlerReceiver.SetMoveDirection(new Vector3(dir.x, 0, dir.y));
+            InputSender.SendMoveDirection(new Vector3(dir.x, 0, dir.y));
         }
+    }
+
+    public struct MouseClickData
+    {
+        public MouseButton Button { get; private set; }
+        public Vector2 Position { get; private set; }
+
+        public MouseClickData(MouseButton button, Vector2 position)
+        {
+            Button = button;
+            Position = position;
+        }
+    }
+
+    public enum MouseButton
+    {
+        None = -1,
+        Left = 0,
+        Right = 1,
+        Middle = 2
     }
 
     public enum GameplayAction
     {
-        None = 0,
+        None = -1,
         Menu,
         Interaction,
         Inventory,

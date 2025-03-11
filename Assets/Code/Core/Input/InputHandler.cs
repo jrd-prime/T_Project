@@ -1,35 +1,35 @@
-﻿using System;
+﻿using JetBrains.Annotations;
 using R3;
 using UnityEngine;
 
 namespace Code.Core.Input
 {
-    public sealed class InputHandler : IInput, IInputHandlerReceiver
+    [UsedImplicitly]
+    public sealed class InputHandler : IInput, IInputSender
     {
-        public ReactiveProperty<int> ActionPanelIndex { get; } = new();
-        public ReactiveProperty<Vector3> MoveDirection { get; } = new();
-        public ReactiveProperty<GameplayAction> GameplayAction { get; } = new();
+        private readonly Subject<int> _actionPanelIndex = new();
+        private readonly Subject<Vector3> _moveDirection = new();
+        private readonly Subject<GameplayAction> _gameplayAction = new();
+        private readonly Subject<MouseClickData> _mouseClick = new();
 
-        public void SetActionPanelIndex(int index) => ActionPanelIndex.Value = index;
+        public Observable<int> ActionPanelIndex => _actionPanelIndex.AsObservable();
+        public ReadOnlyReactiveProperty<Vector3> MoveDirection => _moveDirection.ToReadOnlyReactiveProperty();
+        public Observable<GameplayAction> GameplayAction => _gameplayAction.AsObservable();
+        public Observable<MouseClickData> MouseClick => _mouseClick.AsObservable();
 
-        public void SetGameplayAction(GameplayAction action) => GameplayAction.Value = action;
-
-        public void SetMoveDirection(Vector3 direction) => MoveDirection.Value = direction;
-        public void ResetMoveDirection() => MoveDirection.Value = Vector3.zero;
+        public void SendActionPanelIndex(int index) => _actionPanelIndex.OnNext(index);
+        public void SendMoveDirection(Vector3 direction) => _moveDirection.OnNext(direction);
+        public void SendGameplayAction(GameplayAction action) => _gameplayAction.OnNext(action);
+        public void SendMouseClick(MouseClickData mouseClickData) => _mouseClick.OnNext(mouseClickData);
+        public void ResetMoveDirection() => _moveDirection.OnNext(Vector3.zero);
     }
 
-    public interface IInputHandlerReceiver
+    public interface IInputSender
     {
-        public void SetActionPanelIndex(int index);
-        public void SetMoveDirection(Vector3 direction);
-        public void SetGameplayAction(GameplayAction action);
+        public void SendActionPanelIndex(int index);
+        public void SendMoveDirection(Vector3 direction);
+        public void SendGameplayAction(GameplayAction action);
+        public void SendMouseClick(MouseClickData mouseClickData);
         public void ResetMoveDirection();
-    }
-
-    public interface IInput
-    {
-        public ReactiveProperty<int> ActionPanelIndex { get; }
-        public ReactiveProperty<Vector3> MoveDirection { get; }
-        public ReactiveProperty<GameplayAction> GameplayAction { get; }
     }
 }
