@@ -1,11 +1,18 @@
 ﻿using System;
 using Code.Core.Managers;
-using Code.Core.Managers._Game._Scripts.Framework.Manager.JCamera;
+using Code.Core.Managers.Camera._Game._Scripts.Framework.Manager.JCamera;
+using R3;
 using UnityEngine;
 using VContainer;
 
 namespace Code.Core.Systems
 {
+    public interface IFollowable
+    {
+        public ReadOnlyReactiveProperty<Vector3> Position { get; }
+        public ReadOnlyReactiveProperty<Quaternion> Rotation { get; }
+    }
+
     public class CameraFollowSystem
     {
         private ICameraManager _cameraManager;

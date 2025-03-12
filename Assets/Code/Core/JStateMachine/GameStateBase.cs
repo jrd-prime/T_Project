@@ -1,9 +1,6 @@
-﻿using System;
-using Code.Core.Game;
-using VContainer;
-using VContainer.Unity;
+﻿using VContainer.Unity;
 
-namespace Code.Core.GameStateMachine
+namespace Code.Core.JStateMachine
 {
     public interface IGameState
     {

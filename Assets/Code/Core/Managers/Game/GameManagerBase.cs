@@ -1,11 +1,10 @@
-﻿using System;
-using Code.Core.GameStateMachine;
+﻿using Code.Core.JStateMachine;
 using Code.Extensions;
 using R3;
 using UnityEngine;
 using VContainer;
 
-namespace Code.Core.Game
+namespace Code.Core.Managers.Game
 {
     public abstract class GameManagerBase : MonoBehaviour
     {

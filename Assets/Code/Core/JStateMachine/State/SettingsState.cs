@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Code.Core.GameStateMachine.State
+namespace Code.Core.JStateMachine.State
 {
     public sealed class SettingsState : GameStateBase
     {

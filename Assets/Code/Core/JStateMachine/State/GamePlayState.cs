@@ -1,12 +1,11 @@
-﻿namespace Code.Core.GameStateMachine.State
+﻿namespace Code.Core.JStateMachine.State
 {
     public sealed class GamePlayState : GameStateBase
     {
-        public  override void Enter()
+        public override void Enter()
         {
             // UIManager.ShowView(StateType.Game);
             // PlayerModel.SetGameStarted(true);
-            
         }
 
         public override void Exit()

@@ -1,6 +1,6 @@
 ﻿using System;
-using Code.Core.Game;
-using Code.Core.Managers._Game._Scripts.Framework.Manager.JCamera;
+using Code.Core.Managers.Camera._Game._Scripts.Framework.Manager.JCamera;
+using Code.Core.Managers.Game;
 using Code.Core.Managers.UI;
 using Code.Core.Systems;
 using Code.Hero;
@@ -22,12 +22,12 @@ namespace Code.Core.Context
 
             if (!cameraManager) throw new NullReferenceException("CameraManager is null. " + name);
             builder.RegisterComponent(cameraManager).As<ICameraManager, IInitializable>();
-            
+
             if (!gameManager) throw new NullReferenceException("GameManager is null. " + name);
             builder.RegisterComponent(gameManager).AsSelf();
-            
+
             if (!uiManager) throw new NullReferenceException("UIManager is null. " + name);
-            builder.RegisterComponent(uiManager).As<IUIManager, IInitializable>();
+            // builder.RegisterComponent(uiManager).As<IUIManager, IInitializable>();
 
             builder.Register<CameraFollowSystem>(Lifetime.Singleton).AsSelf();
 

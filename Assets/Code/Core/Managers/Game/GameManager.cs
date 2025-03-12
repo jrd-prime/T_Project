@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Code.Core.Game
+namespace Code.Core.Managers.Game
 {
     public class GameManager : GameManagerBase
     {

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Code.Core.GameStateMachine;
+using Code.Core.JStateMachine;
 using Code.Core.Providers;
 using Code.Core.SO;
+using Code.Core.UI._Base.View;
 using Code.Extensions;
 using R3;
 using UnityEngine;
@@ -20,9 +21,9 @@ namespace Code.Core.Managers.UI
         private IGameStateMachine _stateMachine;
         private ISettingsProvider _settingsProvider;
 
-        private readonly Dictionary<StateType, StateUIView> _states = new();
+        private readonly Dictionary<StateType, UIViewBase> _states = new();
         private readonly CompositeDisposable _disposables = new();
-        private IStateUI _current;
+        private IUIView _current;
         private IObjectResolver _resolver;
 
         [Inject]
@@ -37,7 +38,6 @@ namespace Code.Core.Managers.UI
             _settingsProvider = _resolver.ResolveAndCheckOnNull<ISettingsProvider>();
             var viewsSettings = _settingsProvider.GetSettings<UIViewsSettings>();
             InitializeViews(viewsSettings);
-
             _stateMachine = _resolver.ResolveAndCheckOnNull<IGameStateMachine>();
 
             _stateMachine.GameState.DistinctUntilChanged().Subscribe(HandleGameState).AddTo(_disposables);
@@ -47,7 +47,9 @@ namespace Code.Core.Managers.UI
         {
             foreach (var viewSettings in viewsSettings.States)
             {
-                _states.TryAdd(viewSettings.GameState, viewSettings.SateUIView);
+                var viewInstance = viewSettings.sateUIViewBase;
+                _resolver.Inject(viewInstance);
+                _states.TryAdd(viewSettings.GameState, viewSettings.sateUIViewBase);
             }
         }
 
@@ -58,10 +60,10 @@ namespace Code.Core.Managers.UI
             ChangeState(uiState);
         }
 
-        private void ChangeState(IStateUI newStateUI)
+        private void ChangeState(IUIView newIuiView)
         {
             _current?.Hide();
-            _current = newStateUI;
+            _current = newIuiView;
             _current.Show();
         }
     }
