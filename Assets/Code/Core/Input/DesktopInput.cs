@@ -16,7 +16,7 @@ namespace Code.Core.Input
 
     public sealed class DesktopInput : JInput
     {
-        private JInputActions _gameInputActions;
+        private InputSystem_Actions _gameInputActions;
 
         private readonly Dictionary<string, GameplayAction> _actions = new()
         {
@@ -27,17 +27,17 @@ namespace Code.Core.Input
 
         private void Awake()
         {
-            _gameInputActions = new JInputActions();
+            _gameInputActions = new InputSystem_Actions();
             _gameInputActions.Enable();
 
-            _gameInputActions.Hero.Move.performed += OnMoveAction;
-            _gameInputActions.Hero.Move.canceled += _ => InputSender.ResetMoveDirection();
-
-            _gameInputActions.GamePlay.SomeActions.performed += OnSomeAction;
-            _gameInputActions.GamePlay.SomeActions.canceled +=
-                _ => InputSender.SendGameplayAction(GameplayAction.None);
-
-            _gameInputActions.GamePlay.MouseClick.performed += OnMouseClick;
+            // _gameInputActions.Hero.Move.performed += OnMoveAction;
+            // _gameInputActions.Hero.Move.canceled += _ => InputSender.ResetMoveDirection();
+            //
+            // _gameInputActions.GamePlay.SomeActions.performed += OnSomeAction;
+            // _gameInputActions.GamePlay.SomeActions.canceled +=
+            //     _ => InputSender.SendGameplayAction(GameplayAction.None);
+            //
+            // _gameInputActions.GamePlay.MouseClick.performed += OnMouseClick;
         }
 
         private void OnMouseClick(InputAction.CallbackContext obj)

@@ -1,4 +1,6 @@
-﻿using Code.Core.JStateMachine;
+﻿using System;
+using Code.Core.JStateMachine;
+using Code.Core.UI.Views.Menu;
 using Code.Extensions;
 using R3;
 using UnityEngine;
@@ -19,9 +21,14 @@ namespace Code.Core.Managers.Game
         // public ReadOnlyReactiveProperty<int> ExperienceToNextLevel => ExperienceManager.ExperienceToNextLevel;
         public ReactiveProperty<bool> IsGameStarted { get; } = new();
 
+        protected IGameStateMachine StateMachine { get; private set; }
+
         // protected IEnemiesManager EnemiesManager;
+
         // protected IPlayerModel PlayerModel;
+
         // protected UIManager UIManager;
+
         // protected IExperienceManager ExperienceManager;
         protected bool IsGamePaused;
         protected int SpawnDelay;
@@ -30,17 +37,27 @@ namespace Code.Core.Managers.Game
         protected int KillsToWin;
 
         private IObjectResolver _resolver;
-        // private ISettingsManager _settingsManager;
+        private IMenuUIModel menuModel;
+
 
         [Inject]
         private void Construct(IObjectResolver resolver)
         {
             Debug.LogWarning("construct game manager");
             _resolver = resolver;
-            var stateMachine = _resolver.ResolveAndCheckOnNull<IGameStateMachine>();
-            stateMachine.ChangeStateTo(StateType.Menu);
+            StateMachine = _resolver.ResolveAndCheckOnNull<IGameStateMachine>();
+            StateMachine.ChangeStateTo(StateType.Menu);
+            menuModel = _resolver.ResolveAndCheckOnNull<IMenuUIModel>();
         }
 
+        private void Start()
+        {
+            menuModel.OnStartButtonClicked.Subscribe(x =>
+            {
+                Debug.LogWarning("start button clicked");
+                StateMachine.ChangeStateTo(StateType.Gameplay);
+            });
+        }
 
         protected void Awake()
         {
