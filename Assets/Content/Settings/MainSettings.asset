@@ -19,3 +19,4 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 1
   <HeroSettings>k__BackingField: {fileID: 11400000, guid: 995f657163f893c4099e37b8e172306e, type: 2}
+  <UIViewsSettings>k__BackingField: {fileID: 11400000, guid: 4e24fcef3a35c1d44951ea160c512be0, type: 2}

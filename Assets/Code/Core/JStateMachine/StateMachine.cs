@@ -41,7 +41,6 @@ namespace Code.Core.GameStateMachine
         private IGameState _currentState;
         private readonly ReactiveProperty<StateType> _gameState = new(StateType.Menu);
 
-
         [Inject]
         private void Construct(IObjectResolver resolver)
         {
@@ -59,19 +58,14 @@ namespace Code.Core.GameStateMachine
             GameState = _gameState.ToReadOnlyReactiveProperty();
         }
 
-        public async void ChangeStateTo(StateType stateType)
+        public void ChangeStateTo(StateType stateType)
         {
-            Debug.LogWarning("change state to: " + stateType);
             if (!_states.TryGetValue(stateType, out IGameState state))
                 throw new KeyNotFoundException($"State: {stateType} not found!");
 
             ChangeState(state);
             Debug.Log(
                 $"- StateMachine - / Change state to: {stateType} / Current state: {_currentState.GetType().Name}");
-
-
-            await UniTask.WaitForSeconds(5);
-            ChangeState(_states[StateType.Gameplay]);
         }
 
         private void ChangeState(IGameState newState)

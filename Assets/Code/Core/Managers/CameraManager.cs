@@ -26,6 +26,10 @@ namespace Code.Core.Managers
 
             public void Initialize()
             {
+            }
+
+            private void Start()
+            {
                 mainCamera = Camera.main;
                 if (!mainCamera) throw new NullReferenceException($"MainCamera is null. {this}");
                 mainCamera.transform.position = cameraOffset;

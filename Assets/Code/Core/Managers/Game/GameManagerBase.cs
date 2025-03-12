@@ -1,4 +1,7 @@
-﻿using R3;
+﻿using System;
+using Code.Core.GameStateMachine;
+using Code.Extensions;
+using R3;
 using UnityEngine;
 using VContainer;
 
@@ -31,7 +34,13 @@ namespace Code.Core.Game
         // private ISettingsManager _settingsManager;
 
         [Inject]
-        private void Construct(IObjectResolver resolver) => _resolver = resolver;
+        private void Construct(IObjectResolver resolver)
+        {
+            Debug.LogWarning("construct game manager");
+            _resolver = resolver;
+            var stateMachine = _resolver.ResolveAndCheckOnNull<IGameStateMachine>();
+            stateMachine.ChangeStateTo(StateType.Menu);
+        }
 
 
         protected void Awake()

@@ -18,7 +18,6 @@ namespace Code.Core.Context
     {
         [SerializeField] private MainSettings mainSettings;
         [SerializeField] private EventSystem eventSystem;
-        [SerializeField] private GameManager gameManager;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -29,9 +28,6 @@ namespace Code.Core.Context
 
             if (!eventSystem) throw new NullReferenceException("EventSystem is null. " + name);
             builder.RegisterComponent(eventSystem).AsSelf();
-
-            if (!gameManager) throw new NullReferenceException("GameManager is null. " + name);
-            builder.RegisterComponent(gameManager).AsSelf();
 
 
             var input = gameObject.AddComponent<DesktopInput>();

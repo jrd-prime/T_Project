@@ -1,5 +1,4 @@
 ﻿using Code.Core.Bootstrap;
-using Code.Core.GameStateMachine;
 using Code.Core.Providers;
 using Code.Extensions;
 using Cysharp.Threading.Tasks;
@@ -24,8 +23,6 @@ namespace Code
 
         private async UniTask InitializeAsync()
         {
-            var stateMachine = _resolver.ResolveAndCheckOnNull<IGameStateMachine>();
-
             var bootstrapLoader = _resolver.ResolveAndCheckOnNull<BootstrapLoader>();
             var bootstrapUIModel = _resolver.ResolveAndCheckOnNull<IBootstrapUIModel>();
 
@@ -49,8 +46,6 @@ namespace Code
             SceneManager.UnloadSceneAsync(bootstrapScene);
 
             Debug.LogWarning("<color=green><b>=== APP STARTED! ===</b></color>");
-
-            stateMachine.ChangeStateTo(StateType.Menu);
         }
     }
 }
