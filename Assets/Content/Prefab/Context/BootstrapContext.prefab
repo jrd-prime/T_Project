@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: 
+    TypeName: Code.Core.Context.RootContext
   autoRun: 1
-  autoInjectGameObjects: []
+  autoInjectGameObjects:
+  - {fileID: 2536634183466622330, guid: ed23ef446f3b2b345af9964b575e35a7, type: 3}
+  bootstrapUIView: {fileID: 0}

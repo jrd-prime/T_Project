@@ -26,7 +26,7 @@ namespace Code.Core.Bootstrap
         [Inject]
         private void Construct(IBootstrapUIViewModel viewModel) => _viewModel = viewModel;
 
-        private void Awake()
+        private void Start()
         {
             Helper.CheckOnNull(_viewModel, "ViewModel", name);
 

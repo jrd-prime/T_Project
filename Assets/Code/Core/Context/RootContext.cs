@@ -1,4 +1,7 @@
 ﻿using System;
+using Code.Core.Game;
+using Code.Core.Input;
+using Code.Core.Managers.UI;
 using Code.Core.Providers;
 using Code.Core.SO;
 using JetBrains.Annotations;
@@ -20,14 +23,17 @@ namespace Code.Core.Context
         {
             Debug.Log("<color=cyan>Root context</color>");
 
-            if (!mainSettings) throw new NullReferenceException("MainSettings is null.");
-            if (!eventSystem) throw new NullReferenceException("EventSystem is null.");
-
+            if (!mainSettings) throw new NullReferenceException("MainSettings is null. " + name);
             builder.RegisterComponent(mainSettings).AsSelf();
+
+            if (!eventSystem) throw new NullReferenceException("EventSystem is null. " + name);
             builder.RegisterComponent(eventSystem).AsSelf();
 
-            // var input = gameObject.AddComponent<MobileInput>();
-            // builder.RegisterComponent(component).AsSelf();
+
+            var input = gameObject.AddComponent<DesktopInput>();
+            builder.RegisterComponent(input).AsSelf();
+
+            builder.Register<InputHandler>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.Register<ISettingsProvider, SettingsProvider>(Lifetime.Singleton);
             builder.Register<IAssetProvider, AssetProvider>(Lifetime.Singleton);

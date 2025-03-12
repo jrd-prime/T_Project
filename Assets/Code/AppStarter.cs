@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using VContainer;
 using VContainer.Unity;
 
+//TODO turn on input after app start
 namespace Code
 {
     [UsedImplicitly]
