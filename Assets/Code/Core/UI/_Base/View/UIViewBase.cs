@@ -43,11 +43,7 @@ namespace Code.Core.UI._Base.View
         /// </summary>
         private void UnregisterCallbacks()
         {
-            if (CallbacksCache.Count == 0)
-            {
-                Debug.LogWarning("No callbacks to unregister. " + name);
-                return;
-            }
+            if (CallbacksCache.Count == 0) return;
 
             foreach (var callback in CallbacksCache)
                 callback.Key.UnregisterCallback(callback.Value);

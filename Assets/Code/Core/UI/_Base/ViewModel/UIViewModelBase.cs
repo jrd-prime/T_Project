@@ -14,7 +14,6 @@ namespace Code.Core.UI._Base.ViewModel
 
         public void Dispose()
         {
-            Debug.LogWarning("dispose");
             Disposables?.Dispose();
         }
     }

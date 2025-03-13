@@ -15,3 +15,5 @@ MonoBehaviour:
   <States>k__BackingField:
   - GameState: 1
     sateUIViewBase: {fileID: -5357355464205177988, guid: 6ae823155c1725745bce071bbe783e94, type: 3}
+  - GameState: 0
+    sateUIViewBase: {fileID: 7825573685837308001, guid: 01646e5930d0d70438ccdccc17fd19c5, type: 3}
