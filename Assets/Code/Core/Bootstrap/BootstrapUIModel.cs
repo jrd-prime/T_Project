@@ -3,6 +3,7 @@ using Code.Core.Data;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using R3;
+using UnityEngine;
 
 namespace Code.Core.Bootstrap
 {
@@ -10,8 +11,10 @@ namespace Code.Core.Bootstrap
     {
         public ReactiveProperty<string> LoadingText { get; }
         public ReactiveProperty<float> Opacity { get; }
+        public Subject<Unit> OnClear { get; }
         public void SetLoadingText(string value);
         public UniTask FadeOut(float durationInSeconds = 1f);
+        public void Clear();
     }
 
     [UsedImplicitly]
@@ -19,6 +22,7 @@ namespace Code.Core.Bootstrap
     {
         public ReactiveProperty<string> LoadingText { get; } = new();
         public ReactiveProperty<float> Opacity { get; } = new(ProjectConstant.UIToolkitOpacityMaxValue);
+        public Subject<Unit> OnClear { get; } = new();
 
         public void SetLoadingText(string value) =>
             LoadingText.Value = !string.IsNullOrEmpty(value) ? value : "Not set";
@@ -34,6 +38,8 @@ namespace Code.Core.Bootstrap
                 await UniTask.WaitForSeconds(tickDelay);
             }
         }
+
+        public void Clear() => OnClear.OnNext(Unit.Default);
 
         public void Dispose() => LoadingText?.Dispose();
     }

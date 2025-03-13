@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Code.Core.GameStateMachine.State;
-using Cysharp.Threading.Tasks;
+using Code.Core.JStateMachine.State;
 using R3;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Code.Core.GameStateMachine
+namespace Code.Core.JStateMachine
 {
     public enum StateType
     {
@@ -52,11 +51,7 @@ namespace Code.Core.GameStateMachine
             _states.Add(StateType.Win, resolver.Resolve<WinState>());
         }
 
-        public void Initialize()
-        {
-            Debug.LogWarning("initialize state machine");
-            GameState = _gameState.ToReadOnlyReactiveProperty();
-        }
+        public void Initialize() => GameState = _gameState.ToReadOnlyReactiveProperty();
 
         public void ChangeStateTo(StateType stateType)
         {

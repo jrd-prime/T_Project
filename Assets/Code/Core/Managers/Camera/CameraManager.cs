@@ -1,9 +1,10 @@
 ﻿using System;
+using Code.Core.Systems;
 using R3;
 using UnityEngine;
 using VContainer.Unity;
 
-namespace Code.Core.Managers
+namespace Code.Core.Managers.Camera
 {
     namespace _Game._Scripts.Framework.Manager.JCamera
     {
@@ -11,7 +12,7 @@ namespace Code.Core.Managers
         {
             public void SetTarget(IFollowable target);
             public void RemoveTarget();
-            public Camera GetMainCamera();
+            public UnityEngine.Camera GetMainCamera();
             public Vector3 GetCamEulerAngles();
             public Quaternion GetCamRotation();
         }
@@ -19,7 +20,7 @@ namespace Code.Core.Managers
         public sealed class CameraManager : CameraManagerBase, IInitializable
         {
             [SerializeField] private Vector3 cameraOffset = new(0, 10, -5);
-            private Camera mainCamera;
+            private UnityEngine.Camera mainCamera;
 
             private IFollowable _targetModel;
             private readonly CompositeDisposable _disposables = new();
@@ -30,7 +31,7 @@ namespace Code.Core.Managers
 
             private void Start()
             {
-                mainCamera = Camera.main;
+                mainCamera = UnityEngine.Camera.main;
                 if (!mainCamera) throw new NullReferenceException($"MainCamera is null. {this}");
                 mainCamera.transform.position = cameraOffset;
             }
@@ -58,7 +59,7 @@ namespace Code.Core.Managers
                 _disposables?.Dispose();
             }
 
-            public override Camera GetMainCamera() => mainCamera;
+            public override UnityEngine.Camera GetMainCamera() => mainCamera;
             public override Vector3 GetCamEulerAngles() => mainCamera.transform.eulerAngles;
             public override Quaternion GetCamRotation() => mainCamera.transform.rotation;
             private void OnDestroy() => _disposables?.Dispose();

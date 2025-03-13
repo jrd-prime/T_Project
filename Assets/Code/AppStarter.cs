@@ -1,5 +1,6 @@
 ﻿using Code.Core.Bootstrap;
 using Code.Core.Providers;
+using Code.Core.Providers.Localization;
 using Code.Extensions;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
@@ -29,15 +30,19 @@ namespace Code
             // Bootable services
             var settingsProvider = _resolver.ResolveAndCheckOnNull<ISettingsProvider>();
             var assetProvider = _resolver.ResolveAndCheckOnNull<IAssetProvider>();
+            var localizationProvider = _resolver.ResolveAndCheckOnNull<ILocalizationProvider>();
             var firstSceneProvider = _resolver.ResolveAndCheckOnNull<FirstSceneProvider>();
 
             bootstrapLoader.AddForBootstrapInitialization(settingsProvider);
             bootstrapLoader.AddForBootstrapInitialization(assetProvider);
+            bootstrapLoader.AddForBootstrapInitialization(localizationProvider);
             bootstrapLoader.AddForBootstrapInitialization(firstSceneProvider);
 
-            Debug.Log("Starting Services initialization...");
+            Debug.Log("<color=green><b>Starting Services initialization...</b></color>");
             await bootstrapLoader.StartServicesInitializationAsync();
-            Debug.Log("End Services initialization...");
+            Debug.Log("<color=green><b>End Services initialization...</b></color>");
+
+            bootstrapUIModel.Clear();
 
             await bootstrapUIModel.FadeOut(1f);
 

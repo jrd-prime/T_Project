@@ -3,7 +3,7 @@ using Code.Extensions;
 using R3;
 using VContainer;
 
-namespace Code.Core
+namespace Code.Hero
 {
     public abstract class ModelBase
     {

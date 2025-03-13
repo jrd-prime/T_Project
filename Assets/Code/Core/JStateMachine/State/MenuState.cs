@@ -1,16 +1,15 @@
-﻿namespace Code.Core.GameStateMachine.State
+﻿namespace Code.Core.JStateMachine.State
 {
     public sealed class MenuState : GameStateBase
     {
         public override void Enter()
         {
-
-             // UIManager.ShowView(StateType.Menu);
+            // UIManager.ShowView(StateType.Menu);
         }
 
         public override void Exit()
         {
-             // UIManager.HideView(StateType.Menu);
+            // UIManager.HideView(StateType.Menu);
         }
     }
 }

@@ -1,7 +1,8 @@
-using Code.Core.Managers._Game._Scripts.Framework.Manager.JCamera;
+using Code.Core.Managers.Camera._Game._Scripts.Framework.Manager.JCamera;
+using Code.Core.Systems;
 using UnityEngine;
 
-namespace Code.Core.Managers
+namespace Code.Core.Managers.Camera
 {
     public abstract class CameraManagerBase : MonoBehaviour, ICameraManager
     {
@@ -9,7 +10,7 @@ namespace Code.Core.Managers
 
         public abstract void RemoveTarget();
 
-        public abstract Camera GetMainCamera();
+        public abstract UnityEngine.Camera GetMainCamera();
 
         public abstract Vector3 GetCamEulerAngles();
 

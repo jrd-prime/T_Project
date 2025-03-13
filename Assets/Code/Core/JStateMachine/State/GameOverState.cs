@@ -1,4 +1,4 @@
-﻿namespace Code.Core.GameStateMachine.State
+﻿namespace Code.Core.JStateMachine.State
 {
     public sealed class GameOverState : GameStateBase
     {

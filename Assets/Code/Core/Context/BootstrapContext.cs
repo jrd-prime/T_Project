@@ -1,7 +1,7 @@
 ﻿using System;
 using Code.Core.Bootstrap;
-using Code.Core.GameStateMachine;
-using Code.Core.GameStateMachine.State;
+using Code.Core.JStateMachine;
+using Code.Core.JStateMachine.State;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

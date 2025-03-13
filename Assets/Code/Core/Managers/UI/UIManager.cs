@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Code.Core.GameStateMachine;
+﻿using System.Collections.Generic;
+using Code.Core.JStateMachine;
 using Code.Core.Providers;
 using Code.Core.SO;
+using Code.Core.UI._Base.View;
 using Code.Extensions;
 using R3;
 using UnityEngine;
@@ -19,18 +19,14 @@ namespace Code.Core.Managers.UI
     {
         private IGameStateMachine _stateMachine;
         private ISettingsProvider _settingsProvider;
-
-        private readonly Dictionary<StateType, StateUIView> _states = new();
-        private readonly CompositeDisposable _disposables = new();
-        private IStateUI _current;
+        private UIViewBase _current;
         private IObjectResolver _resolver;
 
+        private readonly Dictionary<StateType, UIViewBase> _states = new();
+        private readonly CompositeDisposable _disposables = new();
+
         [Inject]
-        private void Construct(IObjectResolver resolver)
-        {
-            Debug.LogWarning("construct ui manager");
-            _resolver = resolver;
-        }
+        private void Construct(IObjectResolver resolver) => _resolver = resolver;
 
         public void Initialize()
         {
@@ -39,7 +35,6 @@ namespace Code.Core.Managers.UI
             InitializeViews(viewsSettings);
 
             _stateMachine = _resolver.ResolveAndCheckOnNull<IGameStateMachine>();
-
             _stateMachine.GameState.DistinctUntilChanged().Subscribe(HandleGameState).AddTo(_disposables);
         }
 
@@ -47,21 +42,27 @@ namespace Code.Core.Managers.UI
         {
             foreach (var viewSettings in viewsSettings.States)
             {
-                _states.TryAdd(viewSettings.GameState, viewSettings.SateUIView);
+                var viewPrefab = viewSettings.sateUIViewBase;
+                var viewInstance = _resolver.Instantiate(viewPrefab);
+                viewInstance.transform.SetParent(transform, false);
+                viewInstance.Hide();
+                _states.TryAdd(viewSettings.GameState, viewInstance);
             }
         }
 
         private void HandleGameState(StateType state)
         {
-            if (!_states.TryGetValue(state, out var uiState)) throw new KeyNotFoundException($"{state} not found!");
+            if (!_states.TryGetValue(state, out var uiState))
+                throw new KeyNotFoundException($"{state} not found!");
 
             ChangeState(uiState);
         }
 
-        private void ChangeState(IStateUI newStateUI)
+        private void ChangeState(UIViewBase newIuiView)
         {
+            Debug.LogWarning("state changed " + newIuiView.name);
             _current?.Hide();
-            _current = newStateUI;
+            _current = newIuiView;
             _current.Show();
         }
     }

@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Code.Core.JStateMachine;
+using UnityEngine;
 
-namespace Code.Core.Game
+namespace Code.Core.Managers.Game
 {
     public class GameManager : GameManagerBase
     {
@@ -23,6 +24,7 @@ namespace Code.Core.Game
             Debug.LogWarning("start new game");
             if (IsGameStarted.CurrentValue) return;
 
+            StateMachine.ChangeStateTo(StateType.Gameplay);
             IsGameStarted.Value = true;
             // PlayerModel.ResetPlayer();
             // ExperienceManager.ResetExperience();
