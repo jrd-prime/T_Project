@@ -1,86 +1,54 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using R3;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using VContainer;
 
 namespace Code.Core.Input
 {
-    public abstract class JInput : MonoBehaviour
+    public sealed class DesktopInput : MonoBehaviour, IJInput
     {
-        protected IInputSender InputSender;
+        public Observable<Vector3> MoveDirection => _moveDirection.AsObservable();
+        public Observable<Unit> OnEscape => _onEscape.AsObservable();
+        public Observable<Unit> OnInventory => _onInventory.AsObservable();
+        public Observable<Unit> OnQuestLog => _onQuestLog.AsObservable();
 
-        [Inject]
-        private void Construct(IInputSender inputSender) =>
-            InputSender = inputSender;
-    }
+        private readonly Subject<Vector3> _moveDirection = new();
+        private readonly Subject<Unit> _onEscape = new();
+        private readonly Subject<Unit> _onInventory = new();
+        private readonly Subject<Unit> _onQuestLog = new();
 
-    public sealed class DesktopInput : JInput
-    {
-        private InputSystem_Actions _gameInputActions;
-
-        private readonly Dictionary<string, GameplayAction> _actions = new()
-        {
-            { "/keyboard/escape", GameplayAction.Menu },
-            { "/keyboard/i", GameplayAction.Inventory },
-            { "/keyboard/e", GameplayAction.Interaction },
-        };
+        private InputSystem_Actions _inputActions;
 
         private void Awake()
         {
-            _gameInputActions = new InputSystem_Actions();
-            _gameInputActions.Enable();
-
-            // _gameInputActions.Hero.Move.performed += OnMoveAction;
-            // _gameInputActions.Hero.Move.canceled += _ => InputSender.ResetMoveDirection();
-            //
-            // _gameInputActions.GamePlay.SomeActions.performed += OnSomeAction;
-            // _gameInputActions.GamePlay.SomeActions.canceled +=
-            //     _ => InputSender.SendGameplayAction(GameplayAction.None);
-            //
-            // _gameInputActions.GamePlay.MouseClick.performed += OnMouseClick;
-        }
-
-        private void OnMouseClick(InputAction.CallbackContext obj)
-        {
-            var path = obj.control.path;
-            var clickPosition = Mouse.current.position.ReadValue();
-
-            var mouseButton = path switch
+            _inputActions = new InputSystem_Actions();
+            _inputActions.Player.Move.performed += OnMove;
+            _inputActions.Player.Move.canceled += OnMove;
+            _inputActions.UI.Escape.performed += ctx =>
             {
-                "/Mouse/leftButton" => MouseButton.Left,
-                "/Mouse/rightButton" => MouseButton.Right,
-                "/Mouse/middleButton" => MouseButton.Middle,
-                _ => MouseButton.None
+                Debug.LogWarning("Key pressed Escape");
+                _onEscape.OnNext(Unit.Default);
             };
-
-            InputSender.SendMouseClick(new ClickData(mouseButton, clickPosition));
+            _inputActions.UI.Inventory.performed += ctx =>
+            {
+                Debug.LogWarning("Key pressed Inventory");
+                _onInventory.OnNext(Unit.Default);
+            };
+            _inputActions.UI.QuestLog.performed += ctx =>
+            {
+                Debug.LogWarning("Key pressed QuestLog");
+                _onQuestLog.OnNext(Unit.Default);
+            };
         }
 
-        private void OnSomeAction(InputAction.CallbackContext obj)
+
+        private void OnMove(InputAction.CallbackContext ctx)
         {
-            if (_actions.TryGetValue(obj.control.path, out var action)) InputSender.SendGameplayAction(action);
+            var value = ctx.ReadValue<Vector2>();
+            _moveDirection.OnNext(new Vector3(value.x, 0, value.y));
         }
 
-        private void OnMoveAction(InputAction.CallbackContext context)
-        {
-            var dir = context.ReadValue<Vector2>();
-            InputSender.SendMoveDirection(new Vector3(dir.x, 0, dir.y));
-        }
-    }
-
-    public enum MouseButton
-    {
-        None = -1,
-        Left = 0,
-        Right = 1,
-        Middle = 2
-    }
-
-    public enum GameplayAction
-    {
-        None = -1,
-        Menu,
-        Interaction,
-        Inventory,
+        private void OnEnable() => _inputActions.Enable();
+        private void OnDisable() => _inputActions.Disable();
     }
 }

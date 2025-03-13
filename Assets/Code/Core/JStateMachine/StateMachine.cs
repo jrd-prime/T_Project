@@ -58,15 +58,16 @@ namespace Code.Core.JStateMachine
             if (!_states.TryGetValue(stateType, out IGameState state))
                 throw new KeyNotFoundException($"State: {stateType} not found!");
 
-            ChangeState(state);
+            ChangeState(stateType, state);
             Debug.Log(
                 $"- StateMachine - / Change state to: {stateType} / Current state: {_currentState.GetType().Name}");
         }
 
-        private void ChangeState(IGameState newState)
+        private void ChangeState(StateType stateType, IGameState newState)
         {
             _currentState?.Exit();
             _currentState = newState;
+            _gameState.Value = stateType;
             _currentState.Enter();
         }
 

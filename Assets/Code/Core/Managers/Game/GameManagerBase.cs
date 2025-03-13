@@ -5,10 +5,11 @@ using Code.Extensions;
 using R3;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 
 namespace Code.Core.Managers.Game
 {
-    public abstract class GameManagerBase : MonoBehaviour
+    public abstract class GameManagerBase : MonoBehaviour, IInitializable
     {
         public ReactiveProperty<int> PlayerInitialHealth { get; } = new();
 
@@ -52,6 +53,7 @@ namespace Code.Core.Managers.Game
 
         private void Start()
         {
+            Debug.LogWarning("menu model  " + menuModel);
             menuModel.OnStartButtonClicked.Subscribe(x =>
             {
                 Debug.LogWarning("start button clicked");
@@ -76,6 +78,10 @@ namespace Code.Core.Managers.Game
             // KillsToWin = gameSettings.killsToWin;
             //
             // PlayerInitialHealth.Value = PlayerModel.CharSettings.health;
+        }
+
+        public void Initialize()
+        {
         }
     }
 }

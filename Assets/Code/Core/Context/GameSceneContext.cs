@@ -28,7 +28,7 @@ namespace Code.Core.Context
 
             if (!gameManagerPrefab) throw new NullReferenceException("GameManager is null. " + name);
             builder.RegisterComponentInNewPrefab<GameManager>(gameManagerPrefab, Lifetime.Singleton)
-                .AsSelf();
+                .AsSelf().As<IInitializable>();
 
             if (!uiManagerPrefab) throw new NullReferenceException("UIManager is null. " + name);
             builder.RegisterComponentInNewPrefab<UIManager>(uiManagerPrefab, Lifetime.Singleton)
@@ -43,7 +43,7 @@ namespace Code.Core.Context
                 .As<IInitializable, IFixedTickable>();
         }
 
-        private void InitializeUIModelsAndViewModels(IContainerBuilder builder)
+        private static void InitializeUIModelsAndViewModels(IContainerBuilder builder)
         {
             // Menu
             builder.Register<MenuUIModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();

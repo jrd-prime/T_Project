@@ -27,7 +27,7 @@ namespace Code.Hero
         private readonly ReactiveProperty<Quaternion> _rotation = new(Quaternion.identity);
         private readonly ReactiveProperty<float> _health = new(100);
 
-        private IInput _input;
+        private IJInput _ijInput;
         private Vector3 _direction;
         private HeroSettings _heroSettings;
 
@@ -42,8 +42,8 @@ namespace Code.Hero
 
             _heroSettings = SettingsProvider.GetSettings<HeroSettings>();
 
-            _input = Resolver.ResolveAndCheckOnNull<IInput>();
-            _input.MoveDirection.Subscribe(SetDirection).AddTo(Disposables);
+            _ijInput = Resolver.ResolveAndCheckOnNull<IJInput>();
+            _ijInput.MoveDirection.Subscribe(SetDirection).AddTo(Disposables);
         }
 
         public void FixedTick()
