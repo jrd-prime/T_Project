@@ -10,7 +10,7 @@ namespace Code.Core.UI._Base.View
     {
         protected IObjectResolver Resolver { get; private set; }
         protected TViewModel ViewModel { get; private set; }
-        public ILocalizationProvider LocalizationProvider { get; private set; }
+        protected ILocalizationProvider LocalizationProvider { get; private set; }
 
         [Inject]
         private void Construct(IObjectResolver resolver)

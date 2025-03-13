@@ -28,11 +28,7 @@ namespace Code.Core.UI._Base.View
         /// </summary>
         protected void RegisterCallbacks()
         {
-            if (CallbacksCache.Count == 0)
-            {
-                Debug.LogWarning("No callbacks to register. " + name);
-                return;
-            }
+            if (CallbacksCache.Count == 0) return;
 
             foreach (var callback in CallbacksCache)
                 callback.Key.RegisterCallback(callback.Value);
