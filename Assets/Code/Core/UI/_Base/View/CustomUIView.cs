@@ -25,13 +25,12 @@ namespace Code.Core.UI._Base.View
             if (ViewModel == null) throw new NullReferenceException("ViewModel is null. " + name);
 
             InitializeViewElements();
-
-            IsInitialized = true;
-
             CreateAndInitComponents();
             Localize();
             InitializeCallbacks();
             RegisterCallbacks();
+
+            IsInitialized = true;
         }
     }
 }

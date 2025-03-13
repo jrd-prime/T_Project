@@ -49,10 +49,9 @@ namespace Code.Core.Providers
 
                 if (!_cache.TryAdd(settings.GetType(), settings))
                     throw new Exception($"Duplicate settings type {settings.GetType()} found in cache.");
-
-                Debug.Log($"Settings added to cache: {settings.GetType().Name}");
             }
 
+            Debug.Log($"Settings added to cache: {_cache.Count}");
             await UniTask.CompletedTask;
         }
 

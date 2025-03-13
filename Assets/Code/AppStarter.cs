@@ -38,9 +38,11 @@ namespace Code
             bootstrapLoader.AddForBootstrapInitialization(localizationProvider);
             bootstrapLoader.AddForBootstrapInitialization(firstSceneProvider);
 
-            Debug.Log("Starting Services initialization...");
+            Debug.Log("<color=green><b>Starting Services initialization...</b></color>");
             await bootstrapLoader.StartServicesInitializationAsync();
-            Debug.Log("End Services initialization...");
+            Debug.Log("<color=green><b>End Services initialization...</b></color>");
+
+            bootstrapUIModel.Clear();
 
             await bootstrapUIModel.FadeOut(1f);
 

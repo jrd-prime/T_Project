@@ -47,13 +47,13 @@ namespace Code.Core.Providers.Localization
             try
             {
                 await LoadLocalizationDataAsync(_defaultLanguage);
-
-                Debug.Log("Localization system initialization completed. Default language: " + _defaultLanguage);
             }
             catch (Exception e)
             {
                 Debug.LogError($"Failed to load localization data: {e.Message}");
             }
+
+            Debug.Log("Localization system initialization completed. Default language: " + _defaultLanguage);
         }
 
         public string Localize(string key)

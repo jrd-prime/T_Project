@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Code.Core.JStateMachine;
 using Code.Core.Providers;
 using Code.Core.SO;
@@ -31,26 +30,21 @@ namespace Code.Core.Managers.UI
 
         public void Initialize()
         {
-            Debug.LogWarning("ui manager init");
             _settingsProvider = _resolver.ResolveAndCheckOnNull<ISettingsProvider>();
             var viewsSettings = _settingsProvider.GetSettings<UIViewsSettings>();
             InitializeViews(viewsSettings);
 
             _stateMachine = _resolver.ResolveAndCheckOnNull<IGameStateMachine>();
-
             _stateMachine.GameState.DistinctUntilChanged().Subscribe(HandleGameState).AddTo(_disposables);
         }
 
-
         private void InitializeViews(UIViewsSettings viewsSettings)
         {
-            var uiViews = _resolver.Instantiate(new GameObject("UIViews"));
-
             foreach (var viewSettings in viewsSettings.States)
             {
                 var viewPrefab = viewSettings.sateUIViewBase;
                 var viewInstance = _resolver.Instantiate(viewPrefab);
-                viewInstance.transform.SetParent(uiViews.transform, false);
+                viewInstance.transform.SetParent(transform, false);
                 viewInstance.Hide();
                 _states.TryAdd(viewSettings.GameState, viewInstance);
             }
@@ -58,14 +52,15 @@ namespace Code.Core.Managers.UI
 
         private void HandleGameState(StateType state)
         {
-            Debug.LogWarning(" handle game state " + state);
-            if (!_states.TryGetValue(state, out var uiState)) throw new KeyNotFoundException($"{state} not found!");
+            if (!_states.TryGetValue(state, out var uiState))
+                throw new KeyNotFoundException($"{state} not found!");
 
             ChangeState(uiState);
         }
 
         private void ChangeState(UIViewBase newIuiView)
         {
+            Debug.LogWarning("state changed " + newIuiView.name);
             _current?.Hide();
             _current = newIuiView;
             _current.Show();

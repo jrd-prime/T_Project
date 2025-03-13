@@ -2,6 +2,7 @@
 using Code.Core.UI._Base.View;
 using Code.Extensions;
 using R3;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Code.Core.UI.Views.Menu
@@ -26,7 +27,11 @@ namespace Code.Core.UI.Views.Menu
 
         protected override void InitializeCallbacks()
         {
-            CallbacksCache.Add(_startBtn, _ => ViewModel.StartButtonClickCommand.Execute(Unit.Default));
+            CallbacksCache.Add(_startBtn, _ =>
+            {
+                Debug.LogWarning("CLICKED");
+                ViewModel.StartButtonClickCommand.Execute(Unit.Default);
+            });
         }
 
         protected override void OnShow()

@@ -42,6 +42,13 @@ namespace Code.Core.Bootstrap
 
             _viewModel.TitleText.Subscribe(SetTitle).AddTo(_disposables);
             _viewModel.Opacity.Subscribe(SetOpacity).AddTo(_disposables);
+            _viewModel.OnClear.Subscribe(Clear).AddTo(_disposables);
+        }
+
+        private void Clear(Unit _)
+        {
+            _loadingLabel.text = "";
+            _appName.text = "";
         }
 
         private void SetTitle(string value) => _loadingLabel.text = !string.IsNullOrEmpty(value) ? value : "Not set";
