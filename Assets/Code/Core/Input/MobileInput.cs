@@ -2,7 +2,7 @@
 
 namespace Code.Core.Input
 {
-    public sealed class MobileInput : MonoBehaviour //, IInput
+    public sealed class MobileInput : MonoBehaviour //, IJInput
     {
         // private JInputActions _gameInputActions;
         //

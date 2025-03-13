@@ -1,6 +1,5 @@
 ﻿using System;
 using Code.Core.Input;
-using Code.Core.Managers.UI;
 using Code.Core.Providers;
 using Code.Core.Providers.Localization;
 using Code.Core.SO;
@@ -31,9 +30,7 @@ namespace Code.Core.Context
 
 
             var input = gameObject.AddComponent<DesktopInput>();
-            builder.RegisterComponent(input).AsSelf();
-
-            builder.Register<InputHandler>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.RegisterComponent(input).As<IJInput>();
 
             builder.Register<ISettingsProvider, SettingsProvider>(Lifetime.Singleton);
             builder.Register<IAssetProvider, AssetProvider>(Lifetime.Singleton);

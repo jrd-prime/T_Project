@@ -1,7 +1,6 @@
 ﻿using System;
-using Code.Core.JStateMachine;
-using Code.Core.Managers.UI;
-using Code.Core.UI._Base.View;
+using Code.Core.JStateMachineOLD;
+using Code.Core.UIOLD._Base.View;
 using UnityEngine.Serialization;
 
 namespace Code.Core.SO

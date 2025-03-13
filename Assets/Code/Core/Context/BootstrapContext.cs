@@ -1,7 +1,7 @@
 ﻿using System;
 using Code.Core.Bootstrap;
-using Code.Core.JStateMachine;
-using Code.Core.JStateMachine.State;
+using Code.Core.JStateMachineOLD;
+using Code.Core.JStateMachineOLD.State;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
