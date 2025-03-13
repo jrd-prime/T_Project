@@ -9,7 +9,6 @@ using Code.Hero;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
-using GameManager = Code.Core.Managers.GameOLD.GameManager;
 
 namespace Code.Core.Context
 {

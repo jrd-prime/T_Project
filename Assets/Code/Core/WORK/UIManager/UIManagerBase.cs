@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Code.Core.Providers;
 using Code.Core.WORK.Enums;
 using Code.Core.WORK.Enums.States;
-using Code.Core.WORK.JStateMachine.Data;
+using Code.Core.WORK.GameStates;
 using Code.Core.WORK.UI.Base.Data;
 using Code.Core.WORK.UI.Base.View;
 using Code.Core.WORK.UIManager.Viewer;

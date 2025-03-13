@@ -1,5 +1,5 @@
 ﻿using System;
-using Code.Core.WORK.JStateMachine.Data;
+using Code.Core.WORK.GameStates;
 using UnityEngine;
 
 namespace Code.Core.WORK.UI.Base.Model
