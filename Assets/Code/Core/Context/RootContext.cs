@@ -1,6 +1,5 @@
 ﻿using System;
 using Code.Core.Input;
-using Code.Core.Managers.UI;
 using Code.Core.Providers;
 using Code.Core.Providers.Localization;
 using Code.Core.SO;

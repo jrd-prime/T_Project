@@ -1,14 +1,15 @@
 ﻿using System;
 using Code.Core.Managers.Camera._Game._Scripts.Framework.Manager.JCamera;
-using Code.Core.Managers.Game;
-using Code.Core.Managers.UI;
 using Code.Core.Systems;
-using Code.Core.UI.Views.Gameplay;
-using Code.Core.UI.Views.Menu;
+using Code.Core.UIOLD.Views.Gameplay;
+using Code.Core.UIOLD.Views.Menu;
+using Code.Core.WORK.Game;
+using Code.Core.WORK.UIManager;
 using Code.Hero;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using GameManager = Code.Core.Managers.GameOLD.GameManager;
 
 namespace Code.Core.Context
 {
@@ -28,7 +29,7 @@ namespace Code.Core.Context
 
             if (!gameManagerPrefab) throw new NullReferenceException("GameManager is null. " + name);
             builder.RegisterComponentInNewPrefab<GameManager>(gameManagerPrefab, Lifetime.Singleton)
-                .AsSelf().As<IInitializable>();
+                .As<IGameManager, IInitializable>();
 
             if (!uiManagerPrefab) throw new NullReferenceException("UIManager is null. " + name);
             builder.RegisterComponentInNewPrefab<UIManager>(uiManagerPrefab, Lifetime.Singleton)
