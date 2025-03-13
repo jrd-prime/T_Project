@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using R3;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,30 +16,88 @@ namespace Code.Core.UI._Base.View
     {
         protected VisualElement Root { get; private set; }
 
-        private void Awake()
+        protected bool IsInitialized;
+
+        protected readonly Dictionary<Button, EventCallback<ClickEvent>> CallbacksCache = new();
+        protected readonly CompositeDisposable Disposables = new();
+
+        private void Awake() => Root = GetComponent<UIDocument>().rootVisualElement;
+
+        /// <summary>
+        /// Register initialized callbacks
+        /// </summary>
+        protected void RegisterCallbacks()
         {
-            Root = GetComponent<UIDocument>().rootVisualElement;
+            if (CallbacksCache.Count == 0)
+            {
+                Debug.LogWarning("No callbacks to register. " + name);
+                return;
+            }
+
+            foreach (var callback in CallbacksCache)
+                callback.Key.RegisterCallback(callback.Value);
         }
 
-        private void OnEnable()
+        /// <summary>
+        /// Unregister initialized callbacks
+        /// </summary>
+        private void UnregisterCallbacks()
         {
-            Debug.LogWarning("on enable  ui view base. Name: " + name);
-            InitializeVisualElements();
-            SubscribeToEvents();
+            Debug.LogWarning("unreg callbacks " + name);
+            if (CallbacksCache.Count == 0)
+            {
+                Debug.LogWarning("No callbacks to unregister. " + name);
+                return;
+            }
+
+            foreach (var callback in CallbacksCache)
+                callback.Key.UnregisterCallback(callback.Value);
         }
 
-        private void OnDisable()
+        /// <summary>
+        /// Find and initialize UI elements
+        /// </summary>
+        protected abstract void InitializeViewElements();
+
+        /// <summary>
+        /// In Start() cuz ViewModel injected in start //TODO or refact
+        /// </summary>
+        protected abstract void CreateAndInitComponents();
+
+        /// <summary>
+        /// Localize
+        /// </summary>
+        protected abstract void Localize();
+
+        /// <summary>
+        /// Add callbacks to UI elements
+        /// </summary>
+        protected abstract void InitializeCallbacks();
+
+        public void Show()
         {
-            UnsubscribeFromEvents();
+            Root.style.display = DisplayStyle.Flex;
+            OnShow();
         }
 
-        protected abstract void UnsubscribeFromEvents();
+        public void Hide()
+        {
+            Root.style.display = DisplayStyle.None;
+            OnHide();
+        }
 
+        protected virtual void OnShow()
+        {
+        }
 
-        protected abstract void SubscribeToEvents();
-        protected abstract void InitializeVisualElements();
-        
-        public abstract void Show();
-        public abstract void Hide();
+        protected virtual void OnHide()
+        {
+        }
+
+        private void OnDestroy()
+        {
+            Disposables?.Dispose();
+            UnregisterCallbacks();
+        }
     }
 }

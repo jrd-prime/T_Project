@@ -1,7 +1,7 @@
-﻿using Code.Core.UI._Base.View;
+﻿using Code.Core.Providers.Localization;
+using Code.Core.UI._Base.View;
 using Code.Extensions;
 using R3;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Code.Core.UI.Views.Menu
@@ -10,50 +10,31 @@ namespace Code.Core.UI.Views.Menu
     {
         private Button _startBtn;
 
-        protected override void InitializeVisualElements()
+        protected override void InitializeViewElements()
         {
-            Debug.LogWarning("InitializeVisualElements");
-
             _startBtn = Root.GetVisualElement<Button>("start-btn", name);
         }
 
-        protected override void UnsubscribeFromEvents()
+        protected override void CreateAndInitComponents()
         {
-            _startBtn.UnregisterCallback<ClickEvent>(evt =>
-            {
-                Debug.Log("ClickEvent triggered");
-                ViewModel.StartButtonClickCommand.Execute(Unit.Default);
-            });
         }
 
-        protected override void SubscribeToEvents()
+        protected override void Localize()
         {
-            Debug.LogWarning("SubscribeToEvents");
-
-            if (_startBtn == null)
-            {
-                Debug.LogError("Start button is null in OnEnable!");
-                return;
-            }
-
-            _startBtn.RegisterCallback<ClickEvent>(evt =>
-            {
-                Debug.Log("ClickEvent triggered");
-                ViewModel.StartButtonClickCommand.Execute(Unit.Default);
-            });
+            _startBtn.text = LocalizationProvider.Localize(LocalizationNameID.startBtnNameId).ToUpper();
         }
 
-
-        public override void Show()
+        protected override void InitializeCallbacks()
         {
-            Debug.LogWarning("show menu view");
-            Root.style.display = DisplayStyle.Flex;
+            CallbacksCache.Add(_startBtn, _ => ViewModel.StartButtonClickCommand.Execute(Unit.Default));
         }
 
-        public override void Hide()
+        protected override void OnShow()
         {
-            Debug.LogWarning("hide menu view");
-            Root.style.display = DisplayStyle.None;
+        }
+
+        protected override void OnHide()
+        {
         }
     }
 }

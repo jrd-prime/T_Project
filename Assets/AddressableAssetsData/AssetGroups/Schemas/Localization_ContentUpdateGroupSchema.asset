@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5811c982e2144e879577747ae2c96c70, type: 3}
-  m_Name: UIViewsSettings
+  m_Script: {fileID: 11500000, guid: 5834b5087d578d24c926ce20cd31e6d6, type: 3}
+  m_Name: Localization_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
-  <States>k__BackingField:
-  - GameState: 1
-    sateUIViewBase: {fileID: -5357355464205177988, guid: 6ae823155c1725745bce071bbe783e94, type: 3}
+  m_Group: {fileID: 11400000, guid: 7c08bd1887d69e747a6afbf22d40166d, type: 2}
+  m_StaticContent: 0

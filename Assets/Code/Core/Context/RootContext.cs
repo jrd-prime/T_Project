@@ -2,6 +2,7 @@
 using Code.Core.Input;
 using Code.Core.Managers.UI;
 using Code.Core.Providers;
+using Code.Core.Providers.Localization;
 using Code.Core.SO;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -36,6 +37,7 @@ namespace Code.Core.Context
 
             builder.Register<ISettingsProvider, SettingsProvider>(Lifetime.Singleton);
             builder.Register<IAssetProvider, AssetProvider>(Lifetime.Singleton);
+            builder.Register<ILocalizationProvider, LocalizationProvider>(Lifetime.Singleton);
             builder.Register<FirstSceneProvider>(Lifetime.Singleton).AsSelf();
         }
 

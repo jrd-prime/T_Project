@@ -1,33 +1,23 @@
 ﻿using Code.Core.UI._Base.View;
-using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Code.Core.UI.Views.Gameplay
 {
     public sealed class GameplayUIView : CustomUIView<GameplayUIViewModel>
     {
-        protected override void UnsubscribeFromEvents()
+        protected override void InitializeViewElements()
         {
         }
 
-        protected override void SubscribeToEvents()
+        protected override void CreateAndInitComponents()
         {
         }
 
-        protected override void InitializeVisualElements()
+        protected override void Localize()
         {
         }
 
-        public override void Show()
+        protected override void InitializeCallbacks()
         {
-            Debug.LogWarning("show menu view");
-            Root.style.display = DisplayStyle.Flex;
-        }
-
-        public override void Hide()
-        {
-            Debug.LogWarning("hide menu view");
-            Root.style.display = DisplayStyle.None;
         }
     }
 }
