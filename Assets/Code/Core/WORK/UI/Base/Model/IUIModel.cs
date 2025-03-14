@@ -1,6 +1,6 @@
 ﻿using System;
-using Code.Core.WORK.Enums.States;
-using Code.Core.WORK.GameStates;
+using Code.Core.WORK.UIStates;
+using Code.Core.WORK.UIStates._Base.UIStatesTypes;
 using VContainer.Unity;
 
 namespace Code.Core.WORK.UI.Base.Model
@@ -12,7 +12,7 @@ namespace Code.Core.WORK.UI.Base.Model
         public void SetPreviousState();
     }
 
-    public interface IMenuModel : IUIModel<EMenuSubState>
+    public interface IMenuModel : IUIModel<MenuStateType>
     {
     }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Code.Core.Providers.Localization;
-using Code.Core.WORK.Enums.States;
+using Code.Core.WORK.JStateMachine;
 using Code.Core.WORK.UI.Base.Data;
 using Code.Core.WORK.UI.Base.ViewModel;
 using UnityEngine;
@@ -47,7 +47,7 @@ namespace Code.Core.WORK.UI.Base.View
 
         protected void Start()
         {
-            if (viewForEGameState == EGameState.NotSet)
+            if (viewForGameStateType == GameStateType.NotSet)
                 throw new Exception("GameStateType for view is not set. " + name);
         }
     }

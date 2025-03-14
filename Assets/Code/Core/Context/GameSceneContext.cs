@@ -1,9 +1,7 @@
 ﻿using System;
 using Code.Core.Managers.Camera._Game._Scripts.Framework.Manager.JCamera;
+using Code.Core.Managers.Game;
 using Code.Core.Systems;
-using Code.Core.UIOLD.Views.Gameplay;
-using Code.Core.UIOLD.Views.Menu;
-using Code.Core.WORK.Game;
 using Code.Core.WORK.UIManager;
 using Code.Hero;
 using UnityEngine;
@@ -45,13 +43,13 @@ namespace Code.Core.Context
 
         private static void InitializeUIModelsAndViewModels(IContainerBuilder builder)
         {
-            // Menu
-            builder.Register<MenuUIModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            builder.Register<MenuUIViewModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-
-            // Gameplay
-            builder.Register<GameplayUIModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            builder.Register<GameplayUIViewModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            // // Menu
+            // builder.Register<MenuUIModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            // builder.Register<MenuUIViewModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            //
+            // // Gameplay
+            // builder.Register<GameplayUIModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            // builder.Register<GameplayUIViewModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
         }
     }
 }

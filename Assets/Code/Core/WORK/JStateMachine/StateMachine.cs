@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Code.Core.Managers.Game;
 using Code.Core.Providers;
-using Code.Core.WORK.Enums.States;
-using Code.Core.WORK.Game;
-using Code.Core.WORK.GameStates;
-using Code.Core.WORK.GameStates.Gameover;
-using Code.Core.WORK.GameStates.Gameplay.State;
-using Code.Core.WORK.GameStates.Menu.State;
-using Code.Core.WORK.GameStates.Pause;
-using Code.Core.WORK.GameStates.Win;
+using Code.Core.WORK.UIStates;
+using Code.Core.WORK.UIStates.Gameover;
+using Code.Core.WORK.UIStates.Gameplay.State;
+using Code.Core.WORK.UIStates.Menu;
+using Code.Core.WORK.UIStates.Menu.State;
+using Code.Core.WORK.UIStates.Pause;
+using Code.Core.WORK.UIStates.Win;
 using Code.Hero;
 using R3;
 using UnityEngine;
@@ -23,7 +23,7 @@ namespace Code.Core.WORK.JStateMachine
 
     public class StateMachine : IStateMachine
     {
-        private readonly Dictionary<EGameState, IGameState> _states = new();
+        private readonly Dictionary<GameStateType, IGameState> _states = new();
         private IGameState _currentState = null;
         private IHeroModel _playerModel;
         private IGameManager _gameManager;
@@ -32,17 +32,17 @@ namespace Code.Core.WORK.JStateMachine
         private ISettingsProvider _settingsManager;
         private IStateMachineReactiveAdapter _ra;
 
-        private EGameState _currentBaseState;
+        private GameStateType _currentBaseStateType;
         private Enum _currentSubState;
 
         [Inject]
         private void Construct(IObjectResolver container)
         {
-            _states.Add(EGameState.Menu, container.Resolve<MenuState>());
-            _states.Add(EGameState.GameOver, container.Resolve<GameOverState>());
-            _states.Add(EGameState.Pause, container.Resolve<PauseState>());
-            _states.Add(EGameState.Gameplay, container.Resolve<GamePlayState>());
-            _states.Add(EGameState.Win, container.Resolve<WinState>());
+            _states.Add(GameStateType.Menu, container.Resolve<MenuState>());
+            _states.Add(GameStateType.GameOver, container.Resolve<UIOverState>());
+            _states.Add(GameStateType.Pause, container.Resolve<PauseState>());
+            _states.Add(GameStateType.Gameplay, container.Resolve<GameplayState>());
+            _states.Add(GameStateType.Win, container.Resolve<WinState>());
 
             _playerModel = container.Resolve<IHeroModel>();
             _gameManager = container.Resolve<GameManager>();
@@ -55,7 +55,7 @@ namespace Code.Core.WORK.JStateMachine
 
             if (_currentState != null) return;
 
-            var defStateData = new StateData { State = EGameState.Menu, SubState = default };
+            var defStateData = new StateData { StateType = GameStateType.Menu, SubState = default };
 
             ChangeBaseState(defStateData);
 
@@ -70,15 +70,15 @@ namespace Code.Core.WORK.JStateMachine
 
         private void OnNewStateData(StateData stateData)
         {
-            if (_currentBaseState != stateData.State)
+            if (_currentBaseStateType != stateData.StateType)
             {
                 ChangeBaseState(stateData);
-                _currentBaseState = stateData.State;
+                _currentBaseStateType = stateData.StateType;
             }
             else
             {
-                if (!_states.TryGetValue(stateData.State, out var state))
-                    throw new KeyNotFoundException($"State: {stateData.State} not found!");
+                if (!_states.TryGetValue(stateData.StateType, out var state))
+                    throw new KeyNotFoundException($"State: {stateData.StateType} not found!");
 
                 state.ChangeSubState(stateData.SubState);
                 _currentSubState = stateData.SubState;
@@ -87,10 +87,10 @@ namespace Code.Core.WORK.JStateMachine
 
         private void ChangeBaseState(StateData stateData)
         {
-            if (!_states.TryGetValue(stateData.State, out IGameState state))
-                throw new KeyNotFoundException($"State: {stateData.State} not found!");
+            if (!_states.TryGetValue(stateData.StateType, out IGameState state))
+                throw new KeyNotFoundException($"State: {stateData.StateType} not found!");
             Debug.LogWarning(
-                $"<color=darkblue>[STATE MACHINE]</color> <b>{_currentState?.GetType().Name} >>> {stateData.State}</b>");
+                $"<color=darkblue>[STATE MACHINE]</color> <b>{_currentState?.GetType().Name} >>> {stateData.StateType}</b>");
 
             ChangeState(state);
             // state.ChangeSubState(stateData.SubState);

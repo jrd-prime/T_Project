@@ -1,5 +1,5 @@
 ﻿using System;
-using Code.Core.WORK.GameStates;
+using Code.Core.WORK.UIStates;
 using R3;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ namespace Code.Core.WORK.JStateMachine
 
         public void SetStateData(StateData stateData)
         {
-            Debug.Log($"<b>State change requested to {stateData.State}.{stateData.SubState}</b>");
+            Debug.Log($"<b>State change requested to {stateData.StateType}.{stateData.SubState}</b>");
             StateData.Value = stateData;
         }
 

@@ -1,5 +1,5 @@
 ﻿using System;
-using Code.Core.WORK.GameStates;
+using Code.Core.WORK.UIStates;
 using UnityEngine;
 
 namespace Code.Core.WORK.UI.Base.Model
@@ -16,7 +16,7 @@ namespace Code.Core.WORK.UI.Base.Model
             var stateData = UIManager.GetPreviousState();
 
             Debug.LogWarning(
-                $"<color=darkblue>[Set PREVIOUS State]</color> Previous: {stateData.State}.{stateData.SubState}");
+                $"<color=darkblue>[Set PREVIOUS State]</color> Previous: {stateData.StateType}.{stateData.SubState}");
 
             _ra.SetStateData(stateData);
         }

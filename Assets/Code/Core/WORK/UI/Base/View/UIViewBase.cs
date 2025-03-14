@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using Code.Core.WORK.Enums.States;
+using Code.Core.WORK.JStateMachine;
 using Code.Core.WORK.UI.Base.Data;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Code.Core.WORK.UI.Base.View
 {
     public abstract class UIViewBase : MonoBehaviour, IUIView
     {
-        [SerializeField] public EGameState viewForEGameState = EGameState.NotSet;
+        [FormerlySerializedAs("viewForEGameState")] [SerializeField]
+        public GameStateType viewForGameStateType = GameStateType.NotSet;
 
         protected readonly Dictionary<Enum, JSubViewBase> SubViewsCache = new();
 
         private void Awake()
         {
-            if (viewForEGameState == EGameState.NotSet)
+            if (viewForGameStateType == GameStateType.NotSet)
                 throw new Exception("GameStateType for view is not set. " + name);
         }
 

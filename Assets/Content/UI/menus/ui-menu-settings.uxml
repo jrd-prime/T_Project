@@ -1,0 +1,45 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:Template name="on-off" src="project://database/Assets/_Game/UI/tpls/on-off.uxml?fileID=9197481963319205126&amp;guid=3249acfdaa516d0478005fc100179bca&amp;type=3#on-off" />
+    <Style src="project://database/Assets/_Game/UI/USS/mobile-ui.uss?fileID=7433441132597879392&amp;guid=e5ee6f20fd0dc20499bf2b924dee12d8&amp;type=3#mobile-ui" />
+    <engine:VisualElement name="container" class="main-container">
+        <engine:VisualElement name="menu-settings-container" class="menu-settings-container" style="position: relative; top: auto; right: auto; bottom: auto; left: auto; opacity: 1; width: 80%;">
+            <engine:VisualElement name="menu-container-shadow" class="menu-settings-shadow" />
+            <engine:VisualElement name="main-content-container" class="menu-container-content" style="position: absolute; top: 0; right: 0; left: 0; bottom: 0;">
+                <engine:VisualElement name="menu-header" class="menu-header">
+                    <engine:Label text="Label" name="header" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; position: absolute; top: 0; left: 0; right: 0; bottom: 0;" />
+                </engine:VisualElement>
+                <engine:VisualElement name="menu-content" class="menu-content">
+                    <engine:Button text="apply" name="apply-btn" class="menu-button" style="width: 64px; height: 32px; position: absolute; bottom: 0; right: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;" />
+                    <engine:Button text="back" name="back-btn" class="menu-button" style="bottom: 0; left: 0; position: absolute; width: 64px; height: 32px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;" />
+                    <engine:VisualElement name="sound-container" style="flex-grow: 1;" />
+                    <engine:VisualElement name="sound-container" style="flex-grow: 1; position: absolute; top: 0; left: 0; right: 0; height: 48px; border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; width: auto; flex-direction: row; align-items: center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; justify-content: center; align-self: center; align-content: center;">
+                        <engine:VisualElement name="sound-main" style="flex-grow: 0; position: relative; top: auto; left: auto; bottom: auto; width: 140px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 4px; margin-right: 4px; margin-bottom: 4px; margin-left: 4px;">
+                            <engine:Button name="sound-btn" class="btn-sound">
+                                <engine:Label text="sound" name="sound-btn-ttl" style="width: 100px; height: 40px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                <engine:VisualElement name="sound-btn-status" style="flex-grow: 1; position: absolute; top: 0; right: 4px; bottom: 0; height: auto; width: 40px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; align-items: center; justify-content: center; align-self: center;">
+                                    <engine:Instance template="on-off" name="on-off" />
+                                </engine:VisualElement>
+                            </engine:Button>
+                        </engine:VisualElement>
+                        <engine:VisualElement name="sound-music" style="flex-grow: 0; top: auto; bottom: auto; left: auto; width: 140px; right: auto; position: relative; margin-top: 4px; margin-right: 4px; margin-bottom: 4px; margin-left: 4px;">
+                            <engine:Button name="music-btn" class="btn-sound" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; height: 40px; width: 140px; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px;">
+                                <engine:Label text="music" name="music-btn-ttl" style="width: 100px; height: 40px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                <engine:VisualElement name="music-btn-status" style="flex-grow: 1; position: absolute; top: 0; right: 4px; bottom: 0; height: auto; width: 40px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; align-items: center; justify-content: center; align-self: center;">
+                                    <engine:Instance template="on-off" name="on-off" />
+                                </engine:VisualElement>
+                            </engine:Button>
+                        </engine:VisualElement>
+                        <engine:VisualElement name="sound-vfx" style="flex-grow: 1; position: relative; top: auto; bottom: auto; right: auto; width: 140px; margin-top: 4px; margin-right: 4px; margin-bottom: 4px; margin-left: 4px;">
+                            <engine:Button name="vfx-btn" class="btn-sound" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; height: 40px; width: 140px; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px;">
+                                <engine:Label text="vfx" name="vfx-btn-ttl" style="width: 100px; height: 40px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                <engine:VisualElement name="vfx-btn-status" style="flex-grow: 1; position: absolute; top: 0; right: 4px; bottom: 0; height: auto; width: 40px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; align-items: center; justify-content: center; align-self: center;">
+                                    <engine:Instance template="on-off" name="on-off" />
+                                </engine:VisualElement>
+                            </engine:Button>
+                        </engine:VisualElement>
+                    </engine:VisualElement>
+                </engine:VisualElement>
+            </engine:VisualElement>
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

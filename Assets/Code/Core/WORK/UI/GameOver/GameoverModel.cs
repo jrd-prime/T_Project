@@ -1,5 +1,5 @@
-﻿using Code.Core.WORK.Enums.States;
-using Code.Core.WORK.UI.Base.Model;
+﻿using Code.Core.WORK.UI.Base.Model;
+using Code.Core.WORK.UIStates._Base.UIStatesTypes;
 
 namespace Code.Core.WORK.UI.GameOver
 {

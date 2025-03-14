@@ -1,0 +1,19 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Game/Res/UI/USS/mobile-ui.uss?fileID=7433441132597879392&amp;guid=e5ee6f20fd0dc20499bf2b924dee12d8&amp;type=3#mobile-ui" />
+    <engine:VisualElement name="container" class="main-container" style="background-color: rgba(0, 0, 0, 0.72);">
+        <engine:VisualElement name="menu-container" class="menu-container" style="position: relative; top: auto; right: auto; bottom: auto; left: auto; opacity: 1;">
+            <engine:VisualElement name="menu-container-shadow" class="menu-container-shadow" style="background-image: url(&quot;project://database/Assets/_Game/Res/Textures/9-slice-shadow-12px.png?fileID=21300000&amp;guid=c5c28febb9e77fd4ca05356817ba485e&amp;type=3#9-slice-shadow-12px&quot;);" />
+            <engine:VisualElement name="main-content-container" class="menu-container-content" style="position: absolute; top: 0; right: 0; left: 0; bottom: 0;">
+                <engine:VisualElement name="menu-header" class="menu-header">
+                    <engine:Label text="Label" name="header" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; position: absolute; top: 0; left: 0; right: 0; bottom: 0;" />
+                </engine:VisualElement>
+                <engine:VisualElement name="menu-content" class="menu-content">
+                    <engine:Button text="Button" name="play-btn" class="menu-button" />
+                    <engine:Button text="Button" name="settings-btn" class="menu-button" />
+                    <engine:Button text="Button" name="exit-btn" class="menu-button" />
+                </engine:VisualElement>
+                <engine:Button text="X" name="close-btn" />
+            </engine:VisualElement>
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>
