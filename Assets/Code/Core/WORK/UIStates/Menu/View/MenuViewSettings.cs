@@ -38,7 +38,7 @@ namespace Code.Core.WORK.UIStates.Menu.View
 
         protected override void InitializeCallbacks()
         {
-            CallbacksCache.Add(_backBtn, _ => ViewModel.BackButtonClicked.OnNext(Unit.Default));
+            // CallbacksCache.Add(_backBtn, _ => ViewModel.BackButtonClicked.OnNext(Unit.Default));
         }
     }
 }

@@ -43,8 +43,7 @@ namespace Code.Core.Context
             builder.RegisterComponentInNewPrefab<UIManager>(uiManagerPrefab, Lifetime.Singleton)
                 .As<IUIManager, IInitializable>();
 
-            builder.Register<IJStateMachine, JStateMachine>(Lifetime.Singleton).As<IStartable>();
-            builder.Register<IStateMachineReactiveAdapter, StateMachineReactiveAdapter>(Lifetime.Singleton);
+            builder.Register<IJStateMachine, JStateMachine>(Lifetime.Singleton).As<IInitializable>();
             InitializeUIModelsAndViewModels(builder);
 
             builder.Register<CameraFollowSystem>(Lifetime.Singleton)

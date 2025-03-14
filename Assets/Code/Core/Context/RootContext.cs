@@ -3,6 +3,7 @@ using Code.Core.Input;
 using Code.Core.Providers;
 using Code.Core.Providers.Localization;
 using Code.Core.SO;
+using Code.Core.WORK.JStateMachine;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -32,6 +33,7 @@ namespace Code.Core.Context
             var input = gameObject.AddComponent<DesktopInput>();
             builder.RegisterComponent(input).As<IJInput>();
 
+            builder.Register<IStateMachineReactiveAdapter, StateMachineReactiveAdapter>(Lifetime.Singleton);
             builder.Register<ISettingsProvider, SettingsProvider>(Lifetime.Singleton);
             builder.Register<IAssetProvider, AssetProvider>(Lifetime.Singleton);
             builder.Register<ILocalizationProvider, LocalizationProvider>(Lifetime.Singleton);

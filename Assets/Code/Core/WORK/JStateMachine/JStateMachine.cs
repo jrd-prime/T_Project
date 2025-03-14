@@ -17,7 +17,7 @@ using VContainer.Unity;
 
 namespace Code.Core.WORK.JStateMachine
 {
-    public interface IJStateMachine : IStartable, IDisposable
+    public interface IJStateMachine : IInitializable, IDisposable
     {
     }
 
@@ -32,7 +32,7 @@ namespace Code.Core.WORK.JStateMachine
         private ISettingsProvider _settingsManager;
         private IStateMachineReactiveAdapter _ra;
 
-        private GameStateType _currentBaseStateType;
+        private GameStateType _currentBaseStateType = GameStateType.NotSet;
         private Enum _currentSubState;
 
         [Inject]
@@ -45,56 +45,41 @@ namespace Code.Core.WORK.JStateMachine
             // _states.Add(GameStateType.Win, container.Resolve<WinState>());
 
             _playerModel = container.Resolve<IHeroModel>();
-            _gameManager = container.Resolve<GameManager>();
+            _gameManager = container.Resolve<IGameManager>();
             _ra = container.Resolve<IStateMachineReactiveAdapter>();
-        }
 
-        public void Start()
-        {
-            Debug.Log("<color=darkblue>[STATE MACHINE]</color> Start!");
-
-            if (_currentState != null) return;
-
-            var defStateData = new StateData { StateType = GameStateType.Menu, SubState = default };
-
-            ChangeBaseState(defStateData);
-
-            _gameManager.IsGameRunning
-                .Subscribe(value => isGameStarted = value)
-                .AddTo(_disposables);
-            _ra.StateData
-                .Skip(1)
-                .Subscribe(OnNewStateData)
-                .AddTo(_disposables);
+            Debug.LogWarning("_ra " + _ra);
         }
 
         private void OnNewStateData(StateData stateData)
         {
-            if (_currentBaseStateType != stateData.StateType)
-            {
-                ChangeBaseState(stateData);
-                _currentBaseStateType = stateData.StateType;
-            }
-            else
-            {
-                if (!_states.TryGetValue(stateData.StateType, out var state))
-                    throw new KeyNotFoundException($"State: {stateData.StateType} not found!");
+            var gameStateType = stateData.StateType;
 
-                state.ChangeSubState(stateData.SubState);
-                _currentSubState = stateData.SubState;
+            if (!_states.TryGetValue(gameStateType, out IGameState gameBaseState))
+                throw new KeyNotFoundException($"State: {gameStateType} not found!");
+
+            if (IsNewBaseState(gameStateType))
+            {
+                ChangeBaseState(gameStateType, gameBaseState);
+                return;
             }
+
+            gameBaseState.ChangeSubState(stateData.SubState);
+            _currentSubState = stateData.SubState;
         }
 
-        private void ChangeBaseState(StateData stateData)
+        private void ChangeBaseState(GameStateType gameStateType, IGameState gameBaseState)
         {
-            if (!_states.TryGetValue(stateData.StateType, out IGameState state))
-                throw new KeyNotFoundException($"State: {stateData.StateType} not found!");
+            _currentBaseStateType = gameStateType;
             Debug.LogWarning(
-                $"<color=darkblue>[STATE MACHINE]</color> <b>{_currentState?.GetType().Name} >>> {stateData.StateType}</b>");
+                $"<color=darkblue>[STATE MACHINE]</color> <b>{_currentState?.GetType().Name} >>> {gameStateType}</b>");
 
-            ChangeState(state);
-            // state.ChangeSubState(stateData.SubState);
+            ChangeState(gameBaseState);
         }
+
+        private bool IsNewBaseState(GameStateType gameStateType) =>
+            _currentBaseStateType == GameStateType.NotSet || _currentBaseStateType != gameStateType;
+
 
         private void ChangeState(IGameState newState)
         {
@@ -106,6 +91,19 @@ namespace Code.Core.WORK.JStateMachine
         public void Dispose()
         {
             _disposables?.Dispose();
+        }
+
+        public void Initialize()
+        {
+            Debug.Log("<color=darkblue>[STATE MACHINE]</color> Initialize!");
+            Debug.LogWarning("_ra " + _ra);
+            _gameManager.IsGameRunning
+                .Subscribe(value => isGameStarted = value)
+                .AddTo(_disposables);
+            _ra.StateData
+                .Skip(1)
+                .Subscribe(OnNewStateData)
+                .AddTo(_disposables);
         }
     }
 }

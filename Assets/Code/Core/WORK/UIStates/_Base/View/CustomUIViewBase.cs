@@ -10,9 +10,6 @@ using VContainer;
 
 namespace Code.Core.WORK.UIStates._Base.View
 {
-    /// <summary>
-    /// <remarks>Inherited classes should be added to the autoinject</remarks>
-    /// </summary>
     public abstract class CustomUIViewBase<TViewModel, TSubStateEnum> : UIViewBase
         where TViewModel : class, IUIViewModel
         where TSubStateEnum : Enum

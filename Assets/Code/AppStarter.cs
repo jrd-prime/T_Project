@@ -1,6 +1,9 @@
 ﻿using Code.Core.Bootstrap;
 using Code.Core.Providers;
 using Code.Core.Providers.Localization;
+using Code.Core.WORK.JStateMachine;
+using Code.Core.WORK.UIStates;
+using Code.Core.WORK.UIStates._Base.UIStatesTypes;
 using Code.Extensions;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
@@ -51,6 +54,11 @@ namespace Code
             SceneManager.UnloadSceneAsync(bootstrapScene);
 
             Debug.LogWarning("<color=green><b>=== APP STARTED! ===</b></color>");
+
+
+            var defStateData = new StateData { StateType = GameStateType.Menu, SubState = MenuStateType.Main };
+            var stateMachine = _resolver.ResolveAndCheckOnNull<IStateMachineReactiveAdapter>();
+            stateMachine.SetStateData(defStateData);
         }
     }
 }

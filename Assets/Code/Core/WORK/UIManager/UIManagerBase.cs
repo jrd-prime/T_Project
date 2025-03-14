@@ -67,8 +67,11 @@ namespace Code.Core.WORK.UIManager
             foreach (var view in stateViews)
             {
                 _resolver.Inject(view.viewHolder);
+                Debug.LogWarning("Inject view: " + view.viewHolder.name);
                 _viewsCache.TryAdd(view.uiForStateType, view.viewHolder);
             }
+
+            Debug.LogWarning("InjectAndCacheViews count: " + _viewsCache.Count);
         }
 
         public void ShowView(GameStateType gameStateType, Enum subState, EShowLogic showLogic = EShowLogic.Default)
