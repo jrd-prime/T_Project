@@ -1,19 +1,14 @@
 ﻿using System;
+using Code.Core.FSM;
 using Code.Core.Managers.Camera._Game._Scripts.Framework.Manager.JCamera;
 using Code.Core.Managers.Game;
+using Code.Core.Managers.UI;
 using Code.Core.Systems;
-using Code.Core.WORK.JStateMachine;
-using Code.Core.WORK.UI.GameOver;
-using Code.Core.WORK.UI.Pause;
-using Code.Core.WORK.UI.Win;
-using Code.Core.WORK.UIManager;
-using Code.Core.WORK.UIStates;
-using Code.Core.WORK.UIStates._Base.Model;
-using Code.Core.WORK.UIStates.Gameplay;
-using Code.Core.WORK.UIStates.Gameplay.State;
-using Code.Core.WORK.UIStates.Menu;
-using Code.Core.WORK.UIStates.Menu.State;
-using Code.Core.WORK.UIStates.Win;
+using Code.Core.UI._Base.Model;
+using Code.Core.UI.Gameplay;
+using Code.Core.UI.Gameplay.State;
+using Code.Core.UI.Menu;
+using Code.Core.UI.Menu.State;
 using Code.Hero;
 using UnityEngine;
 using VContainer;
@@ -30,7 +25,23 @@ namespace Code.Core.Context
         protected override void Configure(IContainerBuilder builder)
         {
             Debug.LogWarning("<color=cyan>GameScene context</color>");
+            
+            InitializeManagers(builder);
 
+            builder.Register<IStateMachine, JStateMachine>(Lifetime.Singleton).As<IInitializable>();
+
+            InitializeUIModelsAndViewModels(builder);
+            InitializeViewStates(builder);
+
+            builder.Register<CameraFollowSystem>(Lifetime.Singleton)
+                .AsSelf();
+
+            builder.Register<IHeroModel, HeroModel>(Lifetime.Singleton)
+                .As<IInitializable, IFixedTickable>();
+        }
+
+        private void InitializeManagers(IContainerBuilder builder)
+        {
             if (!cameraManager) throw new NullReferenceException("CameraManager is null. " + name);
             builder.RegisterComponent(cameraManager)
                 .As<ICameraManager, IInitializable>();
@@ -42,43 +53,20 @@ namespace Code.Core.Context
             if (!uiManagerPrefab) throw new NullReferenceException("UIManager is null. " + name);
             builder.RegisterComponentInNewPrefab<UIManager>(uiManagerPrefab, Lifetime.Singleton)
                 .As<IUIManager, IInitializable>();
+        }
 
-            builder.Register<IJStateMachine, JStateMachine>(Lifetime.Singleton).As<IInitializable>();
-            InitializeUIModelsAndViewModels(builder);
-
-            builder.Register<CameraFollowSystem>(Lifetime.Singleton)
-                .AsSelf();
-
+        private static void InitializeViewStates(IContainerBuilder builder)
+        {
             builder.Register<MenuState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.Register<GameplayState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            // builder.Register<PauseMenuState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            // builder.Register<GameOverState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            builder.Register<WinState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-
-            builder.Register<IHeroModel, HeroModel>(Lifetime.Singleton)
-                .As<IInitializable, IFixedTickable>();
         }
 
         private static void InitializeUIModelsAndViewModels(IContainerBuilder builder)
         {
-            // // Menu
-            // builder.Register<MenuUIModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            // builder.Register<MenuUIViewModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            //
-            // // Gameplay
-            // builder.Register<GameplayUIModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            // builder.Register<GameplayUIViewModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-
-
-            // State models
             builder.Register<IMenuModel, MenuModel>(Lifetime.Singleton).As<IInitializable>();
-            builder.Register<IGameplayModel, GameplayModel>(Lifetime.Singleton).As<IInitializable>();
-            builder.Register<IGameoverModel, GameoverModel>(Lifetime.Singleton).As<IInitializable>();
-            builder.Register<IPauseModel, PauseModel>(Lifetime.Singleton).As<IInitializable>();
-            builder.Register<IWinModel, WinModel>(Lifetime.Singleton).As<IInitializable>();
-
-            // View models 
             builder.Register<IMenuViewModel, MenuViewModel>(Lifetime.Singleton).As<IInitializable, IDisposable>();
+
+            builder.Register<IGameplayModel, GameplayModel>(Lifetime.Singleton).As<IInitializable>();
             builder.Register<IGameplayViewModel, GameplayViewModel>(Lifetime.Singleton)
                 .As<IInitializable, IDisposable>();
         }

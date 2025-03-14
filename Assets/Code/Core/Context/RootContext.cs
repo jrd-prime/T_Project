@@ -1,9 +1,9 @@
 ﻿using System;
+using Code.Core.FSM;
 using Code.Core.Input;
 using Code.Core.Providers;
 using Code.Core.Providers.Localization;
 using Code.Core.SO;
-using Code.Core.WORK.JStateMachine;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.EventSystems;

@@ -7,5 +7,10 @@
         public const string settingsBtnNameId = "settings-ttl";
         public const string exitBtnNameId = "exit-ttl";
         public const string startBtnNameId = "start-ttl";
+        public const string Menu = "menu";
+        public const string Start = "start";
+        public const string Continue = "continue";
+        public const string Settings = "settings";
+        public const string Exit = "exit";
     }
 }

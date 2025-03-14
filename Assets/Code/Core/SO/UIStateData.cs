@@ -1,6 +1,6 @@
 ﻿using System;
-using Code.Core.WORK.JStateMachine;
-using Code.Core.WORK.UIStates._Base.View;
+using Code.Core.FSM;
+using Code.Core.UI._Base.View;
 using UnityEngine.Serialization;
 
 namespace Code.Core.SO
@@ -9,6 +9,6 @@ namespace Code.Core.SO
     public struct UIStateData
     {
         public GameStateType GameState;
-        [FormerlySerializedAs("SateUIView")] public UIViewBase sateUIViewBase;
+        [FormerlySerializedAs("sateUIViewBase")] [FormerlySerializedAs("SateUIView")] public ViewBase sateViewBase;
     }
 }

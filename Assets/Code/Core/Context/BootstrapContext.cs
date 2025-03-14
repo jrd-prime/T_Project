@@ -1,9 +1,5 @@
 ﻿using System;
 using Code.Core.Bootstrap;
-using Code.Core.WORK.JStateMachine;
-using Code.Core.WORK.UIStates;
-using Code.Core.WORK.UIStates.Menu.State;
-using Code.Core.WORK.UIStates.Win;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

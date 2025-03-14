@@ -45,9 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   headerNameId: 
-  template: {fileID: 9197481963319205126, guid: 470873792a2aa2543aec906044c0529f, type: 3}
+  template: {fileID: 9197481963319205126, guid: 9a996a668d541d847974bde119dc6491, type: 3}
   inSafeZone: 0
-  showDebug: 0
 --- !u!1 &703573899207107602
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,9 +92,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   headerNameId: 
-  template: {fileID: 9197481963319205126, guid: 8a3373506294f254aa33749b359fa461, type: 3}
+  template: {fileID: 9197481963319205126, guid: 3c811e3d44a45914594d6ee654f0ddd3, type: 3}
   inSafeZone: 0
-  showDebug: 0
 --- !u!1 &891388391947896309
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,9 +255,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   headerNameId: 
-  template: {fileID: 9197481963319205126, guid: e33bce4faed937940ada5a052340a327, type: 3}
+  template: {fileID: 9197481963319205126, guid: bd6c099da91615f4fb3ce7dc85c46951, type: 3}
   inSafeZone: 0
-  showDebug: 0
 --- !u!1 &3399162803509879960
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +305,7 @@ MonoBehaviour:
   viewForGameStateType: 1
   defaultSubView: 0
   subViewsData:
-  - subState: 0
+  - subViewType: 0
     subView: {fileID: 5278101241149101183}
 --- !u!1 &6610907618253262363
 GameObject:
@@ -392,7 +389,7 @@ MonoBehaviour:
   viewForGameStateType: 0
   defaultSubView: 0
   subViewsData:
-  - subState: 0
+  - subViewType: 0
     subView: {fileID: 6379292500068072140}
-  - subState: 1
+  - subViewType: 1
     subView: {fileID: 7951060472313592231}
