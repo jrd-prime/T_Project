@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Code.Core.Managers.Game;
-using Code.Core.WORK.UI.Base.Model;
 using Code.Core.WORK.UIManager;
+using Code.Core.WORK.UIStates._Base.Model;
 using Code.Hero;
 using R3;
 using UnityEngine;

@@ -1,5 +1,5 @@
 ﻿using System;
-using Code.Core.WORK.UI.Base.View;
+using Code.Core.WORK.UIStates._Base.View;
 using UnityEngine.UIElements;
 
 namespace Code.Core.WORK.UIStates.Gameplay.View

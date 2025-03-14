@@ -1,7 +1,7 @@
 ﻿using Code.Core.WORK.JStateMachine;
-using Code.Core.WORK.UI.Base.Model;
-using Code.Core.WORK.UI.Base.ViewModel;
+using Code.Core.WORK.UIStates._Base.Model;
 using Code.Core.WORK.UIStates._Base.UIStatesTypes;
+using Code.Core.WORK.UIStates._Base.ViewModel;
 using Code.Tools;
 using R3;
 

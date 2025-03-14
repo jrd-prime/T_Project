@@ -1,6 +1,6 @@
 ﻿using Code.Core.WORK.JStateMachine;
-using Code.Core.WORK.UI.Base.ViewModel;
 using Code.Core.WORK.UIStates._Base.UIStatesTypes;
+using Code.Core.WORK.UIStates._Base.ViewModel;
 using R3;
 
 namespace Code.Core.WORK.UIStates.Gameplay

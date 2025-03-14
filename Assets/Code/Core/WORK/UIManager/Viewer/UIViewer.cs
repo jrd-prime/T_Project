@@ -1,5 +1,5 @@
 ﻿using System;
-using Code.Core.WORK.UI.Base.Data;
+using Code.Core.WORK.UIStates._Base.Data;
 using Code.Tools;
 using UnityEngine;
 using UnityEngine.UIElements;

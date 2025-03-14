@@ -3,15 +3,24 @@ using System.Collections.Generic;
 using Code.Core.Providers;
 using Code.Core.WORK.Enums;
 using Code.Core.WORK.JStateMachine;
-using Code.Core.WORK.UI.Base.Data;
-using Code.Core.WORK.UI.Base.View;
 using Code.Core.WORK.UIManager.Viewer;
 using Code.Core.WORK.UIStates;
+using Code.Core.WORK.UIStates._Base.Data;
+using Code.Core.WORK.UIStates._Base.View;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 
 namespace Code.Core.WORK.UIManager
 {
+    public interface IUIManager : IInitializable
+    {
+        public void ShowView(GameStateType gameStateType, Enum subState, EShowLogic showLogic = EShowLogic.Default);
+        public void HideView(GameStateType gameStateType, Enum subState, EShowLogic showLogic);
+        public void ShowPopUpAsync(string clickTimesToExit, int doubleClickDelay);
+        public StateData GetPreviousState();
+    }
+
     public abstract class UIManagerBase : MonoBehaviour, IUIManager
     {
         [Header("Viewer"), SerializeField] protected UIViewer viewer;

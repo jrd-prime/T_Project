@@ -1,4 +1,4 @@
-﻿using Code.Core.WORK.UI.Base.Model;
+﻿using Code.Core.WORK.UIStates._Base.Model;
 using Code.Core.WORK.UIStates._Base.UIStatesTypes;
 
 namespace Code.Core.WORK.UIStates.Gameover

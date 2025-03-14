@@ -1,7 +1,9 @@
 ﻿using System;
 using Code.Core.Bootstrap;
-using Code.Core.JStateMachineOLD;
-using Code.Core.JStateMachineOLD.State;
+using Code.Core.WORK.JStateMachine;
+using Code.Core.WORK.UIStates;
+using Code.Core.WORK.UIStates.Menu.State;
+using Code.Core.WORK.UIStates.Win;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -19,7 +21,6 @@ namespace Code.Core.Context
             RegisterBootstrapServices(builder);
             RegisterStateMachineAndStates(builder);
 
-            builder.Register<IGameStateMachine, StateMachine>(Lifetime.Singleton).As<IInitializable>();
             builder.RegisterEntryPoint<AppStarter>();
         }
 
@@ -37,11 +38,6 @@ namespace Code.Core.Context
 
         private static void RegisterStateMachineAndStates(IContainerBuilder builder)
         {
-            builder.Register<IGameState, MenuState>(Lifetime.Singleton).AsSelf();
-            builder.Register<IGameState, GamePlayState>(Lifetime.Singleton).AsSelf();
-            builder.Register<IGameState, PauseMenuState>(Lifetime.Singleton).AsSelf();
-            builder.Register<IGameState, GameOverState>(Lifetime.Singleton).AsSelf();
-            builder.Register<IGameState, WinState>(Lifetime.Singleton).AsSelf();
         }
     }
 }
