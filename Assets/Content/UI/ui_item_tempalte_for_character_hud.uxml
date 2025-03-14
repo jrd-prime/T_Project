@@ -1,0 +1,6 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:VisualElement name="go" style="flex-grow: 0; width: 80px; height: 30px; position: absolute;">
+        <engine:VisualElement name="icon" style="flex-grow: 1; position: absolute; top: 0; left: auto; bottom: 0; width: 30px; background-image: url(&quot;project://database/Assets/_Game/Res/Textures/y.png?fileID=21300000&amp;guid=7f56274a6dffe284ba845c5120b6d942&amp;type=3#y&quot;); right: 0; height: 30px;" />
+        <engine:Label text="+999" name="label" style="position: absolute; top: 0; right: auto; bottom: 0; width: 50px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 8px; padding-bottom: 0; padding-left: 0; align-items: center; justify-content: center; align-self: center; -unity-text-align: middle-right; color: rgb(255, 255, 255); -unity-font-style: bold; font-size: 14px; overflow: hidden; left: 0; -unity-font-definition: url(&quot;project://database/Assets/_Game/Font/Exo2/Exo2-Medium.ttf?fileID=12800000&amp;guid=99b0f6612efe8c541805ecf87d6fea66&amp;type=3#Exo2-Medium&quot;); height: 30px;" />
+    </engine:VisualElement>
+</engine:UXML>

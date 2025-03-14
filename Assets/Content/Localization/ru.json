@@ -1,5 +1,8 @@
 ﻿{
-  "main-ttl": "меню",
+  "menu": "меню",
+  "settings": "Настройки",
+  "exit": "Выход",
+  "start": "старт",
   "play-ttl": "Играть",
   "settings-ttl": "Настройки",
   "exit-ttl": "Выход",

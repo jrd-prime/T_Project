@@ -1,0 +1,12 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:VisualElement name="container" style="flex-grow: 1;">
+        <engine:VisualElement name="menu-container" style="flex-grow: 1;">
+            <engine:VisualElement name="main-content-container" style="flex-grow: 1;">
+                <engine:VisualElement name="menu-header" style="flex-grow: 1;">
+                    <engine:Label text="Label" name="ttl" />
+                </engine:VisualElement>
+                <engine:VisualElement name="menu-content" style="flex-grow: 1;" />
+            </engine:VisualElement>
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

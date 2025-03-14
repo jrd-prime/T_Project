@@ -1,10 +1,14 @@
 ﻿using System;
+using Code.Core.FSM;
 using Code.Core.Managers.Camera._Game._Scripts.Framework.Manager.JCamera;
+using Code.Core.Managers.Game;
+using Code.Core.Managers.UI;
 using Code.Core.Systems;
-using Code.Core.UIOLD.Views.Gameplay;
-using Code.Core.UIOLD.Views.Menu;
-using Code.Core.WORK.Game;
-using Code.Core.WORK.UIManager;
+using Code.Core.UI._Base.Model;
+using Code.Core.UI.Gameplay;
+using Code.Core.UI.Gameplay.State;
+using Code.Core.UI.Menu;
+using Code.Core.UI.Menu.State;
 using Code.Hero;
 using UnityEngine;
 using VContainer;
@@ -21,7 +25,23 @@ namespace Code.Core.Context
         protected override void Configure(IContainerBuilder builder)
         {
             Debug.LogWarning("<color=cyan>GameScene context</color>");
+            
+            InitializeManagers(builder);
 
+            builder.Register<IStateMachine, JStateMachine>(Lifetime.Singleton).As<IInitializable>();
+
+            InitializeUIModelsAndViewModels(builder);
+            InitializeViewStates(builder);
+
+            builder.Register<CameraFollowSystem>(Lifetime.Singleton)
+                .AsSelf();
+
+            builder.Register<IHeroModel, HeroModel>(Lifetime.Singleton)
+                .As<IInitializable, IFixedTickable>();
+        }
+
+        private void InitializeManagers(IContainerBuilder builder)
+        {
             if (!cameraManager) throw new NullReferenceException("CameraManager is null. " + name);
             builder.RegisterComponent(cameraManager)
                 .As<ICameraManager, IInitializable>();
@@ -33,25 +53,22 @@ namespace Code.Core.Context
             if (!uiManagerPrefab) throw new NullReferenceException("UIManager is null. " + name);
             builder.RegisterComponentInNewPrefab<UIManager>(uiManagerPrefab, Lifetime.Singleton)
                 .As<IUIManager, IInitializable>();
+        }
 
-            InitializeUIModelsAndViewModels(builder);
-
-            builder.Register<CameraFollowSystem>(Lifetime.Singleton)
-                .AsSelf();
-
-            builder.Register<IHeroModel, HeroModel>(Lifetime.Singleton)
-                .As<IInitializable, IFixedTickable>();
+        private static void InitializeViewStates(IContainerBuilder builder)
+        {
+            builder.Register<MenuState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<GameplayState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
         }
 
         private static void InitializeUIModelsAndViewModels(IContainerBuilder builder)
         {
-            // Menu
-            builder.Register<MenuUIModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            builder.Register<MenuUIViewModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<IMenuModel, MenuModel>(Lifetime.Singleton).As<IInitializable>();
+            builder.Register<IMenuViewModel, MenuViewModel>(Lifetime.Singleton).As<IInitializable, IDisposable>();
 
-            // Gameplay
-            builder.Register<GameplayUIModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            builder.Register<GameplayUIViewModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<IGameplayModel, GameplayModel>(Lifetime.Singleton).As<IInitializable>();
+            builder.Register<IGameplayViewModel, GameplayViewModel>(Lifetime.Singleton)
+                .As<IInitializable, IDisposable>();
         }
     }
 }
