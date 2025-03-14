@@ -5,6 +5,12 @@ using UnityEngine;
 
 namespace Code.Core.FSM
 {
+    public interface IStateMachineReactiveAdapter : IDisposable
+    {
+        public ReactiveProperty<StateData> StateData { get; }
+        public void SetStateData(StateData stateData);
+    }
+
     public class StateMachineReactiveAdapter : IStateMachineReactiveAdapter
     {
         public ReactiveProperty<StateData> StateData { get; } = new();
@@ -19,11 +25,5 @@ namespace Code.Core.FSM
         {
             StateData?.Dispose();
         }
-    }
-
-    public interface IStateMachineReactiveAdapter : IDisposable
-    {
-        public ReactiveProperty<StateData> StateData { get; }
-        public void SetStateData(StateData stateData);
     }
 }

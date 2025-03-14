@@ -1,5 +1,7 @@
 ﻿using System;
+using Code.Core.UI._Base.Component;
 using Code.Core.UI._Base.View;
+using Code.Core.UI.Gameplay.View.Components;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -24,6 +26,8 @@ namespace Code.Core.UI.Gameplay.View
 
         protected override void InitializeView()
         {
+            
+            
             // _menuBtn = ContentContainer.Q<Button>("menu-btn").CheckOnNull();
             // _addEnergyBtn = ContentContainer.Q<Button>("add-energy-btn").CheckOnNull();
             // _backpackBtn = ContentContainer.Q<Button>("backpack-btn").CheckOnNull();
@@ -33,7 +37,11 @@ namespace Code.Core.UI.Gameplay.View
         {
             if (ViewModel == null) throw new NullReferenceException("ViewModel is null");
 
+            var viewComponentBaseData = new ViewComponentBaseData<IGameplayViewModel>(ViewModel, ContentContainer);
+            
             // ViewModel.ShakeBackpackButton.Subscribe(_ => ShakeBackpackButton()).AddTo(Disposables);
+
+            var _actionBar = new GameplayActionBar(viewComponentBaseData);
 
             // _energyTimerView = new EnergyTimerView(ViewModel, ContentContainer, Disposables);
             // _ambientTempTimerView = new AmbientTempTimerView(ViewModel, ContentContainer, Disposables);

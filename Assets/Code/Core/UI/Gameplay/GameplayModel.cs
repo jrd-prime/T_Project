@@ -1,5 +1,9 @@
-﻿using Code.Core.UI._Base.Model;
+﻿using Code.Core.FSM;
+using Code.Core.Input;
+using Code.Core.UI._Base.Model;
 using Code.Core.UI._Base.ViewStateTypes;
+using Code.Core.UI.Gameplay.State;
+using Code.Extensions;
 using JetBrains.Annotations;
 using R3;
 using UnityEngine;
@@ -27,6 +31,7 @@ namespace Code.Core.UI.Gameplay
     [UsedImplicitly]
     public class GameplayModel : CustomUIModelBase<GameplayStateType>, IGameplayModel
     {
+        // private IStateMachine fsm;
         public Subject<Unit> ShakeBackpackButton { get; } = new();
 
         // public ReadOnlyReactiveProperty<DayTimerSavableData> CountdownData => _dayTimerDataModel.ModelData;
@@ -45,8 +50,22 @@ namespace Code.Core.UI.Gameplay
             // _energyDataModel = ResolverHelp.ResolveAndCheck<EnergyDataModel>(Resolver);
             // _ambientTempDataModel = ResolverHelp.ResolveAndCheck<AmbientTempDataModel>(Resolver);
             // _dayTimerDataModel = ResolverHelp.ResolveAndCheck<DayTimerDataModel>(Resolver);
+
+            // fsm = Resolver.ResolveAndCheckOnNull<IStateMachine>();
+            //
+            // var input = Resolver.ResolveAndCheckOnNull<IJInput>();
+            // input.OnEscape.Subscribe(HandleEscapeClick).AddTo(Disposables);
         }
 
+        // private void HandleEscapeClick(Unit _)
+        // {
+        //     var state = fsm.CurrentState.CurrentValue;
+        //     
+        //     if (fsm.CurrentState.CurrentValue == GameStateType.Gameplay)
+        //     {
+        //         fsm.ChangeState(GameStateType.Menu);
+        //     }
+        // }
         // public void AddEnergy() => _energyDataModel.IncreaseEnergy(30);
 
         public void OpenBackpack()

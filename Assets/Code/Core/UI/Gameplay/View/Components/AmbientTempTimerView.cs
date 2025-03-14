@@ -5,7 +5,7 @@
 //
 // namespace Code.Core.WORK.JStateMachine.State.Gameplay.UI.Components
 // {
-//     public sealed class AmbientTempTimerView : SubViewComponentBase<IGameplayViewModel>
+//     public sealed class AmbientTempTimerView : ViewComponentBase<IGameplayViewModel>
 //     {
 //         private Label _currentTempLabel;
 //         private Label _nextDropLabel;
@@ -16,13 +16,13 @@
 //         {
 //         }
 //
-//         protected override void InitElements()
+//         protected override void InitializeVisualElements()
 //         {
 //             _currentTempLabel = Root.Q<Label>("cur-label").CheckOnNull();
 //             _nextDropLabel = Root.Q<Label>("next-down-label").CheckOnNull();
 //         }
 //
-//         protected override void Init()
+//         protected override void InitializeSubscriptions()
 //         {
 //             ViewModel.PreparedTemperatureData
 //                 .Subscribe(UpdateTemperatureData)

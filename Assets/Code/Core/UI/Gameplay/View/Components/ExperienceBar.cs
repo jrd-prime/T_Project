@@ -81,7 +81,7 @@
 //             _expBarLabel.text = $"{0} / {_expToNextLevel}";
 //         }
 //
-//         public void InitElements()
+//         public void InitializeVisualElements()
 //         {
 //             _expBarBg = _root.Q<VisualElement>(UIConst.ExpBarContainerIDName);
 //             _expBarLabel = _expBarBg.Q<Label>(UIConst.ExpBarLabelIDName);
@@ -89,7 +89,7 @@
 //             _lvlLabel = _root.Q<Label>(UIConst.LvlLabelIDName);
 //         }
 //
-//         public void Init()
+//         public void InitializeSubscriptions()
 //         {
 //             _expBar.RegisterCallback<GeometryChangedEvent>(_ => SetExpBarWidth(_expBar.resolvedStyle.width));
 //

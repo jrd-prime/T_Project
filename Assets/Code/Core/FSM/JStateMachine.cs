@@ -15,6 +15,8 @@ namespace Code.Core.FSM
 {
     public interface IStateMachine : IInitializable, IDisposable
     {
+        public ReadOnlyReactiveProperty<GameStateType> CurrentState { get; }
+        public ReadOnlyReactiveProperty<Enum> CurrentSubState { get; }
     }
 
     // What about HSM?
@@ -32,14 +34,19 @@ namespace Code.Core.FSM
         private Enum _currentSubState;
         private readonly Dictionary<GameStateType, IGameState> _states = new();
 
+        public ReadOnlyReactiveProperty<GameStateType> CurrentState =>
+            _currentStateReactive.ToReadOnlyReactiveProperty();
+
+        public ReadOnlyReactiveProperty<Enum> CurrentSubState => _currentSubStateReactive.ToReadOnlyReactiveProperty();
+
+        private readonly ReactiveProperty<GameStateType> _currentStateReactive = new();
+        private readonly ReactiveProperty<Enum> _currentSubStateReactive = new();
+
         [Inject]
         private void Construct(IObjectResolver container)
         {
             _states.Add(GameStateType.Menu, container.Resolve<MenuState>());
-            // _states.Add(GameStateType.GameOver, container.Resolve<UIOverState>());
-            // _states.Add(GameStateType.Pause, container.Resolve<PauseState>());
             _states.Add(GameStateType.Gameplay, container.Resolve<GameplayState>());
-            // _states.Add(GameStateType.Win, container.Resolve<WinState>());
 
             _playerModel = container.Resolve<IHeroModel>();
             _gameManager = container.Resolve<IGameManager>();
@@ -49,6 +56,7 @@ namespace Code.Core.FSM
         public void Initialize()
         {
             Debug.Log("<color=green>[STATE MACHINE]</color> Initialize!");
+
 
             _gameManager.IsGameRunning
                 .Subscribe(x => isGameStarted = x)
@@ -73,11 +81,13 @@ namespace Code.Core.FSM
 
                 ChangeState(gameBaseState);
                 _currentBaseStateType = gameStateType;
+                _currentStateReactive.Value = gameStateType;
                 return;
             }
 
             gameBaseState.ChangeSubState(stateData.SubState);
             _currentSubState = stateData.SubState;
+            _currentSubStateReactive.Value = stateData.SubState;
         }
 
         private void ChangeState(IGameState newState)

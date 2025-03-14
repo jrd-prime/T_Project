@@ -2,6 +2,7 @@
 using Code.Core.Providers.Localization;
 using Code.Core.UI._Base.View;
 using Code.Extensions;
+using R3;
 using UnityEngine.UIElements;
 
 namespace Code.Core.UI.Menu.View
@@ -40,9 +41,9 @@ namespace Code.Core.UI.Menu.View
 
         protected override void InitializeCallbacks()
         {
-            // CallbacksCache.Add(_playBtn, _ => ViewModel.PlayButtonClicked.OnNext(Unit.Default));
-            // CallbacksCache.Add(_settingsBtn, _ => ViewModel.SettingsButtonClicked.OnNext(Unit.Default));
-            // CallbacksCache.Add(_exitBtn, _ => ViewModel.ExitButtonClicked.OnNext(Unit.Default));
+            CallbacksCache.Add(_playBtn, _ => ViewModel.StartButtonClicked.OnNext(Unit.Default));
+            CallbacksCache.Add(_settingsBtn, _ => ViewModel.SettingsButtonClicked.OnNext(Unit.Default));
+            CallbacksCache.Add(_exitBtn, _ => ViewModel.ExitButtonClicked.OnNext(Unit.Default));
         }
     }
 }

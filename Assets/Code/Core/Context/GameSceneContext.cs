@@ -25,8 +25,10 @@ namespace Code.Core.Context
         protected override void Configure(IContainerBuilder builder)
         {
             Debug.LogWarning("<color=cyan>GameScene context</color>");
-            
+
             InitializeManagers(builder);
+
+            builder.Register<GameManagerRequestHandler>(Lifetime.Singleton).As<IInitializable>();
 
             builder.Register<IStateMachine, JStateMachine>(Lifetime.Singleton).As<IInitializable>();
 

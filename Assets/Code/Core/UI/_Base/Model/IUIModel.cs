@@ -6,7 +6,7 @@ namespace Code.Core.UI._Base.Model
 {
     public interface IUIModel<TSubStateEnum> : IInitializable where TSubStateEnum : Enum
     {
-        public void SetGameState(StateData stateData);
+        public void GameStateChangeRequest(StateData stateData);
 
         public void SetPreviousState();
     }

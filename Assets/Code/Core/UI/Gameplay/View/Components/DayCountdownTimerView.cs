@@ -7,7 +7,7 @@
 //
 // namespace Code.Core.WORK.JStateMachine.State.Gameplay.UI.Components
 // {
-//     public sealed class DayCountdownTimerView : SubViewComponentBase<IGameplayViewModel>
+//     public sealed class DayCountdownTimerView : ViewComponentBase<IGameplayViewModel>
 //     {
 //         private Label _countDown;
 //         private Label _day;
@@ -29,7 +29,7 @@
 //         {
 //         }
 //
-//         protected override void InitElements()
+//         protected override void InitializeVisualElements()
 //         {
 //             _countDown = Root.Q<Label>("countdown-label").CheckOnNull();
 //             _day = Root.Q<Label>("day-label").CheckOnNull();
@@ -37,7 +37,7 @@
 //         }
 //
 //
-//         protected override void Init()
+//         protected override void InitializeSubscriptions()
 //         {
 //             _dayBarCallback = _ => InitDayCountdownBar(_dayBar.resolvedStyle.width);
 //

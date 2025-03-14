@@ -1,6 +1,7 @@
 ﻿using Code.Core.FSM;
 using Code.Core.UI._Base.ViewModel;
 using Code.Core.UI._Base.ViewStateTypes;
+using Code.Core.UI.Gameplay.State;
 using R3;
 
 namespace Code.Core.UI.Gameplay
@@ -63,7 +64,7 @@ namespace Code.Core.UI.Gameplay
             // Model.AmbientTempData.Subscribe(UpdateTemperatureData).AddTo(Disposables);
 
             // Buttons
-            MenuBtnClicked.Subscribe(_ => Model.SetGameState(new StateData(GameStateType.Menu))).AddTo(Disposables);
+            MenuBtnClicked.Subscribe(_ => Model.GameStateChangeRequest(new StateData(GameStateType.Menu))).AddTo(Disposables);
             CloseBtnClicked.Subscribe(_ => Model.SetPreviousState()).AddTo(Disposables);
             // AddEnergyBtnClicked.Subscribe(_ => Model.AddEnergy()).AddTo(Disposables);
             // BackpackBtnClicked.Subscribe(_ => Model.OpenBackpack()).AddTo(Disposables);

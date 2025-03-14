@@ -76,14 +76,14 @@
 //             _healthBarLabel.text = $"{_playerInitialHealth} / {_playerInitialHealth}";
 //         }
 //
-//         public void InitElements()
+//         public void InitializeVisualElements()
 //         {
 //             _healthBarBg = _root.Q<VisualElement>(UIConst.HealthBarContainerIDName);
 //             _healthBarLabel = _healthBarBg.Q<Label>(UIConst.HealthBarLabelIDName);
 //             _healthBar = _healthBarBg.Q<VisualElement>(UIConst.HealthBarMoveIDName);
 //         }
 //
-//         public void Init()
+//         public void InitializeSubscriptions()
 //         {
 //             _healthBar.RegisterCallback<GeometryChangedEvent>(_ => SetHpBarWidth(_healthBar.resolvedStyle.width));
 //

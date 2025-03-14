@@ -5,7 +5,7 @@
 //
 // namespace Code.Core.WORK.JStateMachine.State.Gameplay.UI.Components
 // {
-//     public sealed class EnergyTimerView : SubViewComponentBase<IGameplayViewModel>
+//     public sealed class EnergyTimerView : ViewComponentBase<IGameplayViewModel>
 //     {
 //         private const float AnimationDuration = .8f;
 //         private VisualElement _energyBar;
@@ -25,7 +25,7 @@
 //         {
 //         }
 //
-//         protected override void InitElements()
+//         protected override void InitializeVisualElements()
 //         {
 //             _energyBarCallback = _ => InitEnergyBar(_energyBar.resolvedStyle.width);
 //
@@ -34,7 +34,7 @@
 //             _energyBar.RegisterCallback(_energyBarCallback);
 //         }
 //
-//         protected override void Init()
+//         protected override void InitializeSubscriptions()
 //         {
 //             ViewModel.PreparedEnergyData.Subscribe(UpdateEnergyBar).AddTo(Disposables);
 //         }

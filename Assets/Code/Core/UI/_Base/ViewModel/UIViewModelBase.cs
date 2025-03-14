@@ -6,11 +6,11 @@ using VContainer.Unity;
 
 namespace Code.Core.UI._Base.ViewModel
 {
-    public interface IUIViewModel : IInitializable
+    public interface IUIViewModel : IInitializable, IDisposable
     {
     }
 
-    public abstract class UIViewModelBase<TUIModel, TSubStateEnum> : IUIViewModel, IInitializable, IDisposable
+    public abstract class UIViewModelBase<TUIModel, TSubStateEnum> : IUIViewModel
         where TSubStateEnum : Enum
         where TUIModel : IUIModel<TSubStateEnum>
     {

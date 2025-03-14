@@ -8,7 +8,11 @@ namespace Code.Core.UI._Base.Model
     {
         public abstract void Initialize();
 
-        public void SetGameState(StateData stateData) => _ra.SetStateData(stateData);
+        public void GameStateChangeRequest(StateData stateData)
+        {
+            Debug.LogWarning("game state change request: " + stateData.StateType + "." + stateData.SubState);
+            _ra.SetStateData(stateData);
+        }
 
         public void SetPreviousState()
         {
