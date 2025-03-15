@@ -2,7 +2,7 @@
 using Code.Core.FSM;
 using Code.Core.UI._Base.View;
 
-namespace Code.Core.UI
+namespace Code.Core.UI._Base.Data
 {
     [Serializable]
     public struct StateViewData

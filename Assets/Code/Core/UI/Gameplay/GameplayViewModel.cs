@@ -1,6 +1,6 @@
 ﻿using Code.Core.FSM;
+using Code.Core.UI._Base.Data;
 using Code.Core.UI._Base.ViewModel;
-using Code.Core.UI._Base.ViewStateTypes;
 using Code.Core.UI.Gameplay.State;
 using R3;
 

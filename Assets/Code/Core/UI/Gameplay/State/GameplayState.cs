@@ -1,5 +1,5 @@
 ﻿using Code.Core.FSM;
-using Code.Core.UI._Base.ViewStateTypes;
+using Code.Core.UI._Base;
 
 namespace Code.Core.UI.Gameplay.State
 {
@@ -13,10 +13,11 @@ namespace Code.Core.UI.Gameplay.State
     {
         protected override void InitializeSubStates()
         {
-            SubStatesCache.TryAdd(GameplayStateType.Main,
-                new GameplayStateMain(UIManager, GameStateType.Gameplay, GameplayStateType.Main));
-            SubStatesCache.TryAdd(GameplayStateType.Inventory,
-                new GameplayStateShelterMenu(UIManager, GameStateType.Gameplay, GameplayStateType.Inventory));
+            var main = new UISubStateBaseData(UIManager, GameStateType.Gameplay);
+            var inventory = new UISubStateBaseData(UIManager, GameStateType.Gameplay);
+
+            SubStatesCache.TryAdd(GameplayStateType.Main, new GameplayStateMain(main, GameplayStateType.Main));
+            SubStatesCache.TryAdd(GameplayStateType.Inventory, new GameplayStateShelterMenu(inventory, GameplayStateType.Inventory));
         }
 
         protected override void InitCustomSubscribes()

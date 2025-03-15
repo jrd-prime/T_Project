@@ -4,7 +4,6 @@ using Code.Core.Data;
 using Code.Core.FSM;
 using Code.Core.Managers.UI.Viewer;
 using Code.Core.Providers;
-using Code.Core.UI;
 using Code.Core.UI._Base.Data;
 using Code.Core.UI._Base.View;
 using UnityEngine;

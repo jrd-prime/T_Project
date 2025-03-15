@@ -1,4 +1,5 @@
-﻿using Code.Core.UI._Base.Model;
+﻿using Code.Core.UI._Base;
+using Code.Core.UI._Base.Model;
 using Code.Core.UI._Base.ViewStateTypes;
 
 namespace Code.Core.UI.Pause

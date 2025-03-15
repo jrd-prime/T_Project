@@ -1,7 +1,8 @@
 ﻿using Code.Core.FSM;
+using Code.Core.UI._Base.Data;
 using Code.Core.UI._Base.Model;
 using Code.Core.UI._Base.ViewModel;
-using Code.Core.UI._Base.ViewStateTypes;
+using Code.Core.UI.Menu.State;
 using Code.Tools;
 using R3;
 

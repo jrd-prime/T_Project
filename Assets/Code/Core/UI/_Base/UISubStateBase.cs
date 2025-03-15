@@ -3,7 +3,7 @@ using Code.Core.Data;
 using Code.Core.FSM;
 using Code.Core.Managers.UI;
 
-namespace Code.Core.UI
+namespace Code.Core.UI._Base
 {
     public interface ISubState
     {
@@ -19,12 +19,12 @@ namespace Code.Core.UI
         protected Enum CurrentSubState { get; set; }
         protected Enum DefaultSubState { get; }
 
-        protected UISubStateBase(IUIManager uiManager, GameStateType baseStateType, Enum defaultStateType)
+        protected UISubStateBase(UISubStateBaseData data, Enum defaultSubState)
         {
-            UIManager = uiManager ?? throw new ArgumentNullException(nameof(uiManager));
-            DefaultSubState = defaultStateType ?? throw new ArgumentNullException(nameof(defaultStateType));
+            UIManager = data.UIManager;
+            DefaultSubState = defaultSubState;
+            BaseStateType = data.BaseStateType;
             CurrentSubState = DefaultSubState;
-            BaseStateType = baseStateType;
         }
 
         protected void ShowView(EShowLogic showLogic = EShowLogic.Default)

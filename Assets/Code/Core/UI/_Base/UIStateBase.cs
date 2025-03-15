@@ -9,7 +9,7 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Code.Core.UI
+namespace Code.Core.UI._Base
 {
     public interface IGameState
     {

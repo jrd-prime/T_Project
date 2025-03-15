@@ -1,5 +1,4 @@
 ﻿using System;
-using Code.Core.Managers;
 using Code.Core.Managers.Camera._Game._Scripts.Framework.Manager.JCamera;
 using R3;
 using UnityEngine;

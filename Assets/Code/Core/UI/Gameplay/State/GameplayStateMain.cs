@@ -1,14 +1,11 @@
 ﻿using System;
-using Code.Core.FSM;
-using Code.Core.Managers.UI;
+using Code.Core.UI._Base;
 
 namespace Code.Core.UI.Gameplay.State
 {
     public class GameplayStateMain : UISubStateBase
     {
-        public GameplayStateMain(IUIManager uiManager, GameStateType baseStateType, Enum defaultSubState) : base(
-            uiManager,
-            baseStateType, defaultSubState)
+        public GameplayStateMain(UISubStateBaseData data, Enum defaultSubState) : base(data, defaultSubState)
         {
         }
 

@@ -1,15 +1,12 @@
 ﻿using System;
 using Code.Core.Data;
-using Code.Core.FSM;
-using Code.Core.Managers.UI;
+using Code.Core.UI._Base;
 
 namespace Code.Core.UI.Gameplay.State
 {
     public class GameplayStateShelterMenu : UISubStateBase
     {
-        public GameplayStateShelterMenu(IUIManager uiManager, GameStateType baseStateType, Enum defaultSubState) : base(
-            uiManager,
-            baseStateType, defaultSubState)
+        public GameplayStateShelterMenu(UISubStateBaseData data, Enum defaultSubState) : base(data, defaultSubState)
         {
         }
 

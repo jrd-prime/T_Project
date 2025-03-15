@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using Code.Core.Managers.Game;
 using Code.Core.Providers;
-using Code.Core.UI;
+using Code.Core.UI._Base;
+using Code.Core.UI._Base.Data;
 using Code.Core.UI.Gameplay.State;
 using Code.Core.UI.Menu.State;
 using Code.Hero;

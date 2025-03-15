@@ -1,5 +1,5 @@
 ﻿using Code.Core.UI._Base.Model;
-using Code.Core.UI._Base.ViewStateTypes;
+using Code.Core.UI.Menu.State;
 using JetBrains.Annotations;
 
 namespace Code.Core.UI.Menu

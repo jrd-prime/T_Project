@@ -1,7 +1,7 @@
 ﻿using System;
 using Code.Core.FSM;
 
-namespace Code.Core.UI
+namespace Code.Core.UI._Base.Data
 {
     public struct StateData
     {

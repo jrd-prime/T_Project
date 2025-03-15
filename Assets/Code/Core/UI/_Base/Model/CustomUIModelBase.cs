@@ -1,4 +1,5 @@
 ﻿using System;
+using Code.Core.UI._Base.Data;
 using UnityEngine;
 
 namespace Code.Core.UI._Base.Model

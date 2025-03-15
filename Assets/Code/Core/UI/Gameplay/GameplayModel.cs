@@ -1,9 +1,5 @@
-﻿using Code.Core.FSM;
-using Code.Core.Input;
-using Code.Core.UI._Base.Model;
-using Code.Core.UI._Base.ViewStateTypes;
+﻿using Code.Core.UI._Base.Model;
 using Code.Core.UI.Gameplay.State;
-using Code.Extensions;
 using JetBrains.Annotations;
 using R3;
 using UnityEngine;

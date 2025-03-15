@@ -1,15 +1,12 @@
-﻿using Code.Core.Data;
-using Code.Core.FSM;
-using Code.Core.Managers.UI;
-using Code.Core.UI._Base.ViewStateTypes;
+﻿using System;
+using Code.Core.Data;
+using Code.Core.UI._Base;
 
 namespace Code.Core.UI.Menu.State
 {
     public sealed class MenuSettingsUISubState : UISubStateBase
     {
-        public MenuSettingsUISubState(IUIManager uiManager, GameStateType baseStateType,
-            MenuStateType defaultStateType) : base(
-            uiManager, baseStateType, defaultStateType)
+        public MenuSettingsUISubState(UISubStateBaseData data, Enum defaultSubState) : base(data, defaultSubState)
         {
         }
 
