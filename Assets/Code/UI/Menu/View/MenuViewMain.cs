@@ -14,12 +14,10 @@ namespace Code.UI.Menu.View
         private Button _settingsBtn;
         private Button _exitBtn;
 
-        private Label _head;
         private VisualElement _content;
 
         protected override void InitializeView()
         {
-            _head = RootContainer.GetVisualElement<Label>(UIElementId.TitleId, name);
             _content = RootContainer.GetVisualElement<VisualElement>(UIElementId.MenuMainContainerId, name);
 
             _playBtn = _content.GetVisualElement<Button>(UIElementId.StartBtnId, name);
@@ -33,7 +31,7 @@ namespace Code.UI.Menu.View
 
         protected override void Localize()
         {
-            _head.text = LocalizationManager.Localize(LocalizationNameID.Menu).ToUpper();
+            ViewMainHeader.text = LocalizationManager.Localize(LocalizationNameID.Menu).ToUpper();
             _playBtn.text = LocalizationManager.Localize(LocalizationNameID.Start).ToUpper();
             _settingsBtn.text = LocalizationManager.Localize(LocalizationNameID.Settings).ToUpper();
             _exitBtn.text = LocalizationManager.Localize(LocalizationNameID.Exit).ToUpper();

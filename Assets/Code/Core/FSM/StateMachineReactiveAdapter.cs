@@ -2,6 +2,7 @@
 using Code.UI._Base.Data;
 using JetBrains.Annotations;
 using R3;
+using UnityEngine;
 
 namespace Code.Core.FSM
 {
@@ -17,7 +18,12 @@ namespace Code.Core.FSM
     {
         public ReactiveProperty<StateData> StateData { get; } = new();
 
-        public void SetStateData(StateData stateData) => StateData.Value = stateData;
+        public void SetStateData(StateData stateData)
+        {
+            Debug.LogWarning("New state request: " + stateData.StateType + " / " + stateData.SubState);
+            StateData.Value = stateData;
+        }
+
         public void Dispose() => StateData?.Dispose();
     }
 }

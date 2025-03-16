@@ -47,17 +47,16 @@ namespace Code.UI._Base.View
         {
             if (SubViewsCache.Count == Enum.GetNames(subState.GetType()).Length) return;
 
-            Debug.LogError("--- SubView cache ---");
-            Debug.LogError(
-                $"SubView count({SubViewsCache.Count}) is not equal to game sub state count({Enum.GetNames(subState.GetType()).Length})");
+            Debug.LogWarning(
+                $"--- SubView cache --- / SubView count({SubViewsCache.Count}) is not equal to game sub state count({Enum.GetNames(subState.GetType()).Length})");
 
             foreach (var subView in SubViewsCache)
             {
-                Debug.LogError($"SubView in cache: {subView.Key} / {subView.Value}");
+                Debug.LogWarning($"SubView in cache: {subView.Key} / {subView.Value}");
             }
 
-            Debug.LogError("Create sub view for sub state: " + subState);
-            Debug.LogError("--- SubView cache ---");
+            Debug.LogWarning("Create sub view for sub state: " + subState);
+            Debug.LogWarning("--- SubView cache ---");
         }
     }
 }

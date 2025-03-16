@@ -9,5 +9,6 @@
   "back-ttl": "back",
   "start-ttl": "start",
   "video": "Video",
-  "audio": "Audio"
+  "audio": "Audio",
+  "pause": "pause"
 }

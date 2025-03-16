@@ -13,6 +13,8 @@ namespace Code.UI._Base.View
         protected TUIViewModel ViewModel { get; private set; }
         protected ILocalizationProvider LocalizationManager { get; private set; }
 
+        protected Label ViewMainHeader;
+
         [Inject]
         private void Construct(TUIViewModel viewModel, ILocalizationProvider localizationManager)
         {
@@ -27,7 +29,7 @@ namespace Code.UI._Base.View
             Template = template.Instantiate();
 
             RootContainer = Template.GetVisualElement<VisualElement>(UIElementId.ContainerId, name);
-
+            ViewMainHeader = RootContainer.GetVisualElement<Label>(UIElementId.TitleId, name);
             InitializeView();
 
             IsInitialized = true;

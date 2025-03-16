@@ -8,12 +8,16 @@
         //Menu
         // Main
         public const string MenuMainContainerId = "menu-main-container";
+
         public const string MenuMainContentId = "menu-main-content";
 
         // Settings
         public const string MenuSettingsContainerId = "menu-settings-container";
         public const string MenuSettingsContentId = "menu-settings-content";
 
+
+        // Pause
+        public const string PauseMainContainerId = "pause-main-container";
 
         // Buttons
         public const string StartBtnId = "start-btn";
@@ -23,5 +27,7 @@
         public const string AudioBtnId = "audio-btn";
         public const string CloseBtnIDName = "close-btn";
         public const string VideoBtnId = "video-btn";
+        public const string ContinueBtnId = "continue-btn";
+        public const string MenuBtnId = "menu-btn";
     }
 }
