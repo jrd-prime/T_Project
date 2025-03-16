@@ -1,5 +1,5 @@
 ﻿using System;
-using Code.Core.UI._Base.Data;
+using Code.UI._Base.Data;
 using JetBrains.Annotations;
 using R3;
 

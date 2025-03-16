@@ -2,9 +2,9 @@
 using Code.Core.FSM;
 using Code.Core.Providers;
 using Code.Core.Providers.Localization;
-using Code.Core.UI._Base.Data;
-using Code.Core.UI.Menu.State;
 using Code.Extensions;
+using Code.UI._Base.Data;
+using Code.UI.Menu.State;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -42,7 +42,7 @@ namespace Code
             bootstrapLoader.AddForBootstrapInitialization(firstSceneProvider);
 
             Debug.Log("<color=green><b>Starting Services initialization...</b></color>");
-            await bootstrapLoader.StartServicesInitializationAsync();
+            await bootstrapLoader.StartServicesInitializationAsync(100);
             Debug.Log("<color=green><b>End Services initialization...</b></color>");
 
             bootstrapUIModel.Clear();
@@ -51,7 +51,7 @@ namespace Code
             var stateMachine = _resolver.ResolveAndCheckOnNull<IStateMachineReactiveAdapter>();
             stateMachine.SetStateData(defStateData);
 
-            await bootstrapUIModel.FadeOut(4f);
+            await bootstrapUIModel.FadeOut(1f);
 
             var bootstrapScene = SceneManager.GetActiveScene();
             SceneManager.SetActiveScene(firstSceneProvider.FirstScene.Scene);

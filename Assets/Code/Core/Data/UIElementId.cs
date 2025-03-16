@@ -2,17 +2,26 @@
 {
     public static class UIElementId
     {
-        public const string MainContentContainerId = "main-content-container";
-        public const string MenuContentId = "menu-content";
+        public const string ContainerId = "container";
+        public const string TitleId = "title";
 
-        public const string MenuHeaderId = "header";
+        //Menu
+        // Main
+        public const string MenuMainContainerId = "menu-main-container";
+        public const string MenuMainContentId = "menu-main-content";
+
+        // Settings
+        public const string MenuSettingsContainerId = "menu-settings-container";
+        public const string MenuSettingsContentId = "menu-settings-content";
+
 
         // Buttons
         public const string StartBtnId = "start-btn";
         public const string SettingsBtnId = "settings-btn";
         public const string ExitBtnId = "exit-btn";
         public const string BackBtnId = "back-btn";
-        public const string SoundBtnId = "sound-btn";
+        public const string AudioBtnId = "audio-btn";
         public const string CloseBtnIDName = "close-btn";
+        public const string VideoBtnId = "video-btn";
     }
 }

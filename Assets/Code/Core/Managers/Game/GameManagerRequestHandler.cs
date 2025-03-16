@@ -1,5 +1,5 @@
-﻿using Code.Core.UI._Base.Model;
-using Code.Extensions;
+﻿using Code.Extensions;
+using Code.UI._Base.Model;
 using JetBrains.Annotations;
 using VContainer;
 using VContainer.Unity;

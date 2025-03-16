@@ -255,7 +255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   headerNameId: 
-  template: {fileID: 9197481963319205126, guid: bd6c099da91615f4fb3ce7dc85c46951, type: 3}
+  template: {fileID: 9197481963319205126, guid: 66a5bd154a9ae3c4486c0653009b2b9b, type: 3}
   inSafeZone: 0
 --- !u!1 &3399162803509879960
 GameObject:

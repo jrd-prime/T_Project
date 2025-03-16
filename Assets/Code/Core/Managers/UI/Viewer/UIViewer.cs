@@ -1,6 +1,6 @@
 ﻿using System;
-using Code.Core.UI._Base.Data;
 using Code.Tools;
+using Code.UI._Base.Data;
 using UnityEngine;
 using UnityEngine.UIElements;
 
