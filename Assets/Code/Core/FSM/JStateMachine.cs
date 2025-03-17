@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using Code.Core.Managers.Game;
 using Code.Core.Providers;
-using Code.Core.UI;
-using Code.Core.UI.Gameplay.State;
-using Code.Core.UI.Menu.State;
-using Code.Hero;
+using Code.UI._Base;
+using Code.UI._Base.Data;
+using Code.UI.Gameplay.State;
+using Code.UI.Menu.State;
+using Code.UI.Pause;
+using Code.UI.Pause.State;
 using R3;
 using UnityEngine;
 using VContainer;
@@ -15,13 +17,14 @@ namespace Code.Core.FSM
 {
     public interface IStateMachine : IInitializable, IDisposable
     {
+        public ReadOnlyReactiveProperty<GameStateType> CurrentState { get; }
+        public ReadOnlyReactiveProperty<Enum> CurrentSubState { get; }
     }
 
     // What about HSM?
     public class JStateMachine : IStateMachine
     {
         private IGameState _currentState = null;
-        private IHeroModel _playerModel;
         private IGameManager _gameManager;
         private ISettingsProvider _settingsManager;
         private IStateMachineReactiveAdapter _ra;
@@ -32,16 +35,21 @@ namespace Code.Core.FSM
         private Enum _currentSubState;
         private readonly Dictionary<GameStateType, IGameState> _states = new();
 
+        public ReadOnlyReactiveProperty<GameStateType> CurrentState =>
+            _currentStateReactive.ToReadOnlyReactiveProperty();
+
+        public ReadOnlyReactiveProperty<Enum> CurrentSubState => _currentSubStateReactive.ToReadOnlyReactiveProperty();
+
+        private readonly ReactiveProperty<GameStateType> _currentStateReactive = new();
+        private readonly ReactiveProperty<Enum> _currentSubStateReactive = new();
+
         [Inject]
         private void Construct(IObjectResolver container)
         {
             _states.Add(GameStateType.Menu, container.Resolve<MenuState>());
-            // _states.Add(GameStateType.GameOver, container.Resolve<UIOverState>());
-            // _states.Add(GameStateType.Pause, container.Resolve<PauseState>());
             _states.Add(GameStateType.Gameplay, container.Resolve<GameplayState>());
-            // _states.Add(GameStateType.Win, container.Resolve<WinState>());
+            _states.Add(GameStateType.Pause, container.Resolve<PauseState>());
 
-            _playerModel = container.Resolve<IHeroModel>();
             _gameManager = container.Resolve<IGameManager>();
             _ra = container.Resolve<IStateMachineReactiveAdapter>();
         }
@@ -64,7 +72,12 @@ namespace Code.Core.FSM
             var gameStateType = stateData.StateType;
 
             if (!_states.TryGetValue(gameStateType, out IGameState gameBaseState))
-                throw new KeyNotFoundException($"State: {gameStateType} not found!");
+            {
+                Debug.LogError(
+                    $"<color=red>State: <b>{gameStateType}</b> not found in states cache! Set default state (Menu)</color>");
+                _ra.SetStateData(new StateData { StateType = GameStateType.Menu, SubState = MenuStateType.Main });
+                return;
+            }
 
             if (IsNewBaseState(gameStateType))
             {
@@ -73,11 +86,13 @@ namespace Code.Core.FSM
 
                 ChangeState(gameBaseState);
                 _currentBaseStateType = gameStateType;
+                _currentStateReactive.Value = gameStateType;
                 return;
             }
 
             gameBaseState.ChangeSubState(stateData.SubState);
             _currentSubState = stateData.SubState;
+            _currentSubStateReactive.Value = stateData.SubState;
         }
 
         private void ChangeState(IGameState newState)

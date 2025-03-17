@@ -12,5 +12,8 @@
         public const string Continue = "continue";
         public const string Settings = "settings";
         public const string Exit = "exit";
+        public const string Audio = "audio";
+        public const string Video = "video";
+        public const string Pause = "pause";
     }
 }

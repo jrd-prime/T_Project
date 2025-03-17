@@ -1,6 +1,5 @@
 ﻿using System;
 using Code.Core.Data;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -12,7 +11,7 @@ namespace Code.Core.SO
         order = 0)]
     public class MainSettings : SettingsBase
     {
-        [field: SerializeField] public AssetReferenceT<SceneAsset> FirstScene { get; private set; }
+        [field: SerializeField] public AssetReference FirstScene { get; private set; }
         [field: SerializeField] public LocalizationSettings LocalizationSettings { get; private set; }
         [field: SerializeField] public HeroSettings HeroSettings { get; private set; }
         [field: SerializeField] public UIViewsSettings UIViewsSettings { get; private set; }

@@ -27,7 +27,7 @@ namespace Code.Core.Bootstrap
 
         public void AddForBootstrapInitialization(IBootable bootable) => _loadingQueue.Enqueue(bootable);
 
-        public async UniTask StartServicesInitializationAsync()
+        public async UniTask StartServicesInitializationAsync(int pseudoDelay = 0)
         {
             if (_loadingQueue.Count == 0)
                 throw new Exception("No services to initialize! Use AddServiceForInitialization first.");
@@ -39,8 +39,7 @@ namespace Code.Core.Bootstrap
                     _bootstrapUIModel.SetLoadingText($"Loading: {service.Description}..");
                     await service.InitializationOnBoot();
 
-                    await UniTask.Delay(100); // fake delay per service
-                    // await UniTask.Yield();
+                    if (pseudoDelay > 0) await UniTask.Delay(pseudoDelay); // fake delay per service
                 }
                 catch (Exception ex)
                 {

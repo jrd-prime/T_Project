@@ -7,5 +7,8 @@
   "settings-ttl": "Settings",
   "exit-ttl": "exit",
   "back-ttl": "back",
-  "start-ttl": "start"
+  "start-ttl": "start",
+  "video": "Video",
+  "audio": "Audio",
+  "pause": "pause"
 }

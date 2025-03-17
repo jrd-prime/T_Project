@@ -1,7 +1,6 @@
 ﻿using Code.Core.Bootstrap;
 using Code.Core.SO;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;

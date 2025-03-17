@@ -3,7 +3,6 @@ using Code.Core.Data;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using R3;
-using UnityEngine;
 
 namespace Code.Core.Bootstrap
 {

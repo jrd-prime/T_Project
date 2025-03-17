@@ -2,9 +2,9 @@
 using Code.Core.FSM;
 using Code.Core.Providers;
 using Code.Core.Providers.Localization;
-using Code.Core.UI;
-using Code.Core.UI._Base.ViewStateTypes;
 using Code.Extensions;
+using Code.UI._Base.Data;
+using Code.UI.Menu.State;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -42,11 +42,11 @@ namespace Code
             bootstrapLoader.AddForBootstrapInitialization(firstSceneProvider);
 
             Debug.Log("<color=green><b>Starting Services initialization...</b></color>");
-            await bootstrapLoader.StartServicesInitializationAsync();
+            await bootstrapLoader.StartServicesInitializationAsync(100);
             Debug.Log("<color=green><b>End Services initialization...</b></color>");
 
             bootstrapUIModel.Clear();
-            
+
             var defStateData = new StateData { StateType = GameStateType.Menu, SubState = MenuStateType.Main };
             var stateMachine = _resolver.ResolveAndCheckOnNull<IStateMachineReactiveAdapter>();
             stateMachine.SetStateData(defStateData);

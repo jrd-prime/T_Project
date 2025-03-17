@@ -4,12 +4,14 @@ using Code.Core.Managers.Camera._Game._Scripts.Framework.Manager.JCamera;
 using Code.Core.Managers.Game;
 using Code.Core.Managers.UI;
 using Code.Core.Systems;
-using Code.Core.UI._Base.Model;
-using Code.Core.UI.Gameplay;
-using Code.Core.UI.Gameplay.State;
-using Code.Core.UI.Menu;
-using Code.Core.UI.Menu.State;
 using Code.Hero;
+using Code.UI._Base.Model;
+using Code.UI.Gameplay;
+using Code.UI.Gameplay.State;
+using Code.UI.Menu;
+using Code.UI.Menu.State;
+using Code.UI.Pause;
+using Code.UI.Pause.State;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -25,8 +27,10 @@ namespace Code.Core.Context
         protected override void Configure(IContainerBuilder builder)
         {
             Debug.LogWarning("<color=cyan>GameScene context</color>");
-            
+
             InitializeManagers(builder);
+
+            builder.Register<GameManagerRequestHandler>(Lifetime.Singleton).As<IInitializable>();
 
             builder.Register<IStateMachine, JStateMachine>(Lifetime.Singleton).As<IInitializable>();
 
@@ -59,6 +63,7 @@ namespace Code.Core.Context
         {
             builder.Register<MenuState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.Register<GameplayState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<PauseState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
         }
 
         private static void InitializeUIModelsAndViewModels(IContainerBuilder builder)
@@ -68,6 +73,10 @@ namespace Code.Core.Context
 
             builder.Register<IGameplayModel, GameplayModel>(Lifetime.Singleton).As<IInitializable>();
             builder.Register<IGameplayViewModel, GameplayViewModel>(Lifetime.Singleton)
+                .As<IInitializable, IDisposable>();
+
+            builder.Register<IPauseModel, PauseModel>(Lifetime.Singleton).As<IInitializable>();
+            builder.Register<IPauseViewModel, PauseViewModel>(Lifetime.Singleton)
                 .As<IInitializable, IDisposable>();
         }
     }
