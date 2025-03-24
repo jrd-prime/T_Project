@@ -1,5 +1,5 @@
 ﻿using System;
-using Code.Core.Bootstrap;
+using Bootstrap;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
