@@ -42,14 +42,14 @@ namespace Code.UI.Gameplay
 
         public override void Initialize()
         {
-            // _movementModel = ResolverHelp.ResolveAndCheck<IMovementControlModel>(Resolver);
-            // _energyDataModel = ResolverHelp.ResolveAndCheck<EnergyDataModel>(Resolver);
-            // _ambientTempDataModel = ResolverHelp.ResolveAndCheck<AmbientTempDataModel>(Resolver);
-            // _dayTimerDataModel = ResolverHelp.ResolveAndCheck<DayTimerDataModel>(Resolver);
+            // _movementModel = ResolverHelp.ResolveAndCheck<IMovementControlModel>(Container);
+            // _energyDataModel = ResolverHelp.ResolveAndCheck<EnergyDataModel>(Container);
+            // _ambientTempDataModel = ResolverHelp.ResolveAndCheck<AmbientTempDataModel>(Container);
+            // _dayTimerDataModel = ResolverHelp.ResolveAndCheck<DayTimerDataModel>(Container);
 
-            // fsm = Resolver.ResolveAndCheckOnNull<IStateMachine>();
+            // fsm = Container.ResolveAndCheckOnNull<IStateMachine>();
             //
-            // var input = Resolver.ResolveAndCheckOnNull<IJInput>();
+            // var input = Container.ResolveAndCheckOnNull<IJInput>();
             // input.OnEscape.Subscribe(HandleEscapeClick).AddTo(Disposables);
         }
 

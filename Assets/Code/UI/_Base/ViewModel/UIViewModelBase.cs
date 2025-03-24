@@ -1,8 +1,7 @@
 ﻿using System;
 using Code.UI._Base.Model;
 using R3;
-using VContainer;
-using VContainer.Unity;
+using Zenject;
 
 namespace Code.UI._Base.ViewModel
 {

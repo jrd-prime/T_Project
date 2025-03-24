@@ -7,7 +7,8 @@ namespace Installers
     {
         public override void InstallBindings()
         {
-            Debug.LogWarning("UIInstaller.InstallBindings");
+            
+            Debug.Log("<color=cyan>UIInstaller</color>");
         }
     }
 }

@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
-using VContainer;
+using Zenject;
 
 namespace Code.Core.Providers
 {

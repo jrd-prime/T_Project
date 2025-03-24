@@ -5,7 +5,7 @@ using Bootstrap;
 using Code.Core.SO;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using VContainer;
+using Zenject;
 
 namespace Code.Core.Providers
 {

@@ -1,4 +1,5 @@
-﻿using Core.Character.Interfaces;
+﻿using System;
+using Core.Character.Interfaces;
 using Db.Data;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace Core.Character.Impls
         
         public void Move(Position position)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public int Id { get; }

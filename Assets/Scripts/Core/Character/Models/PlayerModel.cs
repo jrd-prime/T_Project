@@ -1,6 +1,4 @@
-﻿using Db.Data;
-
-namespace Core.Character.Models
+﻿namespace Core.Character.Models
 {
     public sealed class PlayerModel
     {

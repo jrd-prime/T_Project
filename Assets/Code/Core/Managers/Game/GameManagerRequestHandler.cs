@@ -1,8 +1,7 @@
 ﻿using Code.Extensions;
 using Code.UI._Base.Model;
 using JetBrains.Annotations;
-using VContainer;
-using VContainer.Unity;
+using Zenject;
 
 namespace Code.Core.Managers.Game
 {
@@ -13,18 +12,18 @@ namespace Code.Core.Managers.Game
     public sealed class GameManagerRequestHandler : IInitializable
     {
         private IGameManager _gameManager;
-        private IObjectResolver _resolver;
+        private DiContainer _container;
 
         [Inject]
-        private void Construct(IObjectResolver resolver)
+        private void Construct(DiContainer container)
         {
-            _resolver = resolver;
-            _gameManager = _resolver.ResolveAndCheckOnNull<IGameManager>();
+            _container = container;
+            _gameManager = _container.ResolveAndCheckOnNull<IGameManager>();
         }
 
         public void Initialize()
         {
-            var menuModel = _resolver.ResolveAndCheckOnNull<IMenuModel>();
+            var menuModel = _container.ResolveAndCheckOnNull<IMenuModel>();
             // menuModel.GameStateChangeRequest += OnGameStateChangeRequest;
         }
     }

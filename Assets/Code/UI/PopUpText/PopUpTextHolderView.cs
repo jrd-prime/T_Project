@@ -3,7 +3,7 @@ using Code.Core.Managers.Camera._Game._Scripts.Framework.Manager.JCamera;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using VContainer;
+using Zenject;
 
 namespace Code.UI.PopUpText
 {

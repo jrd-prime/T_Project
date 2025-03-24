@@ -5,6 +5,7 @@ using System.Linq;
 using FastScriptReload.Editor.Compilation;
 using FastScriptReload.Editor.Compilation.ScriptGenerationOverrides;
 using FastScriptReload.Runtime;
+using HarmonyLib;
 using ImmersiveVRTools.Editor.Common.Utilities;
 using ImmersiveVRTools.Editor.Common.WelcomeScreen;
 using ImmersiveVRTools.Editor.Common.WelcomeScreen.GuiElements;
@@ -13,6 +14,7 @@ using ImmersiveVRTools.Editor.Common.WelcomeScreen.Utilities;
 using ImmersiveVrToolsCommon.Runtime.Logging;
 using UnityEditor;
 using UnityEditor.Compilation;
+using UnityEditor.PackageManager.UI;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -153,7 +155,7 @@ You can always get back to this screen via:
                         "Ok", "Close", "Open Package Manager");
                     if (userChoice == 2)
                     {
-                        UnityEditor.PackageManager.UI.Window.Open("com.fastscriptreload");
+                        Window.Open("com.fastscriptreload");
                     }
                 }
 
@@ -183,7 +185,7 @@ You can always get back to this screen via:
         static void OnScriptHotReloadNoInstance() 
         { 
             Debug.Log("Reloaded - start");
-            LastInspectFileHotReloadStateError = (DynamicFileHotReloadState) HarmonyLib.AccessTools
+            LastInspectFileHotReloadStateError = (DynamicFileHotReloadState) AccessTools
                 .Field("FastScriptReload.Editor.FastScriptReloadWelcomeScreen:LastInspectFileHotReloadStateError")
                 .GetValue(null);
             Debug.Log("Reloaded - end");
@@ -196,7 +198,7 @@ You can always get back to this screen via:
                 {
                     (InspectError = new ChangeMainViewButton("Error - Inspect", (screen) =>
                     {
-            if (FastScriptReloadWelcomeScreen.LastInspectFileHotReloadStateError == null)
+            if (LastInspectFileHotReloadStateError == null)
             {
                 GUILayout.Label(
                     @"No error selected. Possibly it's been cleared by domain reload.
@@ -245,7 +247,7 @@ They also contain workarounds if needed.");
 custom rewrites for methods.", screen.BoldTextStyle);
             if (GUILayout.Button("3) Create User Defined Script Override"))
             {
-                ScriptGenerationOverridesManager.AddScriptOverride(new FileInfo(FastScriptReloadWelcomeScreen.LastInspectFileHotReloadStateError.FullFileName));
+                ScriptGenerationOverridesManager.AddScriptOverride(new FileInfo(LastInspectFileHotReloadStateError.FullFileName));
             }
 
             GUILayout.Space(10);

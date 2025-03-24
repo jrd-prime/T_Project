@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Mono.Cecil;
 using UnityEditor;
 using UnityEngine;
@@ -26,7 +27,7 @@ namespace FastScriptReload.Editor.AssemblyPostProcess
                 var mainModule = assembly.MainModule;
 
                 var attributeCtor = mainModule.ImportReference(
-                    typeof(System.Runtime.CompilerServices.InternalsVisibleToAttribute).GetConstructor(new[] { typeof(string) })
+                    typeof(InternalsVisibleToAttribute).GetConstructor(new[] { typeof(string) })
                 );
 
                 var attribute = new CustomAttribute(attributeCtor);

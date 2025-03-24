@@ -9,14 +9,12 @@ using FastScriptReload.Editor.Compilation.ScriptGenerationOverrides;
 using FastScriptReload.Runtime;
 using FastScriptReload.Scripts.Runtime;
 using ImmersiveVRTools.Editor.Common.Cache;
-using ImmersiveVRTools.Runtime.Common.Utilities;
 using ImmersiveVrToolsCommon.Runtime.Logging;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace FastScriptReload.Editor.Compilation
 {
@@ -64,7 +62,7 @@ namespace FastScriptReload.Editor.Compilation
             AssemblyCsharpFullPath = SessionStateCache.GetOrCreateString(
 	            $"FSR:AssemblyCsharpFullPath", 
 	            () => AssetDatabase.FindAssets("Microsoft.CSharp")
-					            .Select(g => new System.IO.FileInfo(UnityEngine.Application.dataPath + "/../" + AssetDatabase.GUIDToAssetPath(g)))
+					            .Select(g => new FileInfo(Application.dataPath + "/../" + AssetDatabase.GUIDToAssetPath(g)))
 					            .First(fi => fi.Name.ToLower() == "Microsoft.CSharp.dll".ToLower()).FullName
 	        );
 

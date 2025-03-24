@@ -2,37 +2,34 @@
 using Code.Core.FSM;
 using Code.Core.Providers;
 using Code.Core.Providers.Localization;
-using Code.Extensions;
 using Code.UI._Base.Data;
 using Code.UI.Menu.State;
 using Cysharp.Threading.Tasks;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using VContainer;
-using VContainer.Unity;
+using Zenject;
 
 //TODO turn on input after app start
-[UsedImplicitly]
 public sealed class AppStarter : IInitializable
 {
-    private IObjectResolver _resolver;
+    private DiContainer _container;
 
     [Inject]
-    private void Construct(IObjectResolver resolver) => _resolver = resolver;
+    private void Construct(DiContainer container) => _container = container;
 
     public void Initialize() => InitializeAsync().Forget();
 
     private async UniTask InitializeAsync()
-    {
-        var bootstrapLoader = _resolver.ResolveAndCheckOnNull<BootstrapLoader>();
-        var bootstrapUIModel = _resolver.ResolveAndCheckOnNull<IBootstrapUIModel>();
+    { 
+        Debug.LogWarning("app starter initialized");
+        var bootstrapLoader = _container.Resolve<BootstrapLoader>();
+        var bootstrapUIModel = _container.Resolve<IBootstrapUIModel>();
 
         // Bootable services
-        var settingsProvider = _resolver.ResolveAndCheckOnNull<ISettingsProvider>();
-        var assetProvider = _resolver.ResolveAndCheckOnNull<IAssetProvider>();
-        var localizationProvider = _resolver.ResolveAndCheckOnNull<ILocalizationProvider>();
-        var firstSceneProvider = _resolver.ResolveAndCheckOnNull<FirstSceneProvider>();
+        var settingsProvider = _container.Resolve<ISettingsProvider>();
+        var assetProvider = _container.Resolve<IAssetProvider>();
+        var localizationProvider = _container.Resolve<ILocalizationProvider>();
+        var firstSceneProvider = _container.Resolve<FirstSceneProvider>();
 
         bootstrapLoader.AddForBootstrapInitialization(settingsProvider);
         bootstrapLoader.AddForBootstrapInitialization(assetProvider);
@@ -46,7 +43,7 @@ public sealed class AppStarter : IInitializable
         bootstrapUIModel.Clear();
 
         var defStateData = new StateData { StateType = GameStateType.Menu, SubState = MenuStateType.Main };
-        var stateMachine = _resolver.ResolveAndCheckOnNull<IStateMachineReactiveAdapter>();
+        var stateMachine = _container.Resolve<IStateMachineReactiveAdapter>();
         stateMachine.SetStateData(defStateData);
 
         await bootstrapUIModel.FadeOut(1f);

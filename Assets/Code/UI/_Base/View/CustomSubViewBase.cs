@@ -4,7 +4,7 @@ using Code.Core.Providers.Localization;
 using Code.Extensions;
 using Code.UI._Base.ViewModel;
 using UnityEngine.UIElements;
-using VContainer;
+using Zenject;
 
 namespace Code.UI._Base.View
 {

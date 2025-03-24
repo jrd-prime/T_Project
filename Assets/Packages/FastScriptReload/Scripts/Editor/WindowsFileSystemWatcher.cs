@@ -1,6 +1,5 @@
 ﻿#if UNITY_2021_1_OR_NEWER
 
-using Microsoft.Win32.SafeHandles;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +8,8 @@ using System.IO.Enumeration;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Win32.SafeHandles;
+using UnityEditor;
 
 namespace FastScriptReload.Editor
 {
@@ -86,8 +87,8 @@ namespace FastScriptReload.Editor
             AppDomain.CurrentDomain.DomainUnload += this.weakDisposer.Dispose;
 
 #if UNITY_EDITOR
-            UnityEditor.EditorApplication.quitting += this.weakDisposer.Dispose;
-            UnityEditor.AssemblyReloadEvents.beforeAssemblyReload += this.weakDisposer.Dispose;
+            EditorApplication.quitting += this.weakDisposer.Dispose;
+            AssemblyReloadEvents.beforeAssemblyReload += this.weakDisposer.Dispose;
 #endif
         }
 
@@ -115,8 +116,8 @@ namespace FastScriptReload.Editor
             AppDomain.CurrentDomain.DomainUnload -= this.weakDisposer.Dispose;
 
 #if UNITY_EDITOR
-            UnityEditor.EditorApplication.quitting -= this.weakDisposer.Dispose;
-            UnityEditor.AssemblyReloadEvents.beforeAssemblyReload -= this.weakDisposer.Dispose;
+            EditorApplication.quitting -= this.weakDisposer.Dispose;
+            AssemblyReloadEvents.beforeAssemblyReload -= this.weakDisposer.Dispose;
 #endif
         }
 

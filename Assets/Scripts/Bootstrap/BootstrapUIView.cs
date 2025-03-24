@@ -5,7 +5,7 @@ using Code.Tools;
 using R3;
 using UnityEngine;
 using UnityEngine.UIElements;
-using VContainer;
+using Zenject;
 
 namespace Bootstrap
 {

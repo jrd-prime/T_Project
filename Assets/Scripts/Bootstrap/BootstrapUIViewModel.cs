@@ -1,7 +1,6 @@
 ﻿using System;
 using R3;
-using VContainer;
-using VContainer.Unity;
+using Zenject;
 
 namespace Bootstrap
 {

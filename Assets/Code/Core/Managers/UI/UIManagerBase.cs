@@ -9,13 +9,10 @@ using Code.Extensions;
 using Code.UI._Base.Data;
 using Code.UI._Base.View;
 using Code.UI.Gameplay.State;
-using Code.UI.Menu.State;
-using Code.UI.Pause;
 using Code.UI.Pause.State;
 using R3;
 using UnityEngine;
-using VContainer;
-using VContainer.Unity;
+using Zenject;
 
 namespace Code.Core.Managers.UI
 {
@@ -34,7 +31,7 @@ namespace Code.Core.Managers.UI
         [SerializeField] protected List<StateViewData> stateViews = new();
 
 
-        private IObjectResolver _resolver;
+        private DiContainer _container;
         private ISettingsProvider _settingsManager;
         private IJInput _input;
 
@@ -51,12 +48,12 @@ namespace Code.Core.Managers.UI
         private IStateMachineReactiveAdapter _ra;
 
         [Inject]
-        private void Construct(IObjectResolver resolver)
+        private void Construct(DiContainer container)
         {
-            _resolver = resolver;
-            _settingsManager = resolver.ResolveAndCheckOnNull<ISettingsProvider>();
-            _input = resolver.ResolveAndCheckOnNull<IJInput>();
-            _ra = resolver.ResolveAndCheckOnNull<IStateMachineReactiveAdapter>();
+            _container = container;
+            _settingsManager = container.ResolveAndCheckOnNull<ISettingsProvider>();
+            _input = container.ResolveAndCheckOnNull<IJInput>();
+            _ra = container.ResolveAndCheckOnNull<IStateMachineReactiveAdapter>();
         }
 
 
@@ -92,7 +89,7 @@ namespace Code.Core.Managers.UI
         {
             foreach (var view in stateViews)
             {
-                _resolver.Inject(view.viewHolder);
+                _container.Inject(view.viewHolder);
                 _viewsCache.TryAdd(view.uiForStateType, view.viewHolder);
             }
         }

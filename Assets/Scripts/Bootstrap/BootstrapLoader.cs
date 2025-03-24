@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using VContainer;
-using VContainer.Unity;
+using Zenject;
 
 namespace Bootstrap
 {

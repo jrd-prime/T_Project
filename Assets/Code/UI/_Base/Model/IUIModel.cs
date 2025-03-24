@@ -2,8 +2,7 @@
 using Code.UI._Base.Data;
 using Code.UI._Base.ViewStateTypes;
 using Code.UI.Menu.State;
-using Code.UI.Pause;
-using VContainer.Unity;
+using Zenject;
 
 namespace Code.UI._Base.Model
 {

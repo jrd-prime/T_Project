@@ -5,7 +5,7 @@ using Code.Extensions;
 using JetBrains.Annotations;
 using R3;
 using UnityEngine;
-using VContainer.Unity;
+using Zenject;
 
 namespace Code.Hero
 {
@@ -35,12 +35,12 @@ namespace Code.Hero
             Rotation = _rotation.ToReadOnlyReactiveProperty();
             Health = _health.ToReadOnlyReactiveProperty();
 
-            var cameraFollowSystem = Resolver.ResolveAndCheckOnNull<CameraFollowSystem>();
+            var cameraFollowSystem = Container.ResolveAndCheckOnNull<CameraFollowSystem>();
             cameraFollowSystem.SetTarget(this);
 
             _heroSettings = SettingsProvider.GetSettings<HeroSettings>();
 
-            _ijInput = Resolver.ResolveAndCheckOnNull<IJInput>();
+            _ijInput = Container.ResolveAndCheckOnNull<IJInput>();
             _ijInput.MoveDirection.Subscribe(SetDirection).AddTo(Disposables);
         }
 
