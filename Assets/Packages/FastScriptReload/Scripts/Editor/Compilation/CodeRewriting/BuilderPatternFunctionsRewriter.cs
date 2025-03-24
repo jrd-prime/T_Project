@@ -1,4 +1,5 @@
 using System.Linq;
+using FastScriptReload.Runtime;
 using ImmersiveVrToolsCommon.Runtime.Logging;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -22,7 +23,7 @@ namespace FastScriptReload.Editor.Compilation.CodeRewriting
             }
             else
             {
-                var ancestorNameWithoutPatchedPostfix = ancestorName.Replace(FastScriptReload.Runtime.AssemblyChangesLoader.ClassnamePatchedPostfix, "");
+                var ancestorNameWithoutPatchedPostfix = ancestorName.Replace(AssemblyChangesLoader.ClassnamePatchedPostfix, "");
 
                 if (node.ReturnType is IdentifierNameSyntax name && name.Identifier.ValueText == ancestorNameWithoutPatchedPostfix)
                 {

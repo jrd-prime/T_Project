@@ -6,8 +6,7 @@ using Code.Hero;
 using Code.UI._Base.Model;
 using R3;
 using UnityEngine;
-using VContainer;
-using VContainer.Unity;
+using Zenject;
 
 namespace Code.UI._Base
 {

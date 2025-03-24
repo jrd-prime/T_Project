@@ -1,4 +1,4 @@
-﻿using Code.Core.Bootstrap;
+﻿using Bootstrap;
 using Code.Core.Data;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;

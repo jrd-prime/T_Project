@@ -2,7 +2,7 @@
 using Code.Core.Managers.Camera._Game._Scripts.Framework.Manager.JCamera;
 using R3;
 using UnityEngine;
-using VContainer;
+using Zenject;
 
 namespace Code.Core.Systems
 {

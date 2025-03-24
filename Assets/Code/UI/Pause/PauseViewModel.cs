@@ -1,6 +1,5 @@
 ﻿using Code.Core.FSM;
 using Code.UI._Base.Data;
-using Code.UI._Base.Model;
 using Code.UI._Base.ViewModel;
 using Code.UI.Gameplay.State;
 using Code.UI.Menu.State;

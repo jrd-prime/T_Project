@@ -3,7 +3,6 @@ using Code.Core.Providers.Localization;
 using Code.Extensions;
 using Code.UI._Base.View;
 using R3;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Code.UI.Menu.View

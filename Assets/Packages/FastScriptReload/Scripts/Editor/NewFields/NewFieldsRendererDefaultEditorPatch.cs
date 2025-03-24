@@ -7,6 +7,7 @@ using HarmonyLib;
 using ImmersiveVRTools.Editor.Common.Utilities;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace FastScriptReload.Editor.NewFields
 {
@@ -114,9 +115,9 @@ namespace FastScriptReload.Editor.NewFields
                                 //Quaternions are rendered as euler angles in editor
                                 addedFieldValues[addedFieldValueKey] = Quaternion.Euler(EditorGUILayout.Vector3Field(addedFieldValueKey, ((Quaternion)addedFieldValues[addedFieldValueKey]).eulerAngles));
                             }
-                            else if (typeof(UnityEngine.Object).IsAssignableFrom(newFieldType))
+                            else if (typeof(Object).IsAssignableFrom(newFieldType))
                             {
-                                addedFieldValues[addedFieldValueKey] = EditorGUILayout.ObjectField(new GUIContent(addedFieldValueKey), (UnityEngine.Object)addedFieldValues[addedFieldValueKey], newFieldType, __instance.target);
+                                addedFieldValues[addedFieldValueKey] = EditorGUILayout.ObjectField(new GUIContent(addedFieldValueKey), (Object)addedFieldValues[addedFieldValueKey], newFieldType, __instance.target);
                             }
 
                             else

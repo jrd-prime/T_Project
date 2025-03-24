@@ -1,9 +1,8 @@
 ﻿using Code.Core.Providers;
-using Code.Extensions;
 using Code.Hero;
 using R3;
 using UnityEngine;
-using VContainer;
+using Zenject;
 
 namespace Code.Core.Managers.Game
 {
@@ -20,18 +19,18 @@ namespace Code.Core.Managers.Game
         protected ISettingsProvider SettingsManager;
 
         // private GameTimer _gameTimer;
-        private IObjectResolver _resolver;
+        private DiContainer _container;
 
         private readonly CompositeDisposable _disposables = new();
         // private GameTimerSettings _gameTimerSettings;
         // private IGameCountdownsController _countdownsController;
 
         [Inject]
-        private void Construct(IObjectResolver resolver)
+        private void Construct(DiContainer container)
         {
-            _resolver = resolver;
-            SettingsManager = _resolver.Resolve<ISettingsProvider>();
-            // _countdownsController = _resolver.Resolve<IGameCountdownsController>();
+            _container = container;
+            SettingsManager = _container.Resolve<ISettingsProvider>();
+            // _countdownsController = _container.Resolve<IGameCountdownsController>();
             // _gameTimerSettings = SettingsManager.GetConfig<GameTimerSettings>();
         }
 
@@ -42,7 +41,7 @@ namespace Code.Core.Managers.Game
 
         protected void Awake()
         {
-            PlayerModel = _resolver.ResolveAndCheckOnNull<IHeroModel>();
+            PlayerModel = _container.Resolve<IHeroModel>();
 
             // PlayerInitialHealth.Value = PlayerModel.CharSettings.health;
 
@@ -68,7 +67,7 @@ namespace Code.Core.Managers.Game
             //     MonoBehaviour = this
             // };
             // _gameTimer = new GameTimer(timerOptions).AddTo(_disposables);
-            // _resolver.Inject(_gameTimer);
+            // _container.Inject(_gameTimer);
         }
 
         public abstract void GameOver();
@@ -80,7 +79,6 @@ namespace Code.Core.Managers.Game
         private void OnDestroy()
         {
             // _gameTimer?.Dispose();
-            _resolver?.Dispose();
             _disposables?.Dispose();
             PlayerInitialHealth?.Dispose();
             IsGameRunning?.Dispose();

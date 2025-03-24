@@ -3,7 +3,7 @@ using System.Collections;
 using Code.Core;
 using UnityEngine;
 using UnityEngine.Serialization;
-using VContainer;
+using Zenject;
 
 namespace Code.UI.PopUpText
 {
@@ -13,19 +13,19 @@ namespace Code.UI.PopUpText
         private PopUpTextHolderView popUpTextHolderViewPrefab;
 
         private CustomPool<PopUpTextHolderView> _popUpTextHolderPool;
-        private IObjectResolver _resolver;
+        private DiContainer _container;
 
         [Inject]
-        private void Construct(IObjectResolver resolver) => _resolver = resolver;
+        private void Construct(DiContainer container) => _container = container;
 
         private void Awake()
         {
-            if (_resolver == null) throw new NullReferenceException("Resolver is null. Add this to gamecontext.");
+            if (_container == null) throw new NullReferenceException("Container is null. Add this to gamecontext.");
             if (popUpTextHolderViewPrefab == null)
                 throw new NullReferenceException("PopUpTextHolderPrefab is not set.");
 
             _popUpTextHolderPool =
-                new CustomPool<PopUpTextHolderView>(popUpTextHolderViewPrefab, 10, transform, _resolver);
+                new CustomPool<PopUpTextHolderView>(popUpTextHolderViewPrefab, 10, transform, _container);
         }
 
         public void ShowPopUpText(string text, Vector3 position, float durationSeconds, bool isCrit)

@@ -1,12 +1,12 @@
-using UnityEngine;
-using UnityEditor;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using FastScriptReload.Editor;
-using System;
 using System.Threading;
+using FastScriptReload.Editor;
+using UnityEditor;
+using Debug = UnityEngine.Debug;
 
 [InitializeOnLoad]
 public class CustomFileWatcher : EditorWindow
@@ -134,7 +134,7 @@ public class CustomFileWatcher : EditorWindow
 
             // Check if files were created or modified
             // Time profiling: Start the stopwatch for file creation/modification
-            var fileChangeStopwatch = new System.Diagnostics.Stopwatch();
+            var fileChangeStopwatch = new Stopwatch();
             fileChangeStopwatch.Start();
 
             foreach (var file in files)
@@ -166,7 +166,7 @@ public class CustomFileWatcher : EditorWindow
 
             // Check if any files were deleted
             // Time profiling: Start the stopwatch for file deletion
-            var fileDeletionStopwatch = new System.Diagnostics.Stopwatch();
+            var fileDeletionStopwatch = new Stopwatch();
             fileDeletionStopwatch.Start();
 
             foreach (var kvp in hashes)

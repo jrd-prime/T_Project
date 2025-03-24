@@ -6,7 +6,7 @@ using Code.UI._Base.Data;
 using Code.UI._Base.ViewModel;
 using UnityEngine;
 using UnityEngine.UIElements;
-using VContainer;
+using Zenject;
 
 namespace Code.UI._Base.View
 {
@@ -22,13 +22,13 @@ namespace Code.UI._Base.View
         protected ILocalizationProvider LocalizationManager;
         protected Dictionary<TSubViewType, TemplateContainer> InitializedViewsCache = new();
 
-        private IObjectResolver _resolver;
+        private DiContainer _container;
 
         [Inject]
-        private void Construct(IObjectResolver resolver, TViewModel viewModel,
+        private void Construct(DiContainer container, TViewModel viewModel,
             ILocalizationProvider localizationManager)
         {
-            _resolver = resolver;
+            _container = container;
             ViewModel = viewModel;
             LocalizationManager = localizationManager;
         }
@@ -37,7 +37,7 @@ namespace Code.UI._Base.View
         {
             foreach (var subState in subViewsData)
             {
-                _resolver.Inject(subState.subView);
+                _container.Inject(subState.subView);
                 if (!SubViewsCache.TryAdd(subState.subViewType, subState.subView))
                     throw new Exception(
                         $"Subview with subViewType \"{subState.subViewType}\" already added to {name} view");

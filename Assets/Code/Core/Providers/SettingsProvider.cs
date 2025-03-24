@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Code.Core.Bootstrap;
+using Bootstrap;
 using Code.Core.SO;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using VContainer;
+using Zenject;
 
 namespace Code.Core.Providers
 {

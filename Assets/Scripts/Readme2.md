@@ -1,0 +1,104 @@
+﻿Scripts
+- Core                      // Ядро приложения с модулями
+    - Characters             // Модуль персонажей
+        - Interfaces
+            - ICharacter.cs
+            - IPlayer.cs
+            - IEnemy.cs
+        - Models
+            - PlayerModel.cs
+            - EnemyModel.cs
+            - Commands
+                - MoveCommand.cs
+                - JumpCommand.cs
+                - AttackCommand.cs
+                - ApplyEffectCommand.cs
+        - Services
+            - PlayerService.cs
+            - EnemyService.cs
+        - UseCases
+            - PlayerInteractor.cs
+            - EnemyInteractor.cs
+    - Inventory              // Модуль инвентаря
+        - Interfaces
+            - IInventory.cs
+            - IItem.cs
+        - Models
+            - InventoryModel.cs
+            - ItemModel.cs
+        - Services
+            - InventoryService.cs
+        - UseCases
+            - InventoryInteractor.cs
+    - Resources              // Модуль ресурсов и лута
+        - Interfaces
+            - IResource.cs
+            - ILootable.cs
+        - Models
+            - ResourceModel.cs
+            - LootModel.cs
+        - Services
+            - ResourceService.cs
+        - UseCases
+            - ResourceInteractor.cs
+    - Crafting               // Модуль крафта
+        - Interfaces
+            - ICraftable.cs
+        - Models
+            - CraftingRecipe.cs
+        - Services
+            - CraftingService.cs
+        - UseCases
+            - CraftingInteractor.cs
+    - Stats                  // Модуль статов и прокачки
+        - Interfaces
+            - IStats.cs
+        - Models
+            - StatsModel.cs
+        - Services
+            - StatsService.cs
+        - UseCases
+            - StatsInteractor.cs
+    - Common                 // Общие сущности
+        - Interfaces
+            - ICommand.cs
+            - IEffect.cs
+            - IInteractable.cs
+            - ISettingsProvider.cs
+        - Models
+            - PoisonEffect.cs
+            - SpeedBoostEffect.cs
+        - Services
+            - SettingsProvider.cs
+    - Managers               // Модуль глобальных менеджеров
+        - Interfaces
+            - IGameStateManager.cs
+        - Services
+            - GameStateManager.cs
+- Game                    // Реализация в Unity
+    - Presentation
+        - UI
+        - Controllers
+            - PlayerInputController.cs
+            - EnemyAIController.cs
+        - Visuals
+    - Systems
+        - Gameplay
+            - Player.cs
+            - Enemy.cs
+            - Chest.cs
+            - PickupItem.cs
+        - AI
+            - EnemyPatrolAI.cs
+        - Physics
+    - Configs
+        - EnemyPatrolConfig.cs
+- Infrastructure
+    - Repositories
+    - Networking
+    - SaveLoad
+    - Installers
+        - GameInstaller.cs
+- ThirdParty
+    - SDKs
+    - Plugins

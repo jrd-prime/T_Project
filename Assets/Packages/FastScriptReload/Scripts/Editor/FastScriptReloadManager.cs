@@ -13,6 +13,7 @@ using ImmersiveVrToolsCommon.Runtime.Logging;
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace FastScriptReload.Editor
 {
@@ -454,7 +455,7 @@ namespace FastScriptReload.Editor
             window.OpenExclusionsSection();
         }
         
-        private static string ResolveRelativeToAssetDirectoryFilePath(UnityEngine.Object obj)
+        private static string ResolveRelativeToAssetDirectoryFilePath(Object obj)
         {
             return AssetDatabase.GetAssetPath(obj.GetInstanceID());
         }

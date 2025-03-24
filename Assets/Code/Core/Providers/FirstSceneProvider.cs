@@ -1,10 +1,10 @@
-﻿using Code.Core.Bootstrap;
+﻿using Bootstrap;
 using Code.Core.SO;
 using Cysharp.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
-using VContainer;
+using Zenject;
 
 namespace Code.Core.Providers
 {

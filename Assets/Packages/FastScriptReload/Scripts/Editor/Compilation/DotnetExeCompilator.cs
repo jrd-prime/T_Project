@@ -9,12 +9,12 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using FastScriptReload.Editor.AssemblyPostProcess;
-using HarmonyLib;
 using ImmersiveVRTools.Editor.Common.Cache;
 using ImmersiveVRTools.Editor.Common.Utilities;
 using ImmersiveVRTools.Runtime.Common;
 using ImmersiveVrToolsCommon.Runtime.Logging;
 using UnityEditor;
+using UnityEditorInternal;
 
 namespace FastScriptReload.Editor.Compilation
 {
@@ -91,7 +91,7 @@ namespace FastScriptReload.Editor.Compilation
                 {
                     if ((bool)FastScriptReloadPreference.IsAutoOpenGeneratedSourceFileOnChangeEnabled.GetEditorPersistedValueOrDefault())
                     {
-                        UnityEditorInternal.InternalEditorUtility.OpenFileAtLineExternal(sourceCodeCombinedFilePath, 0);
+                        InternalEditorUtility.OpenFileAtLineExternal(sourceCodeCombinedFilePath, 0);
                     }
                 });
 #endif

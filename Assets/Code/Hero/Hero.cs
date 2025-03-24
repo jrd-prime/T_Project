@@ -1,7 +1,7 @@
 ﻿using System;
 using R3;
 using UnityEngine;
-using VContainer;
+using Zenject;
 
 namespace Code.Hero
 {

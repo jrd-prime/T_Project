@@ -128,5 +128,3 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
-  mainSettings: {fileID: 11400000, guid: 966da7a26f654e24fa9c829b429f3174, type: 2}
-  eventSystem: {fileID: 7643280052146800953}

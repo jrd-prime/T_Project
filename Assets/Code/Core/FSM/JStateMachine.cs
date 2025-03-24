@@ -6,12 +6,10 @@ using Code.UI._Base;
 using Code.UI._Base.Data;
 using Code.UI.Gameplay.State;
 using Code.UI.Menu.State;
-using Code.UI.Pause;
 using Code.UI.Pause.State;
 using R3;
 using UnityEngine;
-using VContainer;
-using VContainer.Unity;
+using Zenject;
 
 namespace Code.Core.FSM
 {
@@ -44,7 +42,7 @@ namespace Code.Core.FSM
         private readonly ReactiveProperty<Enum> _currentSubStateReactive = new();
 
         [Inject]
-        private void Construct(IObjectResolver container)
+        private void Construct(DiContainer container)
         {
             _states.Add(GameStateType.Menu, container.Resolve<MenuState>());
             _states.Add(GameStateType.Gameplay, container.Resolve<GameplayState>());
