@@ -5,7 +5,6 @@ using Code.Core.Managers.Game;
 using Code.Core.Managers.UI;
 using Code.Core.Systems;
 using Code.Hero;
-using Code.UI._Base.Model;
 using Code.UI.Gameplay;
 using Code.UI.Gameplay.State;
 using Code.UI.Menu;
@@ -24,9 +23,15 @@ namespace Installers.Game
         [SerializeField] private UIManager uiManagerPrefab;
         [SerializeField] private GameManager gameManagerPrefab;
 
+        private GameObject _mainEmpty;
+
         public override void InstallBindings()
         {
             Log.Info("<color=cyan>GameInstaller</color>");
+
+            _mainEmpty = GameObject.Find("--- MAIN");
+            if (!_mainEmpty) throw new NullReferenceException("Main empty game object is not found. (--- MAIN)");
+
             InitializeManagers(Container);
 
             Container.BindInterfacesAndSelfTo<GameManagerRequestHandler>().AsSingle();
@@ -38,7 +43,7 @@ namespace Installers.Game
             Container.Bind<CameraFollowSystem>().AsSingle();
 
             Container.BindInterfacesTo<HeroModel>().AsSingle();
-            
+
             Container.BindInterfacesAndSelfTo<JStateMachine>().AsSingle();
         }
 
@@ -86,7 +91,10 @@ namespace Installers.Game
 
             container.BindInterfacesAndSelfTo<T>()
                 .FromComponentInNewPrefab(prefabComponent.gameObject) // Извлекаем GameObject из MonoBehaviour
-                .AsSingle();
+                .AsSingle().OnInstantiated<T>((ctx, vacuumContainer) =>
+                {
+                    vacuumContainer.transform.parent = _mainEmpty.transform;
+                });
         }
     }
 }
