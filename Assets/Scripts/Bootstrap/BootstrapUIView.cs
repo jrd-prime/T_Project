@@ -1,8 +1,8 @@
 ﻿using System;
-using Code.Core.Data;
-using Code.Extensions;
-using Code.Tools;
+using Core.Extensions;
+using Db.Data;
 using R3;
+using Tools;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;
