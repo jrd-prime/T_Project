@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5592467462600993492}
-  - component: {fileID: -5357355464205177988}
   - component: {fileID: 8908339709363122807}
+  - component: {fileID: 5157221178097418896}
   m_Layer: 0
   m_Name: MenuUI
   m_TagString: Untagged
@@ -33,18 +33,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5357355464205177988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8317452692373101668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22675ae8c4de46eabbb72c9a5c4bcf50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8908339709363122807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,3 +52,18 @@ MonoBehaviour:
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
+--- !u!114 &5157221178097418896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8317452692373101668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef0c3057d8d34e40b31b41ec48daa52a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewForGameStateType: 0
+  defaultSubView: 0
+  subViewsData: []

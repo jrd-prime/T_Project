@@ -1,6 +1,6 @@
 ﻿using System;
 using Core.FSM.Data;
-using Game.UI._Base.View;
+using Game.UI._old.Base.View;
 using UnityEngine.Serialization;
 
 namespace Game.SO

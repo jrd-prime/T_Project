@@ -1,16 +1,12 @@
 ﻿using System;
 using Core.Character.Hero;
-using Core.FSM;
+using Core.HSM;
 using Core.Managers.Camera._Game._Scripts.Framework.Manager.JCamera;
 using Core.Managers.Game;
-using Core.Managers.UI;
 using Game.Systems;
-using Game.UI.Gameplay;
-using Game.UI.Gameplay.State;
-using Game.UI.Menu;
-using Game.UI.Menu.State;
-using Game.UI.Pause;
-using Game.UI.Pause.State;
+using Game.UI._old.Gameplay;
+using Game.UI._old.Menu;
+using Game.UI._old.Pause;
 using ModestTree;
 using UnityEngine;
 using Zenject;
@@ -43,8 +39,6 @@ namespace Infrastructure.Installers.Game
             Container.Bind<CameraFollowSystem>().AsSingle();
 
             Container.BindInterfacesTo<HeroModel>().AsSingle();
-
-            Container.BindInterfacesAndSelfTo<JStateMachine>().AsSingle();
         }
 
         private void InitializeManagers(DiContainer container)
@@ -56,9 +50,9 @@ namespace Infrastructure.Installers.Game
 
         private static void InitializeViewStates(DiContainer container)
         {
-            container.BindInterfacesAndSelfTo<MenuState>().AsSingle();
-            container.BindInterfacesAndSelfTo<GameplayState>().AsSingle();
-            container.BindInterfacesAndSelfTo<PauseState>().AsSingle();
+            // container.BindInterfacesAndSelfTo<NewMenuState>().AsSingle();
+            // container.BindInterfacesAndSelfTo<NewGameplayState>().AsSingle();
+            // container.BindInterfacesAndSelfTo<PauseState>().AsSingle();
         }
 
         private static void InitializeUIModelsAndViewModels(DiContainer container)

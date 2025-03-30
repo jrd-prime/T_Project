@@ -1,6 +1,8 @@
 ﻿using System;
 using Core.FSM;
 using Core.FSM.Interfaces;
+using Core.HSM;
+using Core.HSM.States;
 using Core.Providers;
 using Core.Providers.Localization;
 using Game.SO;

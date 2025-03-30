@@ -1,5 +1,5 @@
 ﻿using Core.Extensions;
-using Game.UI._Base.Model;
+using Game.UI._old.Base.Model;
 using JetBrains.Annotations;
 using Zenject;
 
