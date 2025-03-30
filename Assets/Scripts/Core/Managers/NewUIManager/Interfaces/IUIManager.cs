@@ -1,6 +1,4 @@
-﻿using Core.FSM.Data;
-
-namespace Core.HSM
+﻿namespace Core.Managers.NewUIManager.Interfaces
 {
     public interface IUIManager
     {

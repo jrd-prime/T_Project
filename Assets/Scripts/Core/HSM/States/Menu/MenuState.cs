@@ -2,6 +2,7 @@
 using Core.HSM.Common;
 using Core.HSM.Interfaces;
 using Core.HSM.States.Gameplay;
+using Core.Managers.NewUIManager.Interfaces;
 
 namespace Core.HSM.States.Menu
 {
@@ -21,21 +22,6 @@ namespace Core.HSM.States.Menu
         {
             UIManager.HideAllViews();
             UIManager.HideView("MenuBackground");
-        }
-
-        public override void Update()
-        {
-            if (Console.KeyAvailable)
-            {
-                var key = Console.ReadKey(true).Key;
-                switch (key)
-                {
-                    case ConsoleKey.S: UIManager.SwitchToView("SettingsView"); break;
-                    case ConsoleKey.A: UIManager.SwitchToView("AudioSettingsView"); break;
-                    case ConsoleKey.E: UIManager.SwitchToView("EffectsSettingsView"); break;
-                    case ConsoleKey.B: UIManager.ShowPreviousView(); break;
-                }
-            }
         }
 
         public override IState HandleTransition()

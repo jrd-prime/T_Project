@@ -4,17 +4,13 @@ using Core.HSM.States.Gameplay;
 using Core.HSM.States.Menu;
 using Zenject;
 
-namespace Infrastructure.Installers
+namespace Infrastructure.Installers.Game
 {
     public sealed class HSMInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {
-            Container.Bind<RootState>().AsSingle().NonLazy();
-            Container.Bind<GameplayState>().AsSingle().NonLazy();
-            Container.Bind<MenuState>().AsSingle().NonLazy();
-
-            Container.BindInterfacesAndSelfTo<HSM>().AsSingle();
+            Container.BindInterfacesAndSelfTo<HSM>().AsSingle().NonLazy();
         }
     }
 }

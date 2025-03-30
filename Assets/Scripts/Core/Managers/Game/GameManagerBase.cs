@@ -1,5 +1,7 @@
-﻿using Core.Character.Hero;
+﻿using System;
+using Core.Character.Hero;
 using Core.Providers;
+using ModestTree;
 using R3;
 using UnityEngine;
 using Zenject;
@@ -22,13 +24,17 @@ namespace Core.Managers.Game
         private DiContainer _container;
 
         private readonly CompositeDisposable _disposables = new();
+
+        private HSM.HSM _hsm;
         // private GameTimerSettings _gameTimerSettings;
         // private IGameCountdownsController _countdownsController;
 
         [Inject]
         private void Construct(DiContainer container)
         {
+            Log.Warn("Construct game manager");
             _container = container;
+            _hsm = _container.Resolve<HSM.HSM>();
             SettingsManager = _container.Resolve<ISettingsProvider>();
             // _countdownsController = _container.Resolve<IGameCountdownsController>();
             // _gameTimerSettings = SettingsManager.GetConfig<GameTimerSettings>();
@@ -55,6 +61,12 @@ namespace Core.Managers.Game
             //     .Take(1)
             //     .Subscribe(_ => _gameTimer.OnModelDataLoaded())
             //     .AddTo(_disposables);
+        }
+
+        private void Start()
+        {
+            Log.Warn("Start game manager");
+            _hsm.Start();
         }
 
         private void InitGameTimer()

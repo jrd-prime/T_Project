@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4174794412769000391}
   - component: {fileID: 8622133437046720539}
   - component: {fileID: 1608875450264645948}
-  - component: {fileID: 4028671240902844802}
+  - component: {fileID: -8506971877034887242}
   m_Layer: 0
   m_Name: GameContext
   m_TagString: Untagged
@@ -49,7 +49,7 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 1608875450264645948}
-  - {fileID: 4028671240902844802}
+  - {fileID: -8506971877034887242}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -82,7 +82,7 @@ MonoBehaviour:
   cameraManager: {fileID: 1356189452287207957, guid: 187fe4b1794b7b84baa65693436661e8, type: 3}
   uiManagerPrefab: {fileID: 6489053147987792626, guid: 61bfb4867bff9d54492d0be41f64c3d3, type: 3}
   gameManagerPrefab: {fileID: 7345611539501052285, guid: e4b33f26d9d8af54ea6620491d6c1f89, type: 3}
---- !u!114 &4028671240902844802
+--- !u!114 &-8506971877034887242
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

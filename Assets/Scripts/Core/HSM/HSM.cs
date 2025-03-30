@@ -4,6 +4,7 @@ using Core.HSM.Interfaces;
 using Core.HSM.States;
 using Core.HSM.States.Gameplay;
 using Core.HSM.States.Menu;
+using Core.Managers.NewUIManager.Interfaces;
 using ModestTree;
 using UnityEngine;
 
@@ -23,13 +24,12 @@ namespace Core.HSM
 
             RegisterStates();
 
-            var rootState = _states[typeof(RootState)];
+            var rootState = _states[typeof(MenuState)];
             _currentState = rootState;
         }
 
         private void RegisterStates()
         {
-            RegisterState<RootState>(new RootState(this, _uiManager));
             RegisterState<MenuState>(new MenuState(this, _uiManager));
             RegisterState<GameplayState>(new GameplayState(this, _uiManager));
         }
@@ -62,11 +62,6 @@ namespace Core.HSM
             _currentState.Enter();
         }
 
-        // Метод для регистрации состояния в HSM
-        public void RegisterState<T>(IState state) where T : IState
-        {
-            Log.Info($"hsm register state {typeof(T).Name}");
-            _states[typeof(T)] = state;
-        }
+        private void RegisterState<T>(IState state) where T : IState => _states[typeof(T)] = state;
     }
 }

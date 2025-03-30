@@ -7,7 +7,7 @@ using Game.UI._old.Base.Model;
 using R3;
 using UnityEngine;
 using Zenject;
-using IUIManager = Core.HSM.IUIManager;
+using IUIManager = Core.Managers.NewUIManager.Interfaces.IUIManager;
 
 namespace Game.UI
 {

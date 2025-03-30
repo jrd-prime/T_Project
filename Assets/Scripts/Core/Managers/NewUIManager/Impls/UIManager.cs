@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
-using Core.FSM.Data;
+using Core.Managers.NewUIManager.Interfaces;
 using Game.UI.Interfaces;
+using ModestTree;
 using UnityEngine;
 
-namespace Core.HSM
+namespace Core.Managers.NewUIManager.Impls
 {
     public class UIManager : MonoBehaviour, IUIManager
     {
@@ -15,6 +16,7 @@ namespace Core.HSM
 
         public void ShowView(string viewId)
         {
+            Log.Info($"show view {viewId}");
             if (!_views.TryGetValue(viewId, out var view)) return;
 
             view.Show();
@@ -23,11 +25,13 @@ namespace Core.HSM
 
         public void HideView(string viewId)
         {
+            Log.Info($"hide view {viewId}");
             if (_views.TryGetValue(viewId, out IUIView view)) view.Hide();
         }
 
         public void HideAllViews()
         {
+            Log.Info("hide all views");
             foreach (var viewId in _viewStack) HideView(viewId);
             _viewStack.Clear();
             _baseViewId = null;
@@ -35,12 +39,14 @@ namespace Core.HSM
 
         public void SwitchToView(string viewId)
         {
+            Log.Info($"switch to view {viewId}");
             if (_viewStack.Count > 0 && _viewStack.Peek() != viewId) HideView(_viewStack.Peek());
             ShowView(viewId);
         }
 
         public void ShowPreviousView()
         {
+            Log.Info("show previous view");
             if (_viewStack.Count <= 1) return;
             HideView(_viewStack.Pop());
             ShowView(_viewStack.Peek());
@@ -48,7 +54,8 @@ namespace Core.HSM
 
         public void SetBaseView(string viewId)
         {
-            HideAllViews();
+            Log.Info($"set base view {viewId}");
+            // HideAllViews();
             _baseViewId = viewId;
             ShowView(viewId);
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.HSM.Interfaces;
+using Core.Managers.NewUIManager.Interfaces;
 using ModestTree;
 
 namespace Core.HSM.Common
