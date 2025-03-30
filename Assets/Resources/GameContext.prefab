@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4174794412769000391}
   - component: {fileID: 8622133437046720539}
   - component: {fileID: 1608875450264645948}
+  - component: {fileID: -8506971877034887242}
   m_Layer: 0
   m_Name: GameContext
   m_TagString: Untagged
@@ -48,6 +49,7 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 1608875450264645948}
+  - {fileID: -8506971877034887242}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -78,5 +80,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraManager: {fileID: 1356189452287207957, guid: 187fe4b1794b7b84baa65693436661e8, type: 3}
-  uiManagerPrefab: {fileID: 889703716394687030, guid: 7b1546f06c9d5c444ab31d4b81801a1b, type: 3}
+  uiManagerPrefab: {fileID: 6489053147987792626, guid: 61bfb4867bff9d54492d0be41f64c3d3, type: 3}
   gameManagerPrefab: {fileID: 7345611539501052285, guid: e4b33f26d9d8af54ea6620491d6c1f89, type: 3}
+--- !u!114 &-8506971877034887242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3304703473384007565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b0da6af9ccb4b1d8f636b088c761414, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

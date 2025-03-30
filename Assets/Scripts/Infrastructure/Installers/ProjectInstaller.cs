@@ -1,0 +1,65 @@
+﻿using System;
+using Core.FSM;
+using Core.FSM.Interfaces;
+using Core.Providers;
+using Core.Providers.Localization;
+using Game.SO;
+using Infrastructure.Input;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Profiling;
+using Zenject;
+
+namespace Infrastructure.Installers
+{
+    public class ProjectInstaller : MonoInstaller
+    {
+        [SerializeField] private MainSettings mainSettings;
+        [SerializeField] private EventSystem eventSystem;
+
+        public override void InstallBindings()
+        {
+            Debug.Log("<color=cyan>ProjectInstaller</color>");
+
+            if (mainSettings == null) throw new NullReferenceException("MainSettings is null.");
+            Container.Bind<MainSettings>().FromInstance(mainSettings).AsSingle().NonLazy();
+
+            if (eventSystem == null) throw new NullReferenceException("EventSystem is null.");
+            Container.Bind<EventSystem>().FromInstance(eventSystem).AsSingle();
+
+            var input = gameObject.AddComponent<DesktopInput>();
+            Container.Bind<IJInput>().To<DesktopInput>().FromInstance(input).AsSingle();
+
+            Container.Bind<IGameStateDispatcher>().To<GameGameStateDispatcher>().AsSingle();
+            Container.Bind<ISettingsProvider>().To<SettingsProvider>().AsSingle();
+            Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle();
+            Container.Bind<ILocalizationProvider>().To<LocalizationProvider>().AsSingle();
+            Container.Bind<FirstSceneProvider>().AsSingle();
+        }
+
+        private void OnApplicationQuit()
+        {
+            var rendTex = (RenderTexture[])Resources.FindObjectsOfTypeAll(typeof(RenderTexture));
+
+            var rendTexCount = rendTex.Length;
+            var i = 0;
+            foreach (var t in rendTex)
+                if (t.name.StartsWith("Device Simulator"))
+                {
+                    Destroy(t);
+                    i++;
+                }
+
+            Debug.Log("<color=darkblue><b>===</b></color>");
+
+            if (i > 0) Debug.Log($"Render Textures: {rendTexCount} / Destroyed: {i}");
+
+            Debug.Log(
+                $"Allocated: {Profiler.GetTotalAllocatedMemoryLong() / (1024 * 1024)} MB / " +
+                $"Reserved: {Profiler.GetTotalReservedMemoryLong() / (1024 * 1024)} MB / " +
+                $"Unused Reserved: {Profiler.GetTotalUnusedReservedMemoryLong() / (1024 * 1024)} MB");
+
+            Debug.Log("<color=darkblue><b>===</b></color>");
+        }
+    }
+}

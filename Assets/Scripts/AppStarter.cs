@@ -1,15 +1,13 @@
-﻿using Bootstrap;
-using Code.Core.FSM;
-using Code.Core.Providers;
-using Code.Core.Providers.Localization;
-using Code.UI._Base.Data;
-using Code.UI.Menu.State;
+﻿//TODO turn on input after app start
+
+using Bootstrap;
+using Core.Providers;
+using Core.Providers.Localization;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-//TODO turn on input after app start
 public sealed class AppStarter : IInitializable
 {
     private DiContainer _container;
@@ -20,7 +18,7 @@ public sealed class AppStarter : IInitializable
     public void Initialize() => InitializeAsync().Forget();
 
     private async UniTask InitializeAsync()
-    { 
+    {
         Debug.LogWarning("app starter initialized");
         var bootstrapLoader = _container.Resolve<BootstrapLoader>();
         var bootstrapUIModel = _container.Resolve<IBootstrapUIModel>();
@@ -41,10 +39,6 @@ public sealed class AppStarter : IInitializable
         Debug.Log("<color=green><b>End Services initialization...</b></color>");
 
         bootstrapUIModel.Clear();
-
-        var defStateData = new StateData { StateType = GameStateType.Menu, SubState = MenuStateType.Main };
-        var stateMachine = _container.Resolve<IStateMachineReactiveAdapter>();
-        stateMachine.SetStateData(defStateData);
 
         await bootstrapUIModel.FadeOut(1f);
 
