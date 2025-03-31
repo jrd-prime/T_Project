@@ -3,34 +3,32 @@ using System.Collections.Generic;
 using Core.HSM.Interfaces;
 using Core.HSM.States.Gameplay;
 using Core.HSM.States.Menu;
-using Core.Managers.NewUIManager.Interfaces;
+using Core.Managers.UI.Interfaces;
 using ModestTree;
 using UnityEngine;
 
 namespace Core.HSM
 {
+    /// <summary>
+    /// Hierarchical State Machine
+    /// </summary>
     public sealed class HSM
     {
         private IState _currentState;
         private readonly Dictionary<Type, IState> _states = new();
-        private readonly IUIManager _uiManager;
 
         public HSM(IUIManager uiManager)
         {
-            Debug.LogWarning("hsm constructed");
-
-            _uiManager = uiManager;
-
-            RegisterStates();
+            InitializeMainStates(uiManager);
 
             var rootState = _states[typeof(MenuState)];
             _currentState = rootState;
         }
 
-        private void RegisterStates()
+        private void InitializeMainStates(IUIManager uiManager)
         {
-            RegisterState<MenuState>(new MenuState(this, _uiManager));
-            RegisterState<GameplayState>(new GameplayState(this, _uiManager));
+            RegisterState<MenuState>(new MenuState(this, uiManager));
+            RegisterState<GameplayState>(new GameplayState(this, uiManager));
         }
 
         public void Start()

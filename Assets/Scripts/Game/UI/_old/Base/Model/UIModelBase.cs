@@ -1,6 +1,6 @@
 ﻿using Core.FSM.Interfaces;
 using Core.Managers.Game;
-using Core.Managers.NewUIManager.Interfaces;
+using Core.Managers.UI.Interfaces;
 using R3;
 using Zenject;
 

@@ -1,0 +1,43 @@
+﻿using System;
+using Core.Extensions;
+using Core.Providers.Localization;
+using Db.Data;
+using Game.UI._old.Base.ViewModel;
+using Game.UI.Common;
+using UnityEngine.UIElements;
+using Zenject;
+
+namespace Game.UI._old.Base.View
+{
+    public abstract class CustomSubViewBase<TUIViewModel> : SubViewBase where TUIViewModel : IUIViewModel
+    {
+        [Inject] protected TUIViewModel ViewModel { get; private set; }
+        [Inject] protected ILocalizationProvider LocalizationManager { get; private set; }
+
+        protected Label ViewMainHeader;
+
+        private void Awake()
+        {
+            if (template == null) throw new NullReferenceException("Template is null. " + name);
+
+            Template = template.Instantiate();
+
+            RootContainer = Template.GetVisualElement<VisualElement>(UIElementId.ContainerId, name);
+            ViewMainHeader = RootContainer.GetVisualElement<Label>(UIElementId.TitleId, name);
+            InitializeView();
+
+            IsInitialized = true;
+        }
+
+        private void Start()
+        {
+            if (ViewModel == null) throw new NullReferenceException("ViewModel is null. " + name);
+            if (LocalizationManager == null) throw new NullReferenceException("LocalizationManager is null. " + name);
+
+            CreateAndInitComponents();
+            Localize();
+            InitializeCallbacks();
+            RegisterCallbacks();
+        }
+    }
+}

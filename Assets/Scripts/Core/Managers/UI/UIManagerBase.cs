@@ -8,8 +8,7 @@ using Core.Providers;
 using Db.Data;
 using Game.UI._old.Base.Data;
 using Game.UI._old.Base.View;
-using Game.UI._old.Gameplay.State;
-using Game.UI._old.Pause.State;
+using Game.UI.Common;
 using Infrastructure.Input;
 using R3;
 using UnityEngine;
@@ -19,8 +18,8 @@ namespace Core.Managers.UI
 {
     public interface IUIManager : IInitializable
     {
-        public void ShowView(GameStateType gameStateType, Enum subState, EShowLogic showLogic = EShowLogic.Default);
-        public void HideView(GameStateType gameStateType, Enum subState, EShowLogic showLogic);
+        public void ShowView(GameStateType gameStateType, string subState, EShowLogic showLogic = EShowLogic.Default);
+        public void HideView(GameStateType gameStateType, string subState, EShowLogic showLogic);
         public void ShowPopUpAsync(string clickTimesToExit, int doubleClickDelay);
         public StateDataVo GetPreviousState();
     }
@@ -39,10 +38,10 @@ namespace Core.Managers.UI
         private bool _isViewsInitialized;
 
         private GameStateType _currentViewStateType;
-        private Enum _currentViewSubState;
+        private string _currentViewSubState;
 
         private GameStateType _previousViewStateType;
-        private Enum _previousViewSubState;
+        private string _previousViewSubState;
 
         private readonly Dictionary<GameStateType, ViewBase> _viewsCache = new();
         private readonly CompositeDisposable _disposables = new();
@@ -75,10 +74,10 @@ namespace Core.Managers.UI
         // TODO 
         private void EscapeKeyHandler(Unit _)
         {
-            if (_currentViewStateType != GameStateType.Gameplay ||
-                !Equals(_currentViewSubState, GameplayStateType.Main)) return;
-
-            _ra.SetStateData(new StateDataVo(GameStateType.Pause, PauseStateType.Main));
+            // if (_currentViewStateType != GameStateType.Gameplay ||
+            //     !Equals(_currentViewSubState, GameplayStateType.Main)) return;
+            //
+            // _ra.SetStateData(new StateDataVo(GameStateType.Pause, PauseStateType.Main));
         }
 
         private void Start()
@@ -91,11 +90,11 @@ namespace Core.Managers.UI
             foreach (var view in stateViews)
             {
                 _container.Inject(view.viewHolder);
-                _viewsCache.TryAdd(view.uiForStateType, view.viewHolder);
+                // _viewsCache.TryAdd(view.uiForStateType, view.viewHolder);
             }
         }
 
-        public void ShowView(GameStateType gameStateType, Enum subState, EShowLogic showLogic = EShowLogic.Default)
+        public void ShowView(GameStateType gameStateType, string subState, EShowLogic showLogic = EShowLogic.Default)
         {
             _previousViewStateType = _currentViewStateType;
             _previousViewSubState = _currentViewSubState;
@@ -129,7 +128,7 @@ namespace Core.Managers.UI
             else viewer.ShowNewBase(subViewTemplateData);
         }
 
-        private SubViewTemplateData GetViewData(GameStateType gameStateType, Enum subState)
+        private SubViewTemplateData GetViewData(GameStateType gameStateType, string subState)
         {
             if (!_isViewsInitialized) throw new NullReferenceException($"Views not initialized. {name}");
 
@@ -140,7 +139,7 @@ namespace Core.Managers.UI
         }
 
 
-        public void HideView(GameStateType gameStateType, Enum subState, EShowLogic showLogic) => viewer.HideView();
+        public void HideView(GameStateType gameStateType, string subState, EShowLogic showLogic) => viewer.HideView();
 
         public abstract void ShowPopUpAsync(string clickTimesToExit, int doubleClickDelay);
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using Core.HSM.Common;
 using Core.HSM.Interfaces;
-using Core.Managers.NewUIManager.Interfaces;
+using Core.Managers.UI.Interfaces;
 
 namespace Core.HSM.States.Gameplay.SubStates_example
 {

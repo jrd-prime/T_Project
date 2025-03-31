@@ -1,11 +1,9 @@
-﻿using System;
-using Core.FSM.Data;
+﻿using Core.FSM.Data;
 using UnityEngine;
 
 namespace Game.UI._old.Base.Model
 {
-    public abstract class CustomUIModelBase<TSubViewType> : UIModelBase, IUIModel<TSubViewType>
-        where TSubViewType : Enum
+    public abstract class CustomUIModelBase : UIModelBase, IUIModel
     {
         public abstract void Initialize();
 

@@ -1,11 +1,9 @@
-﻿using System;
-using Game.UI.Interfaces;
+﻿using Game.UI._old.Base.View;
+using Game.UI._old.Menu;
 
 namespace Game.UI.Impls.Menu
 {
-    public class MenuView : IUIView
+    public class MenuView : CustomViewBase<IMenuViewModel>
     {
-        public void Show() => Console.WriteLine("Showing MenuView");
-        public void Hide() => Console.WriteLine("Hiding MenuView");
     }
 }

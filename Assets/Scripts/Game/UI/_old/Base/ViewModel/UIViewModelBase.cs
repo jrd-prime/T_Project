@@ -9,9 +9,8 @@ namespace Game.UI._old.Base.ViewModel
     {
     }
 
-    public abstract class UIViewModelBase<TUIModel, TSubStateEnum> : IUIViewModel
-        where TSubStateEnum : Enum
-        where TUIModel : IUIModel<TSubStateEnum>
+    public abstract class UIViewModelBase<TUIModel> : IUIViewModel
+        where TUIModel : IUIModel
     {
         protected TUIModel Model { get; private set; }
 

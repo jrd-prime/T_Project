@@ -7,12 +7,12 @@ using Game.UI._old.Base.Model;
 using R3;
 using UnityEngine;
 using Zenject;
-using IUIManager = Core.Managers.NewUIManager.Interfaces.IUIManager;
+using IUIManager = Core.Managers.UI.Interfaces.IUIManager;
 
 namespace Game.UI
 {
     public abstract class UIStateBase<TUIModel, TSubStateEnum> : IState, IDisposable
-        where TUIModel : IUIModel<TSubStateEnum>
+        where TUIModel : IUIModel
         where TSubStateEnum : Enum
     {
         protected Dictionary<TSubStateEnum, ISubState> SubStates { get; } = new();

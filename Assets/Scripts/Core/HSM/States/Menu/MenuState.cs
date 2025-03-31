@@ -2,11 +2,11 @@
 using Core.HSM.Common;
 using Core.HSM.Interfaces;
 using Core.HSM.States.Gameplay;
-using Core.Managers.NewUIManager.Interfaces;
+using Core.Managers.UI.Interfaces;
 
 namespace Core.HSM.States.Menu
 {
-    public class MenuState : BaseState
+    public sealed class MenuState : BaseState
     {
         public MenuState(HSM stateMachine, IUIManager uiManager) : base(stateMachine, uiManager)
         {
@@ -14,14 +14,12 @@ namespace Core.HSM.States.Menu
 
         public override void Enter()
         {
-            UIManager.ShowView("MenuBackground");
-            UIManager.SetBaseView("MenuView");
+            UIManager.SetBaseView("menu");
         }
 
         public override void Exit()
         {
             UIManager.HideAllViews();
-            UIManager.HideView("MenuBackground");
         }
 
         public override IState HandleTransition()

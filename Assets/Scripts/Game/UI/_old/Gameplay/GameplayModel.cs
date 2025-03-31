@@ -1,12 +1,11 @@
 ﻿using Game.UI._old.Base.Model;
-using Game.UI._old.Gameplay.State;
 using JetBrains.Annotations;
 using R3;
 using UnityEngine;
 
 namespace Game.UI._old.Gameplay
 {
-    public interface IGameplayModel : IUIModel<GameplayStateType>
+    public interface IGameplayModel : IUIModel
     {
         // public ReadOnlyReactiveProperty<EnergySavableData> EnergyData { get; }
         // public ReadOnlyReactiveProperty<AmbientTempSavableData> AmbientTempData { get; }
@@ -25,7 +24,7 @@ namespace Game.UI._old.Gameplay
     }
 
     [UsedImplicitly]
-    public class GameplayModel : CustomUIModelBase<GameplayStateType>, IGameplayModel
+    public class GameplayModel : CustomUIModelBase, IGameplayModel
     {
         // private IStateMachine fsm;
         public Subject<Unit> ShakeBackpackButton { get; } = new();

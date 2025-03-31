@@ -1,6 +1,5 @@
 ﻿using Core.FSM.Data;
 using Game.UI._old.Base.ViewModel;
-using Game.UI._old.Gameplay.State;
 using R3;
 
 namespace Game.UI._old.Gameplay
@@ -29,7 +28,7 @@ namespace Game.UI._old.Gameplay
         // public void OnOutEvent(PointerOutEvent evt);
     }
 
-    public class GameplayViewModel : UIViewModelBase<IGameplayModel, GameplayStateType>, IGameplayViewModel
+    public class GameplayViewModel : UIViewModelBase<IGameplayModel>, IGameplayViewModel
     {
         #region Click
 

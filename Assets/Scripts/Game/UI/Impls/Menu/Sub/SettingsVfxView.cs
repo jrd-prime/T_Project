@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 namespace Game.UI.Impls.Menu.Sub
 {
-    public class SettingsView  : CustomSubViewBase<IMenuViewModel>
+    public class SettingsVfxView : CustomSubViewBase<IMenuViewModel>
     {
         private Button _backBtn;
         private VisualElement _content;
@@ -32,7 +32,13 @@ namespace Game.UI.Impls.Menu.Sub
 
         protected override void Localize()
         {
-            ViewMainHeader.text = LocalizationManager.Localize(LocalizationNameID.Settings).ToUpper();
+            // TODO - this is a temporary solution, we need to refactor this
+            {
+                var mainHeader = LocalizationManager.Localize(LocalizationNameID.Settings);
+                var currentViewHeader = LocalizationManager.Localize(LocalizationNameID.Video);
+                ViewMainHeader.text = (mainHeader + " > " + currentViewHeader).ToUpper();
+            }
+
             _videoBtn.text = LocalizationManager.Localize(LocalizationNameID.Video).ToUpper();
             _audioBtn.text = LocalizationManager.Localize(LocalizationNameID.Audio).ToUpper();
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.HSM.Interfaces;
-using Core.Managers.NewUIManager.Interfaces;
+using Core.Managers.UI.Interfaces;
 using ModestTree;
 
 namespace Core.HSM.Common
@@ -11,9 +11,9 @@ namespace Core.HSM.Common
         protected internal readonly HSM StateMachine;
         protected readonly IUIManager UIManager;
         protected IState CurrentSubState;
-        protected Dictionary<Type, IState> SubStates = new();
+        protected readonly Dictionary<Type, IState> SubStates = new();
 
-        public BaseState(HSM stateMachine, IUIManager uiManager)
+        protected BaseState(HSM stateMachine, IUIManager uiManager)
         {
             StateMachine = stateMachine;
             UIManager = uiManager;
@@ -43,7 +43,6 @@ namespace Core.HSM.Common
         }
 
         public virtual IState HandleTransition() => null;
-
         protected void AddSubState<T>(IState state) where T : IState => SubStates[typeof(T)] = state;
         protected void SetInitialSubState<T>() where T : IState => CurrentSubState = SubStates[typeof(T)];
 

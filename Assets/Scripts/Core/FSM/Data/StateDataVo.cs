@@ -5,9 +5,9 @@ namespace Core.FSM.Data
     public struct StateDataVo
     {
         public GameStateType StateType;
-        public Enum SubState;
+        public string SubState;
 
-        public StateDataVo(GameStateType baseStateType, Enum oSubState = null)
+        public StateDataVo(GameStateType baseStateType, string oSubState = null)
         {
             StateType = baseStateType;
             SubState = oSubState;

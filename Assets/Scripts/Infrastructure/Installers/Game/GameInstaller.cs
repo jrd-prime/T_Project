@@ -2,7 +2,7 @@
 using Core.Character.Hero;
 using Core.Managers.Camera._Game._Scripts.Framework.Manager.JCamera;
 using Core.Managers.Game;
-using Core.Managers.NewUIManager.Impls;
+using Core.Managers.UI.Impls;
 using Game.Systems;
 using Game.UI._old.Gameplay;
 using Game.UI._old.Menu;
