@@ -1,5 +1,4 @@
-﻿using System;
-using Core.Character.Hero;
+﻿using Core.Character.Hero;
 using Core.Providers;
 using ModestTree;
 using R3;

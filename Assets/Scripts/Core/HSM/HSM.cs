@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.HSM.Interfaces;
-using Core.HSM.States;
 using Core.HSM.States.Gameplay;
 using Core.HSM.States.Menu;
 using Core.Managers.NewUIManager.Interfaces;
