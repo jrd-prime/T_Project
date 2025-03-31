@@ -806,7 +806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8102534886921987616, guid: 61bfb4867bff9d54492d0be41f64c3d3, type: 3}
       propertyPath: m_Name
-      value: UIM
+      value: UIManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

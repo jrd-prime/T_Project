@@ -1,74 +1,147 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Core.Managers.UI.Interfaces;
+using Game.UI.Common.Base.Data;
+using Game.UI.Data;
 using Game.UI.Interfaces;
 using ModestTree;
 using UnityEngine;
 
 namespace Core.Managers.UI.Impls
 {
-    public class UIManager : MonoBehaviour, Interfaces.IUIManager
+    public class UIManager : MonoBehaviour, IUIManager
     {
-        [SerializeField] private MainViewDataVo[] _mainViewDataVo;
-        private readonly Dictionary<string, IUIView> _views = new();
-        private readonly Stack<string> _viewStack = new();
-        private string _baseViewId;
+        [SerializeField] private UIViewer viewer;
+        [SerializeField] private ViewRegistryDataVo[] viewRegistryData = Array.Empty<ViewRegistryDataVo>();
+
+        private readonly Dictionary<ViewRegistryType, IUIViewRegistry> _viewsRegistry = new();
+        private readonly Stack<(string viewId, ViewLayer layer)> _viewStack = new();
+        private ViewRegistryType _currentViewRegistry;
+
+        public enum ViewLayer
+        {
+            Back,
+            Main,
+            Top
+        }
 
         private void Awake()
         {
-            foreach (var viewDataVo in _mainViewDataVo) RegisterView(viewDataVo.viewId, viewDataVo.view);
-            Log.Info("UIManager registered main views: " + _views.Count);
+            if (!viewer) Log.Error("Viewer not set");
+            if (viewRegistryData.Length == 0) Log.Error("Main views data not set");
+
+            InitializeMainViews();
         }
 
-        public void RegisterView(string viewId, IUIView view) => _views[viewId] = view;
-
-        public void ShowView(string viewId)
+        public void ShowView(ViewRegistryType type, string viewId)
         {
-            Log.Info($"show view {viewId}");
-            if (!_views.TryGetValue(viewId, out var view))
+            ShowView(type, viewId, ViewLayer.Back, replace: true);
+        }
+
+        public void ShowView(ViewRegistryType type, string viewId, ViewLayer layer, bool replace = false)
+        {
+            Log.Info($"show view -> {type} / {viewId} on layer {layer} (replace: {replace})");
+            if (!_viewsRegistry.TryGetValue(type, out var viewRegistry))
             {
-                Log.Error($"view {viewId} not found");
-                Debug.Break();
+                Log.Error($"view registry for type {type} not found");
                 return;
             }
 
-            view.Show();
-            if (_viewStack.Count == 0 || _viewStack.Peek() != viewId) _viewStack.Push(viewId);
+            var view = viewRegistry.GetView(viewId);
+            var templateData = new SubViewTemplateData { Template = view, InSafeZone = false };
+
+            if (replace && layer == ViewLayer.Back)
+            {
+                viewer.ClearLayer(ViewLayer.Back);
+            }
+
+            switch (layer)
+            {
+                case ViewLayer.Back:
+                    viewer.ShowUnderSubView(templateData);
+                    break;
+                case ViewLayer.Main:
+                    viewer.ShowNewBase(templateData);
+                    break;
+                case ViewLayer.Top:
+                    viewer.ShowOverSubView(templateData);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(layer), layer, null);
+            }
+
+            if (_viewStack.Count == 0 || _viewStack.Peek().viewId != viewId)
+                _viewStack.Push((viewId, layer));
         }
 
         public void HideView(string viewId)
         {
             Log.Info($"hide view {viewId}");
-            if (_views.TryGetValue(viewId, out IUIView view)) view.Hide();
+            var viewInStack = _viewStack.FirstOrDefault(v => v.viewId == viewId);
+            if (viewInStack.viewId == null) return;
+
+            // Удаляем все вхождения viewId из стека
+            var tempStack = new Stack<(string viewId, ViewLayer layer)>();
+            while (_viewStack.Count > 0)
+            {
+                var item = _viewStack.Pop();
+                if (item.viewId != viewId)
+                    tempStack.Push(item);
+            }
+
+            while (tempStack.Count > 0)
+            {
+                _viewStack.Push(tempStack.Pop());
+            }
+
+            viewer.ClearLayer(viewInStack.layer); // Удаляем только указанный слой
         }
 
         public void HideAllViews()
         {
             Log.Info("hide all views");
-            foreach (var viewId in _viewStack) HideView(viewId);
+            viewer.HideView();
             _viewStack.Clear();
-            _baseViewId = null;
+            // Не сбрасываем _currentViewRegistry, если это не требуется
+            // Если нужно сбросить, можно сделать _currentViewRegistry = default(ViewRegistryType);
         }
 
         public void SwitchToView(string viewId)
         {
             Log.Info($"switch to view {viewId}");
-            if (_viewStack.Count > 0 && _viewStack.Peek() != viewId) HideView(_viewStack.Peek());
-            ShowView(viewId);
+            if (_viewStack.Count > 0 && _viewStack.Peek().viewId != viewId)
+                HideView(_viewStack.Peek().viewId);
+            ShowView(_currentViewRegistry, viewId);
         }
 
         public void ShowPreviousView()
         {
             Log.Info("show previous view");
             if (_viewStack.Count <= 1) return;
-            HideView(_viewStack.Pop());
-            ShowView(_viewStack.Peek());
+            var current = _viewStack.Pop();
+            viewer.ClearLayer(current.layer);
+
+            if (_viewStack.Count > 0)
+            {
+                var previous = _viewStack.Peek();
+                ShowView(_currentViewRegistry, previous.viewId, previous.layer, replace: false);
+            }
         }
 
-        public void SetBaseView(string viewId)
+        public void SetAndShowBaseView(ViewRegistryType type)
         {
-            Log.Info($"set base view {viewId}");
-            // HideAllViews();
-            _baseViewId = viewId;
-            ShowView(viewId);
+            Log.Info($"set base view {type}");
+            HideAllViews();
+            _currentViewRegistry = type;
+            ShowView(type, "main", ViewLayer.Back, replace: true);
         }
+
+        private void InitializeMainViews()
+        {
+            foreach (var viewDataVo in viewRegistryData) RegisterView(viewDataVo.type, viewDataVo.aViewRegistry);
+        }
+
+        private void RegisterView(ViewRegistryType viewId, IUIViewRegistry view) => _viewsRegistry.TryAdd(viewId, view);
     }
 }

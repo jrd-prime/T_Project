@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Bootstrap;
 using Cysharp.Threading.Tasks;
-using Game.SO;
+using Db.SO;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.AddressableAssets;

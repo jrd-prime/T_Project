@@ -1,33 +1,42 @@
-﻿using Core.Providers.Localization;
-using Game.UI._old.Base.ViewModel;
-using Game.UI.Common;
+﻿using System;
+using Core.Extensions;
+using Core.Providers.Localization;
+using Db.Data;
+using Game.UI.Common.Base.ViewModel;
+using UnityEngine.UIElements;
 using Zenject;
 
-namespace Game.UI._old.Base.View
+namespace Game.UI.Common
 {
-    public abstract class CustomViewBase<TViewModel> : ViewBase where TViewModel : class, IUIViewModel
+    public abstract class CustomViewBase<TUIViewModel> : AViewBase where TUIViewModel : IUIViewModel
     {
-        protected TViewModel ViewModel { get; private set; }
-        protected ILocalizationProvider LocalizationManager;
-        // protected Dictionary<TSubViewType, TemplateContainer> InitializedViewsCache = new();
+        [Inject] protected TUIViewModel ViewModel { get; private set; }
+        [Inject] protected ILocalizationProvider LocalizationManager { get; private set; }
 
-        private DiContainer _container;
+        protected Label ViewMainHeader;
 
-        [Inject]
-        private void Construct(DiContainer container, TViewModel viewModel,
-            ILocalizationProvider localizationManager)
+        private void Awake()
         {
-            _container = container;
-            ViewModel = viewModel;
-            LocalizationManager = localizationManager;
+            if (template == null) throw new NullReferenceException("Template is null. " + name);
+
+            Template = template.Instantiate();
+
+            RootContainer = Template.GetVisualElement<VisualElement>(UIElementId.ContainerId, name);
+            ViewMainHeader = RootContainer.GetVisualElement<Label>(UIElementId.TitleId, name);
+            InitializeView();
+
+            IsInitialized = true;
         }
 
-        protected void Start()
+        private void Start()
         {
-            foreach (var viewBase in SubViewsCache)
-            {
-                _container.Inject(viewBase.Value);
-            }
+            if (ViewModel == null) throw new NullReferenceException("ViewModel is null. " + name);
+            if (LocalizationManager == null) throw new NullReferenceException("LocalizationManager is null. " + name);
+
+            CreateAndInitComponents();
+            Localize();
+            InitializeCallbacks();
+            RegisterCallbacks();
         }
     }
 }

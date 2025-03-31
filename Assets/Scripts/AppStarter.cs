@@ -10,16 +10,12 @@ using Zenject;
 
 public sealed class AppStarter : IInitializable
 {
-    private DiContainer _container;
-
-    [Inject]
-    private void Construct(DiContainer container) => _container = container;
+    [Inject] private DiContainer _container;
 
     public void Initialize() => InitializeAsync().Forget();
 
     private async UniTask InitializeAsync()
     {
-        Debug.LogWarning("app starter initialized");
         var bootstrapLoader = _container.Resolve<BootstrapLoader>();
         var bootstrapUIModel = _container.Resolve<IBootstrapUIModel>();
 

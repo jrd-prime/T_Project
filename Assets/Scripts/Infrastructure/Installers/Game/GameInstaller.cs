@@ -2,13 +2,15 @@
 using Core.Character.Hero;
 using Core.Managers.Camera._Game._Scripts.Framework.Manager.JCamera;
 using Core.Managers.Game;
+using Core.Managers.Game.Impls;
 using Core.Managers.UI.Impls;
 using Game.Systems;
-using Game.UI._old.Gameplay;
-using Game.UI._old.Menu;
-using Game.UI._old.Pause;
+using Game.UI.Impls.Gameplay.Gameplay;
+using Game.UI.Impls.Menu;
+using Game.UI.Impls.Pause;
 using ModestTree;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Infrastructure.Installers.Game
@@ -17,7 +19,7 @@ namespace Infrastructure.Installers.Game
     {
         [SerializeField] private CameraManager cameraManager;
         [SerializeField] private UIManager uiManagerPrefab;
-        [SerializeField] private GameManager gameManagerPrefab;
+        [FormerlySerializedAs("aGameManagerPrefab")] [SerializeField] private GameManager gameManagerPrefab;
 
         private GameObject _mainEmpty;
 

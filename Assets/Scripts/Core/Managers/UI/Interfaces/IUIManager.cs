@@ -1,12 +1,16 @@
-﻿namespace Core.Managers.UI.Interfaces
+﻿using Core.Managers.UI.Impls;
+using Game.UI.Data;
+
+namespace Core.Managers.UI.Interfaces
 {
     public interface IUIManager
     {
-        void ShowView(string viewId);
         void HideView(string viewId);
         void HideAllViews();
         void SwitchToView(string viewId);
+
+        void SetAndShowBaseView(ViewRegistryType type);
+        void ShowView(ViewRegistryType type, string viewId, UIManager.ViewLayer layer, bool replace = false);
         void ShowPreviousView();
-        void SetBaseView(string viewId);
     }
 }

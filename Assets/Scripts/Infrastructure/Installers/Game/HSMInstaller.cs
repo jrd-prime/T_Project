@@ -1,4 +1,4 @@
-﻿using Core.HSM;
+﻿using Core.Managers.HSM.Impls;
 using Zenject;
 
 namespace Infrastructure.Installers.Game

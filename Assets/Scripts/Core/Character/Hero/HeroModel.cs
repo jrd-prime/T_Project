@@ -1,5 +1,5 @@
 ﻿using Core.Extensions;
-using Game.SO;
+using Db.SO;
 using Game.Systems;
 using Infrastructure.Input;
 using JetBrains.Annotations;

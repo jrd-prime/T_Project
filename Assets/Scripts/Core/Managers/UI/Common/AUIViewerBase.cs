@@ -1,0 +1,29 @@
+﻿using System;
+using Core.Extensions;
+using Core.Managers.UI.Interfaces;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+namespace Core.Managers.UI.Common
+{
+    [RequireComponent(typeof(UIDocument))]
+    public class AUIViewerBase : MonoBehaviour, IUIViewer
+    {
+        protected VisualElement RootVisualElement { get; private set; }
+        protected VisualElement RootContainer { get; private set; }
+        protected VisualElement BackLayer { get; private set; }
+        protected VisualElement MainLayer { get; private set; }
+        protected VisualElement TopLayer { get; private set; }
+
+        private void Awake()
+        {
+            RootVisualElement = GetComponent<UIDocument>().rootVisualElement;
+            RootContainer = RootVisualElement.Q<VisualElement>("viewer-container") ??
+                            throw new NullReferenceException("Viewer container not found");
+
+            BackLayer = RootContainer.GetVisualElement<VisualElement>("back-layer", name);
+            MainLayer = RootContainer.GetVisualElement<VisualElement>("main-layer", name);
+            TopLayer = RootContainer.GetVisualElement<VisualElement>("top-layer", name);
+        }
+    }
+}

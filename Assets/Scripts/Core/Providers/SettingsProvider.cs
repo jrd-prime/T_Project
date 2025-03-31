@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Bootstrap;
 using Cysharp.Threading.Tasks;
-using Game.SO;
+using Db.SO;
 using UnityEngine;
 using Zenject;
 

@@ -1,9 +1,7 @@
 ﻿using System;
-using Core.FSM;
-using Core.FSM.Interfaces;
 using Core.Providers;
 using Core.Providers.Localization;
-using Game.SO;
+using Db.SO;
 using Infrastructure.Input;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -30,7 +28,6 @@ namespace Infrastructure.Installers
             var input = gameObject.AddComponent<DesktopInput>();
             Container.Bind<IJInput>().To<DesktopInput>().FromInstance(input).AsSingle();
 
-            Container.Bind<IGameStateDispatcher>().To<GameGameStateDispatcher>().AsSingle();
             Container.Bind<ISettingsProvider>().To<SettingsProvider>().AsSingle();
             Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle();
             Container.Bind<ILocalizationProvider>().To<LocalizationProvider>().AsSingle();
