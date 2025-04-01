@@ -1,4 +1,6 @@
-﻿using Game.UI.Common.Base.ViewModel;
+﻿using Game.UI.Common;
+using Game.UI.Data;
+using Game.UI.Interfaces.Model;
 using R3;
 
 namespace Game.UI.Impls.Pause
@@ -19,6 +21,8 @@ namespace Game.UI.Impls.Pause
             // ContinueButtonClicked.Subscribe(ContinueButtonClickedHandler).AddTo(Disposables);
             // MenuButtonClicked.Subscribe(MenuButtonClickedHandler).AddTo(Disposables);
         }
+
+        protected override ViewRegistryType GetRegistryType() => ViewRegistryType.Pause; 
 
         // private void ContinueButtonClickedHandler(Unit _) =>
         //     Model.GameStateChangeRequest(new StateDataVo(GameStateType.Gameplay, GameplayStateType.Main));

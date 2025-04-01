@@ -1,78 +1,11 @@
-﻿using Game.UI.Common.Base.Model;
-using JetBrains.Annotations;
-using R3;
-using UnityEngine;
+﻿using Game.UI.Interfaces.Model;
 
 namespace Game.UI.Impls.Gameplay.Gameplay
 {
-    public interface IGameplayModel : IUIModel
+    public class GameplayModel : IGameplayModel
     {
-        // public ReadOnlyReactiveProperty<EnergySavableData> EnergyData { get; }
-        // public ReadOnlyReactiveProperty<AmbientTempSavableData> AmbientTempData { get; }
-        public ReadOnlyReactiveProperty<bool> IsGameRunning { get; }
-
-        // public ReadOnlyReactiveProperty<DayTimerSavableData> CountdownData { get; }
-        // public Subject<Unit> ShakeBackpackButton { get; }
-        //
-        // public void OnDownEvent(PointerDownEvent evt);
-        // public void OnMoveEvent(PointerMoveEvent evt);
-        // public void OnUpEvent(PointerUpEvent _);
-        // public void OnOutEvent(PointerOutEvent _);
-        // public void AddEnergy();
-        // public void OpenBackpack();
-        // public void ShakeBackpack();
-    }
-
-    [UsedImplicitly]
-    public class GameplayModel : CustomUIModelBase, IGameplayModel
-    {
-        // private IStateMachine fsm;
-        public Subject<Unit> ShakeBackpackButton { get; } = new();
-
-        // public ReadOnlyReactiveProperty<DayTimerSavableData> CountdownData => _dayTimerDataModel.ModelData;
-        public ReadOnlyReactiveProperty<bool> IsGameRunning => GameManager.IsGameRunning;
-        // public ReadOnlyReactiveProperty<AmbientTempSavableData> AmbientTempData => _ambientTempDataModel.ModelData;
-        // public ReadOnlyReactiveProperty<EnergySavableData> EnergyData => _energyDataModel.ModelData;
-
-        // private IMovementControlModel _movementModel;
-        // private EnergyDataModel _energyDataModel;
-        // private AmbientTempDataModel _ambientTempDataModel;
-        // private DayTimerDataModel _dayTimerDataModel;
-
-        public override void Initialize()
+        public void Initialize()
         {
-            // _movementModel = ResolverHelp.ResolveAndCheck<IMovementControlModel>(Container);
-            // _energyDataModel = ResolverHelp.ResolveAndCheck<EnergyDataModel>(Container);
-            // _ambientTempDataModel = ResolverHelp.ResolveAndCheck<AmbientTempDataModel>(Container);
-            // _dayTimerDataModel = ResolverHelp.ResolveAndCheck<DayTimerDataModel>(Container);
-
-            // fsm = Container.ResolveAndCheckOnNull<IStateMachine>();
-            //
-            // var input = Container.ResolveAndCheckOnNull<IJInput>();
-            // input.OnEscape.Subscribe(HandleEscapeClick).AddTo(Disposables);
         }
-
-        // private void HandleEscapeClick(Unit _)
-        // {
-        //     var state = fsm.CurrentState.CurrentValue;
-        //     
-        //     if (fsm.CurrentState.CurrentValue == GameStateType.Gameplay)
-        //     {
-        //         fsm.ChangeState(GameStateType.Menu);
-        //     }
-        // }
-        // public void AddEnergy() => _energyDataModel.IncreaseEnergy(30);
-
-        public void OpenBackpack()
-        {
-            Debug.LogWarning("OPEN BACKPACK11");
-        }
-
-        public void ShakeBackpack() => ShakeBackpackButton.OnNext(Unit.Default);
-
-        // public void OnDownEvent(PointerDownEvent evt) => _movementModel.OnDownEvent(evt);
-        // public void OnMoveEvent(PointerMoveEvent evt) => _movementModel.OnMoveEvent(evt);
-        // public void OnUpEvent(PointerUpEvent _) => _movementModel.OnUpEvent(_);
-        // public void OnOutEvent(PointerOutEvent _) => _movementModel.OnOutEvent(_);
     }
 }

@@ -2,7 +2,6 @@
 using Core.Providers.Localization;
 using Db.Data;
 using Game.UI.Common;
-using R3;
 using UnityEngine.UIElements;
 
 namespace Game.UI.Impls.Menu.Views
@@ -38,9 +37,9 @@ namespace Game.UI.Impls.Menu.Views
 
         protected override void InitializeCallbacks()
         {
-            CallbacksCache.Add(_backBtn, _ => ViewModel.BackButtonClicked.OnNext(Unit.Default));
-            CallbacksCache.Add(_audioBtn, _ => ViewModel.AudioButtonClicked.OnNext(Unit.Default));
-            CallbacksCache.Add(_videoBtn, _ => ViewModel.VideoButtonClicked.OnNext(Unit.Default));
+            CallbacksCache.Add(_backBtn, _ => ViewModel.BackBtnClicked());
+            CallbacksCache.Add(_audioBtn, _ => ViewModel.AudioBtnClicked());
+            CallbacksCache.Add(_videoBtn, _ => ViewModel.VideoBtnClicked());
         }
     }
 }

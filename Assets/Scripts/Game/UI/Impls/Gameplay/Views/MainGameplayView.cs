@@ -3,8 +3,6 @@ using Core.Providers.Localization;
 using Db.Data;
 using Game.UI.Common;
 using Game.UI.Impls.Menu;
-using R3;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Game.UI.Impls.Gameplay.Views
@@ -40,21 +38,6 @@ namespace Game.UI.Impls.Gameplay.Views
 
         protected override void InitializeCallbacks()
         {
-            CallbacksCache.Add(_playBtn, _ =>
-            {
-                Debug.LogWarning(" Play Button Clicked");
-                ViewModel.StartButtonClicked.OnNext(Unit.Default);
-            });
-            CallbacksCache.Add(_settingsBtn, _ =>
-            {
-                Debug.LogWarning(" Settings Button Clicked");
-                ViewModel.SettingsButtonClicked.OnNext(Unit.Default);
-            });
-            CallbacksCache.Add(_exitBtn, _ =>
-            {
-                Debug.LogWarning(" Exit Button Clicked");
-                ViewModel.ExitButtonClicked.OnNext(Unit.Default);
-            });
         }
     }
 }

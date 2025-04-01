@@ -2,7 +2,7 @@
 using Core.Extensions;
 using Core.Providers.Localization;
 using Db.Data;
-using Game.UI.Common.Base.ViewModel;
+using Game.UI.Interfaces.Model;
 using ModestTree;
 using UnityEngine.UIElements;
 using Zenject;

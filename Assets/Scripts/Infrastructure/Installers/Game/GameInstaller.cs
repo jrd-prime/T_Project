@@ -10,7 +10,6 @@ using Game.UI.Impls.Menu;
 using Game.UI.Impls.Pause;
 using ModestTree;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace Infrastructure.Installers.Game

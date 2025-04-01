@@ -1,6 +1,6 @@
 ﻿using Core.Extensions;
 using Core.Managers.Game.Interfaces;
-using Game.UI.Common.Base.Model;
+using Game.UI.Interfaces.Model;
 using JetBrains.Annotations;
 using Zenject;
 

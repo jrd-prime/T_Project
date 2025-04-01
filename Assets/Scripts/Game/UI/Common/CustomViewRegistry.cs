@@ -1,5 +1,5 @@
 ﻿using Core.Providers.Localization;
-using Game.UI.Common.Base.ViewModel;
+using Game.UI.Interfaces.Model;
 using Zenject;
 
 namespace Game.UI.Common

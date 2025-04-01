@@ -1,4 +1,6 @@
-﻿using Game.UI.Common.Base.ViewModel;
+﻿using Game.UI.Common;
+using Game.UI.Data;
+using Game.UI.Interfaces.Model;
 using R3;
 
 namespace Game.UI.Impls.Gameplay.Gameplay
@@ -15,7 +17,6 @@ namespace Game.UI.Impls.Gameplay.Gameplay
 
         // public ReadOnlyReactiveProperty<EnergySavableData> ShelterEnergyData { get; }
         // public ReadOnlyReactiveProperty<AmbientTempSavableData> AmbientTemperatureData { get; }
-        public ReadOnlyReactiveProperty<bool> IsGameRunning { get; }
 
         // public ReactiveProperty<PreparedDayTimerData> PreparedDayTimerData { get; }
         // public ReactiveProperty<PreparedEnergyData> PreparedEnergyData { get; }
@@ -40,7 +41,6 @@ namespace Game.UI.Impls.Gameplay.Gameplay
 
         // public ReadOnlyReactiveProperty<EnergySavableData> ShelterEnergyData => Model.EnergyData;
         // public ReadOnlyReactiveProperty<AmbientTempSavableData> AmbientTemperatureData => Model.AmbientTempData;
-        public ReadOnlyReactiveProperty<bool> IsGameRunning => Model.IsGameRunning;
         // public ReactiveProperty<PreparedDayTimerData> PreparedDayTimerData { get; } = new();
         // public ReactiveProperty<PreparedEnergyData> PreparedEnergyData { get; } = new();
         // public ReactiveProperty<PreparedTemperatureData> PreparedTemperatureData { get; } = new();
@@ -66,6 +66,8 @@ namespace Game.UI.Impls.Gameplay.Gameplay
             // AddEnergyBtnClicked.Subscribe(_ => Model.AddEnergy()).AddTo(Disposables);
             // BackpackBtnClicked.Subscribe(_ => Model.OpenBackpack()).AddTo(Disposables);
         }
+
+        protected override ViewRegistryType GetRegistryType() => ViewRegistryType.Gameplay;
 
         // private void UpdateDayTimerData(DayTimerSavableData savableData)
         // {

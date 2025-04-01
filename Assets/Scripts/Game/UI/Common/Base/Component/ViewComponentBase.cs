@@ -1,5 +1,5 @@
 ﻿using System;
-using Game.UI.Common.Base.ViewModel;
+using Game.UI.Interfaces.Model;
 using R3;
 using UnityEngine;
 using UnityEngine.UIElements;

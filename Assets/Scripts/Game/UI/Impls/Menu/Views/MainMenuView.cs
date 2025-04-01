@@ -2,7 +2,6 @@
 using Core.Providers.Localization;
 using Db.Data;
 using Game.UI.Common;
-using R3;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -42,17 +41,17 @@ namespace Game.UI.Impls.Menu.Views
             CallbacksCache.Add(_playBtn, _ =>
             {
                 Debug.LogWarning(" Play Button Clicked");
-                ViewModel.StartButtonClicked.OnNext(Unit.Default);
+                ViewModel.StartBtnClicked();
             });
             CallbacksCache.Add(_settingsBtn, _ =>
             {
                 Debug.LogWarning(" Settings Button Clicked");
-                ViewModel.SettingsButtonClicked.OnNext(Unit.Default);
+                ViewModel.SettingsBtnClicked();
             });
             CallbacksCache.Add(_exitBtn, _ =>
             {
                 Debug.LogWarning(" Exit Button Clicked");
-                ViewModel.ExitButtonClicked.OnNext(Unit.Default);
+                ViewModel.ExitBtnClicked();
             });
         }
     }

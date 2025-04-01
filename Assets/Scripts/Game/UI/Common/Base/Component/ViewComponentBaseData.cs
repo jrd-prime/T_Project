@@ -1,4 +1,4 @@
-﻿using Game.UI.Common.Base.ViewModel;
+﻿using Game.UI.Interfaces.Model;
 using UnityEngine.UIElements;
 
 namespace Game.UI.Common.Base.Component

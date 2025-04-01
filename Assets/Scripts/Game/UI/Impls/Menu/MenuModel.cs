@@ -1,12 +1,10 @@
-﻿using Game.UI.Common.Base.Model;
-using JetBrains.Annotations;
+﻿using Game.UI.Interfaces.Model;
 
 namespace Game.UI.Impls.Menu
 {
-    [UsedImplicitly]
-    public sealed class MenuModel : CustomUIModelBase, IMenuModel
+    public sealed class MenuModel : IMenuModel
     {
-        public override void Initialize()
+        public void Initialize()
         {
         }
     }
