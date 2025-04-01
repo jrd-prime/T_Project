@@ -9,10 +9,11 @@ namespace Core.Managers.HSM.Impls.States.Gameplay
     {
         public GameplayState(HSM stateMachine, IUIManager uiManager) : base(stateMachine, uiManager)
         {
-            AddSubState<PlayingSubState>(new PlayingSubState(this, uiManager));
+            AddSubState<GameplayMainSubState>(new GameplayMainSubState(this, uiManager));
             AddSubState<PausedSubState>(new PausedSubState(this, uiManager));
             AddSubState<InventoryOpenSubState>(new InventoryOpenSubState(this, uiManager));
-            SetInitialSubState<PlayingSubState>();
+            
+            SetInitialSubState<GameplayMainSubState>();
         }
 
         public override void Enter()
@@ -24,8 +25,7 @@ namespace Core.Managers.HSM.Impls.States.Gameplay
         public override void Exit()
         {
             UIManager.HideAllViews();
-            UIManager.HideView("GameplayHUD");
-            base.Exit();
+            base.Exit(); // или перед?
         }
     }
 }

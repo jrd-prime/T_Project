@@ -54,17 +54,17 @@ namespace Core.Managers.UI.Impls
 
         public void HideView() => ClearAll();
 
-        public void ClearLayer(UIManager.ViewLayer layer)
+        public void ClearLayer(Layer layer)
         {
             switch (layer)
             {
-                case UIManager.ViewLayer.Back:
+                case Layer.Back:
                     BackLayer.Clear();
                     break;
-                case UIManager.ViewLayer.Main:
+                case Layer.Main:
                     MainLayer.Clear();
                     break;
-                case UIManager.ViewLayer.Top:
+                case Layer.Top:
                     TopLayer.Clear();
                     break;
             }
@@ -75,6 +75,13 @@ namespace Core.Managers.UI.Impls
             BackLayer.Clear();
             MainLayer.Clear();
             TopLayer.Clear();
+        }
+
+        public enum Layer
+        {
+            Back,
+            Main,
+            Top
         }
     }
 }

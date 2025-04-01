@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using Core.Managers.HSM.Impls.States.Gameplay;
 using Core.Managers.HSM.Impls.States.Menu;
 using Core.Managers.HSM.Interfaces;
+using Core.Managers.HSM.Signals;
 using Core.Managers.UI.Interfaces;
 using ModestTree;
+using Zenject;
 
 namespace Core.Managers.HSM.Impls
 {
@@ -16,13 +18,17 @@ namespace Core.Managers.HSM.Impls
         private IState _currentState;
         private readonly Dictionary<Type, IState> _states = new();
 
-        public HSM(IUIManager uiManager)
+        public HSM(SignalBus signalBus, IUIManager uiManager)
         {
             InitializeMainStates(uiManager);
 
             var rootState = _states[typeof(MenuState)];
             _currentState = rootState;
+
+            signalBus.Subscribe<ChangeGameStateSignalVo>(OnChangeGameStateSignal);
         }
+
+        private void OnChangeGameStateSignal(ChangeGameStateSignalVo signal) => TransitionTo(signal.StateType);
 
         private void InitializeMainStates(IUIManager uiManager)
         {
@@ -30,11 +36,7 @@ namespace Core.Managers.HSM.Impls
             RegisterState<GameplayState>(new GameplayState(this, uiManager));
         }
 
-        public void Start()
-        {
-            Log.Info("hsm started");
-            _currentState.Enter();
-        }
+        public void Start() => _currentState.Enter();
 
         public void Update()
         {
@@ -44,10 +46,10 @@ namespace Core.Managers.HSM.Impls
             if (nextState != null && nextState != _currentState) TransitionTo(nextState);
         }
 
-        public void TransitionTo<T>() where T : IState
+        public void TransitionTo<T>(T stateType) where T : Type
         {
-            Log.Info($"hsm transition to {typeof(T).Name}");
-            if (_states.TryGetValue(typeof(T), out IState newState)) TransitionTo(newState);
+            Log.Info($"hsm transition to {stateType}");
+            if (_states.TryGetValue(stateType, out IState newState)) TransitionTo(newState);
         }
 
         private void TransitionTo(IState newState)

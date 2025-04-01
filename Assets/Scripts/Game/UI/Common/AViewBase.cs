@@ -9,9 +9,8 @@ namespace Game.UI.Common
 {
     public abstract class AViewBase : MonoBehaviour, IUISubView
     {
-        [SerializeField] protected string headerNameId;
+        [SerializeField] protected string ttlLocalizationId;
         [SerializeField] protected VisualTreeAsset template;
-        [SerializeField] public bool inSafeZone;
 
         protected TemplateContainer Template;
         protected VisualElement RootContainer;

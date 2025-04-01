@@ -13,11 +13,13 @@ namespace Game.UI.Common.Base.ViewModel
         where TUIModel : IUIModel
     {
         protected TUIModel Model { get; private set; }
+        protected SignalBus SignalBus { get; private set; }
 
         [Inject]
-        private void Construct(TUIModel model)
+        private void Construct(TUIModel model, SignalBus signalBus)
         {
             Model = model;
+            SignalBus = signalBus;
 
             if (Model == null) throw new NullReferenceException($"{typeof(TUIModel)} is null");
         }

@@ -20,7 +20,7 @@ namespace Core.Managers.HSM.Impls.States.Gameplay.SubStates_example
         public override void Update()
         {
             if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.P)
-                TransitionToSubState<PlayingSubState>();
+                TransitionToSubState<GameplayMainSubState>();
         }
 
         public override IState HandleTransition() => null;

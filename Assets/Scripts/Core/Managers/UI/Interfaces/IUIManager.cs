@@ -10,7 +10,7 @@ namespace Core.Managers.UI.Interfaces
         void SwitchToView(string viewId);
 
         void SetAndShowBaseView(ViewRegistryType type);
-        void ShowView(ViewRegistryType type, string viewId, UIManager.ViewLayer layer, bool replace = false);
+        void ShowView(ViewRegistryType type, string viewId, UIViewer.Layer layer, bool replace = false);
         void ShowPreviousView();
     }
 }

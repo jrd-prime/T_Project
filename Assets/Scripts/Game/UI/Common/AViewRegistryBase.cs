@@ -14,6 +14,7 @@ namespace Game.UI.Common
     public abstract class AViewRegistryBase : MonoBehaviour, IUIViewRegistry
     {
         [SerializeField] private SubViewBaseDataVo[] subViews;
+        [SerializeField] public bool inSafeZone;
 
         protected readonly Dictionary<string, AViewBase> SubViewsCache = new();
         private VisualElement _root;
@@ -40,7 +41,6 @@ namespace Game.UI.Common
 
             return new SubViewTemplateData
             {
-                InSafeZone = subView.inSafeZone,
                 Template = subView.GetTemplate()
             };
         }
@@ -56,13 +56,13 @@ namespace Game.UI.Common
 
         public void Show()
         {
-            Log.Warn("Show main view for " + GetType());
+            Log.Info("Show main view for " + GetType());
             _root.style.display = DisplayStyle.Flex;
         }
 
         public void Hide()
         {
-            Log.Warn("Hide main view for " + GetType());
+            Log.Info("Hide main view for " + GetType());
             _root.style.display = DisplayStyle.None;
         }
 
@@ -71,5 +71,7 @@ namespace Game.UI.Common
             var view = GetSubView(viewId) ?? throw new NullReferenceException("SubView is null. " + viewId);
             return view.GetTemplate();
         }
+
+        public bool HasView(string viewId) => SubViewsCache.ContainsKey(viewId);
     }
 }

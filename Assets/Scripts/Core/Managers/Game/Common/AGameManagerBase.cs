@@ -32,7 +32,6 @@ namespace Core.Managers.Game.Common
         [Inject]
         private void Construct(DiContainer container)
         {
-            Log.Warn("Construct game manager");
             _container = container;
             _hsm = _container.Resolve<HSM.Impls.HSM>();
             SettingsManager = _container.Resolve<ISettingsProvider>();

@@ -24,7 +24,7 @@ namespace Core.Managers.HSM.Impls.States.Gameplay.SubStates_example
                 var key = Console.ReadKey(true).Key;
                 switch (key)
                 {
-                    case ConsoleKey.I: TransitionToSubState<PlayingSubState>(); break;
+                    case ConsoleKey.I: TransitionToSubState<GameplayMainSubState>(); break;
                     case ConsoleKey.B: UIManager.ShowPreviousView(); break;
                 }
             }

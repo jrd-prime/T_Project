@@ -19,7 +19,7 @@ namespace Infrastructure.Installers.Game
     {
         [SerializeField] private CameraManager cameraManager;
         [SerializeField] private UIManager uiManagerPrefab;
-        [FormerlySerializedAs("aGameManagerPrefab")] [SerializeField] private GameManager gameManagerPrefab;
+        [SerializeField] private GameManager gameManagerPrefab;
 
         private GameObject _mainEmpty;
 
@@ -76,7 +76,7 @@ namespace Infrastructure.Installers.Game
 
             container.BindInterfacesAndSelfTo<T>()
                 .FromInstance(component)
-                .AsCached();
+                .AsSingle();
         }
 
         private void RegisterPrefabComponent<T>(DiContainer container, T prefabComponent, string componentName)

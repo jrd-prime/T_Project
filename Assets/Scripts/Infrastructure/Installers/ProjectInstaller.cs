@@ -19,6 +19,8 @@ namespace Infrastructure.Installers
         {
             Debug.Log("<color=cyan>ProjectInstaller</color>");
 
+            SignalBusInstaller.Install(Container);
+
             if (mainSettings == null) throw new NullReferenceException("MainSettings is null.");
             Container.Bind<MainSettings>().FromInstance(mainSettings).AsSingle().NonLazy();
 

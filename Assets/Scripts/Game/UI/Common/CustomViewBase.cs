@@ -3,6 +3,7 @@ using Core.Extensions;
 using Core.Providers.Localization;
 using Db.Data;
 using Game.UI.Common.Base.ViewModel;
+using ModestTree;
 using UnityEngine.UIElements;
 using Zenject;
 
@@ -25,6 +26,7 @@ namespace Game.UI.Common
             ViewMainHeader = RootContainer.GetVisualElement<Label>(UIElementId.TitleId, name);
             InitializeView();
 
+            Log.Warn("Init view " + GetType());
             IsInitialized = true;
         }
 

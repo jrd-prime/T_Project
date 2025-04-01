@@ -22,13 +22,13 @@ namespace Core.Managers.HSM.Common
         public virtual void Enter()
         {
             Log.Info($"enter state {GetType().Name}");
-            if (CurrentSubState != null) CurrentSubState.Enter();
+            CurrentSubState?.Enter();
         }
 
         public virtual void Exit()
         {
             Log.Info($"exit state {GetType().Name}");
-            if (CurrentSubState != null) CurrentSubState.Exit();
+            CurrentSubState?.Exit();
         }
 
         public virtual void Update()

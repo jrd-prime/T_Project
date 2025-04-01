@@ -1,4 +1,7 @@
-﻿using Game.UI.Common.Base.Model;
+﻿using Core.Managers.HSM.Impls.States.Gameplay;
+using Core.Managers.HSM.Signals;
+using Core.Managers.UI.Signals;
+using Game.UI.Common.Base.Model;
 using Game.UI.Common.Base.ViewModel;
 using R3;
 using Tools;
@@ -26,7 +29,7 @@ namespace Game.UI.Impls.Menu
 
         public override void Initialize()
         {
-            // StartButtonClicked.Subscribe(StartButtonClickedHandler).AddTo(Disposables);
+            StartButtonClicked.Subscribe(StartButtonClickedHandler).AddTo(Disposables);
             // SettingsButtonClicked.Subscribe(SettingsButtonClickedHandler).AddTo(Disposables);
             // ExitButtonClicked.Subscribe(ExitButtonClickedHandler).AddTo(Disposables);
             //
@@ -53,11 +56,11 @@ namespace Game.UI.Impls.Menu
         //     Model.GameStateChangeRequest(new StateDataVo(GameStateType.Menu, MenuStateType.VideoSettings));
         // }
         //
-        // private void StartButtonClickedHandler(Unit _) =>
-        //     Model.GameStateChangeRequest(new StateDataVo(GameStateType.Gameplay, GameplayStateType.Main));
-        //
-        // private void SettingsButtonClickedHandler(Unit _) =>
-        //     Model.GameStateChangeRequest(new StateDataVo(GameStateType.Menu, MenuStateType.Settings));
+        private void StartButtonClickedHandler(Unit _) =>
+            SignalBus.Fire(new ChangeGameStateSignalVo(typeof(GameplayState)));
+
+
+        private void SettingsButtonClickedHandler(Unit _) => SignalBus.Fire(new SwitchLocalViewSignalVo("settings"));
 
         private void ExitButtonClickedHandler(Unit _)
         {
