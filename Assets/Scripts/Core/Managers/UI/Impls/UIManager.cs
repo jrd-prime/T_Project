@@ -33,9 +33,16 @@ namespace Core.Managers.UI.Impls
             InitializeMainViews();
 
             _signalBus.Subscribe<SwitchLocalViewSignalVo>(OnSwitchLocalViewSignal);
+            _signalBus.Subscribe<SwitchToPreviousViewSignalVo>(OnSwitchToPreviousViewSignal);
         }
 
-        private void OnSwitchLocalViewSignal(SwitchLocalViewSignalVo signal) => SwitchToView(signal.ViewId);
+        private void OnSwitchToPreviousViewSignal() => ShowPreviousView();
+
+        private void OnSwitchLocalViewSignal(SwitchLocalViewSignalVo signal)
+        {
+            Log.Info("switch local view signal / " + signal.ViewId);
+            ShowView(signal.ViewRegistryType, signal.ViewId);
+        }
 
         public void ShowView(ViewRegistryType type, string viewId)
         {
@@ -76,6 +83,8 @@ namespace Core.Managers.UI.Impls
 
             if (_viewStack.Count == 0 || _viewStack.Peek().viewId != viewId)
                 _viewStack.Push((viewId, layer));
+            
+            Log.Info(_viewStack.Count + " items in stack");
         }
 
         public void HideView(string viewId)
@@ -113,6 +122,7 @@ namespace Core.Managers.UI.Impls
         public void SwitchToView(string viewId)
         {
             Log.Info($"switch to view {viewId}");
+            Log.Info(_viewStack.Count + " items in stack");
             if (_viewStack.Count > 0 && _viewStack.Peek().viewId != viewId)
                 HideView(_viewStack.Peek().viewId);
 
@@ -125,6 +135,8 @@ namespace Core.Managers.UI.Impls
         public void ShowPreviousView()
         {
             Log.Info("show previous view");
+            Log.Info(_viewStack.Count + " items in stack");
+            
             if (_viewStack.Count <= 1) return;
             var current = _viewStack.Pop();
             viewer.ClearLayer(current.layer);

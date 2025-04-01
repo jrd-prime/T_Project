@@ -3,6 +3,7 @@ using Core.Managers.HSM.Signals;
 using Core.Managers.UI.Signals;
 using Game.UI.Common.Base.Model;
 using Game.UI.Common.Base.ViewModel;
+using Game.UI.Data;
 using R3;
 using Tools;
 
@@ -30,18 +31,17 @@ namespace Game.UI.Impls.Menu
         public override void Initialize()
         {
             StartButtonClicked.Subscribe(StartButtonClickedHandler).AddTo(Disposables);
-            // SettingsButtonClicked.Subscribe(SettingsButtonClickedHandler).AddTo(Disposables);
+            SettingsButtonClicked.Subscribe(SettingsButtonClickedHandler).AddTo(Disposables);
             // ExitButtonClicked.Subscribe(ExitButtonClickedHandler).AddTo(Disposables);
             //
             // AudioButtonClicked.Subscribe(AudioButtonClickedHandler).AddTo(Disposables);
             // VideoButtonClicked.Subscribe(VideoButtonClickedHandler).AddTo(Disposables);
             //
-            // BackButtonClicked.Subscribe(BackButtonClickedHandler).AddTo(Disposables); // TODO
+            BackButtonClicked.Subscribe(BackButtonClickedHandler).AddTo(Disposables); // TODO
         }
 
-        // private void BackButtonClickedHandler(Unit _) =>
-        //     Model.GameStateChangeRequest(new StateDataVo(GameStateType.Menu, MenuStateType.Main));
-        //
+        private void BackButtonClickedHandler(Unit _) => SignalBus.Fire(new SwitchToPreviousViewSignalVo());
+
         // private void AudioButtonClickedHandler(Unit _)
         // {
         //     Debug.LogWarning("AudioButtonClickedHandler. Not implemented yet.");
@@ -60,7 +60,8 @@ namespace Game.UI.Impls.Menu
             SignalBus.Fire(new ChangeGameStateSignalVo(typeof(GameplayState)));
 
 
-        private void SettingsButtonClickedHandler(Unit _) => SignalBus.Fire(new SwitchLocalViewSignalVo("settings"));
+        private void SettingsButtonClickedHandler(Unit _) =>
+            SignalBus.Fire(new SwitchLocalViewSignalVo(ViewRegistryType.Menu, "settings"));
 
         private void ExitButtonClickedHandler(Unit _)
         {

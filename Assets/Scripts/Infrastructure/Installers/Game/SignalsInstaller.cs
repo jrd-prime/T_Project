@@ -12,6 +12,7 @@ namespace Infrastructure.Installers.Game
             Container.DeclareSignal<ChangeGameStateSignalVo>();
             // UI Manager
             Container.DeclareSignal<SwitchLocalViewSignalVo>();
+            Container.DeclareSignal<SwitchToPreviousViewSignalVo>();
         }
     }
 }
