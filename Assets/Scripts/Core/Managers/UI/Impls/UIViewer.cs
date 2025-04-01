@@ -25,10 +25,10 @@ namespace Core.Managers.UI.Impls
             if (subViewTemplateData.InSafeZone) ToSafe();
 
             view.style.position = Position.Absolute;
-            view.style.left = 0;
-            view.style.top = 0;
-            view.style.right = 0;
-            view.style.bottom = 0;
+            view.style.left = 100;
+            view.style.top = 100;
+            view.style.right = 100;
+            view.style.bottom = 100;
         }
 
         public void ShowNewBase(SubViewTemplateData subViewTemplateData)

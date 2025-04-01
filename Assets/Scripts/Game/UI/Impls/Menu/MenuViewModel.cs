@@ -26,8 +26,8 @@ namespace Game.UI.Impls.Menu
 
         public void StartBtnClicked() => ChangeGameStateTo(typeof(GameplayState));
         public void SettingsBtnClicked() => SwitchLocalViewTo("settings");
-        public void AudioBtnClicked() => SwitchLocalViewTo("audio");
-        public void VideoBtnClicked() => SwitchLocalViewTo("video");
+        public void AudioBtnClicked() => SwitchLocalViewTo("settings-audio");
+        public void VideoBtnClicked() => SwitchLocalViewTo("settings-video");
         public void BackBtnClicked() => SwitchToPreviousView();
         public void ExitBtnClicked() => ExitHelp.ExitGame();
     }

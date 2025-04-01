@@ -5,6 +5,6 @@ namespace Game.UI.Common.Base.Data
     public struct SubViewTemplateData
     {
         public bool InSafeZone;
-        public TemplateContainer Template;
+        public VisualElement Template;
     }
 }

@@ -145,7 +145,15 @@ PrefabInstance:
       objectReference: {fileID: 9197481963319205126, guid: d518e2bf13427384c97885e5575f0bf2, type: 3}
     - target: {fileID: 1144245218256000670, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
       propertyPath: ttlLocalizationId
-      value: settings-vfx
+      value: settings-video
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220657381356676044, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
+      propertyPath: m_SortingOrder
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2158129854552389634, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
+      propertyPath: subViews.Array.data[3].subViewId
+      value: settings-video
       objectReference: {fileID: 0}
     - target: {fileID: 4685622475539119119, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
       propertyPath: template
@@ -207,6 +215,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuViewRegistry
       objectReference: {fileID: 0}
+    - target: {fileID: 7495352420989906201, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
+      propertyPath: m_Name
+      value: Video
+      objectReference: {fileID: 0}
     - target: {fileID: 7724143432311206728, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
       propertyPath: template
       value: 
@@ -247,6 +259,10 @@ PrefabInstance:
     - target: {fileID: 2366629330979129582, guid: 92ce101cc187cc24aa8d313df5c026cb, type: 3}
       propertyPath: m_Name
       value: GameplayViewRegistry
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366629330979129582, guid: 92ce101cc187cc24aa8d313df5c026cb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4387515930026977075, guid: 92ce101cc187cc24aa8d313df5c026cb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -306,7 +322,7 @@ PrefabInstance:
       objectReference: {fileID: 9197481963319205126, guid: 4817d05e19687fc44abe0baee88911b1, type: 3}
     - target: {fileID: 7787279427394528260, guid: 92ce101cc187cc24aa8d313df5c026cb, type: 3}
       propertyPath: m_SortingOrder
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

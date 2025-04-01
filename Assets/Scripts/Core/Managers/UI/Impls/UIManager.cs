@@ -52,6 +52,7 @@ namespace Core.Managers.UI.Impls
         public void ShowView(ViewRegistryType type, string viewId, UIViewer.Layer layer, bool replace = false)
         {
             Log.Info($"show view -> {type} / {viewId} on layer {layer} (replace: {replace})");
+
             if (!_viewsRegistry.TryGetValue(type, out var viewRegistry))
             {
                 Log.Error($"view registry for type {type} not found");
@@ -59,12 +60,10 @@ namespace Core.Managers.UI.Impls
             }
 
             var view = viewRegistry.GetView(viewId);
+
             var templateData = new SubViewTemplateData { Template = view, InSafeZone = false };
 
-            if (replace && layer == UIViewer.Layer.Back)
-            {
-                viewer.ClearLayer(UIViewer.Layer.Back);
-            }
+            if (replace && layer == UIViewer.Layer.Back) viewer.ClearLayer(UIViewer.Layer.Back);
 
             switch (layer)
             {
@@ -81,10 +80,7 @@ namespace Core.Managers.UI.Impls
                     throw new ArgumentOutOfRangeException(nameof(layer), layer, null);
             }
 
-            if (_viewStack.Count == 0 || _viewStack.Peek().viewId != viewId)
-                _viewStack.Push((viewId, layer));
-            
-            Log.Info(_viewStack.Count + " items in stack");
+            if (_viewStack.Count == 0 || _viewStack.Peek().viewId != viewId) _viewStack.Push((viewId, layer));
         }
 
         public void HideView(string viewId)
@@ -122,7 +118,6 @@ namespace Core.Managers.UI.Impls
         public void SwitchToView(string viewId)
         {
             Log.Info($"switch to view {viewId}");
-            Log.Info(_viewStack.Count + " items in stack");
             if (_viewStack.Count > 0 && _viewStack.Peek().viewId != viewId)
                 HideView(_viewStack.Peek().viewId);
 
@@ -135,17 +130,15 @@ namespace Core.Managers.UI.Impls
         public void ShowPreviousView()
         {
             Log.Info("show previous view");
-            Log.Info(_viewStack.Count + " items in stack");
-            
+
             if (_viewStack.Count <= 1) return;
             var current = _viewStack.Pop();
             viewer.ClearLayer(current.layer);
 
-            if (_viewStack.Count > 0)
-            {
-                var previous = _viewStack.Peek();
-                ShowView(_currentViewRegistryType, previous.viewId, previous.layer, replace: false);
-            }
+            if (_viewStack.Count <= 0) return;
+
+            var previous = _viewStack.Peek();
+            ShowView(_currentViewRegistryType, previous.viewId, previous.layer, replace: false);
         }
 
         public void SetAndShowBaseView(ViewRegistryType type)

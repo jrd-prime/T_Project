@@ -4,7 +4,7 @@ namespace Game.UI.Interfaces
 {
     public interface IUIViewRegistry
     {
-        TemplateContainer GetView(string viewId);
+        VisualElement GetView(string viewId);
         bool HasView(string viewId);
     }
 }

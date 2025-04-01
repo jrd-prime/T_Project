@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Core.Extensions;
+using Db.Data;
 using Game.UI.Common.Base.Data;
 using Game.UI.Data;
 using Game.UI.Interfaces;
@@ -17,23 +19,29 @@ namespace Game.UI.Common
         [SerializeField] public bool inSafeZone;
 
         protected readonly Dictionary<string, AViewBase> SubViewsCache = new();
+        protected VisualElement ViewContainer { get; private set; }
+
         private VisualElement _root;
+
 
         private void Awake()
         {
             if (!HasMainSubView()) throw new Exception("Main view not found in sub views. " + GetType());
             _root = GetComponent<UIDocument>().rootVisualElement;
 
+            ViewContainer = _root.GetVisualElement<VisualElement>(UIElementId.MainViewContainerId, GetType().Name);
+            ViewContainer.style.left = inSafeZone ? 0 : 100;
+            ViewContainer.style.right = inSafeZone ? 0 : 100;
+            ViewContainer.style.top = inSafeZone ? 0 : 100;
+            ViewContainer.style.bottom = inSafeZone ? 0 : 100;
+
             foreach (var subView in subViews) RegisterSubView(subView);
 
             Hide();
         }
 
-        private void RegisterSubView(SubViewBaseDataVo subView) =>
-            SubViewsCache.Add(subView.subViewId, subView.view);
-
+        private void RegisterSubView(SubViewBaseDataVo subView) => SubViewsCache.Add(subView.subViewId, subView.view);
         private bool HasMainSubView() => subViews.AsValueEnumerable().Any(viewData => viewData.subViewId == "main");
-
 
         public SubViewTemplateData GetSubViewTemplateData(string subState)
         {
@@ -45,10 +53,12 @@ namespace Game.UI.Common
             };
         }
 
-        private AViewBase GetSubView(string subState)
+        private AViewBase GetSubView(string viewId)
         {
-            if (!SubViewsCache.TryGetValue(subState, out var subViewBase))
-                throw new KeyNotFoundException($"SubView not found in cache for: {subState}");
+            if (SubViewsCache.Count == 0) throw new Exception("SubViewsCache is empty. " + GetType());
+
+            if (!SubViewsCache.TryGetValue(viewId, out var subViewBase))
+                throw new KeyNotFoundException($"SubView not found in cache for: {viewId}");
 
             return subViewBase;
         }
@@ -66,10 +76,16 @@ namespace Game.UI.Common
             _root.style.display = DisplayStyle.None;
         }
 
-        public TemplateContainer GetView(string viewId)
+        public VisualElement GetView(string viewId)
         {
             var view = GetSubView(viewId) ?? throw new NullReferenceException("SubView is null. " + viewId);
-            return view.GetTemplate();
+
+            ViewContainer.Clear();
+            ViewContainer.Add(view.GetTemplate());
+
+            if (ViewContainer == null) throw new NullReferenceException("ViewContainer is null. " + name);
+
+            return ViewContainer;
         }
 
         public bool HasView(string viewId) => SubViewsCache.ContainsKey(viewId);
