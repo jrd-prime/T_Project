@@ -61,7 +61,10 @@ namespace Core.Managers.UI.Impls
 
             var view = viewRegistry.GetView(viewId);
 
-            var templateData = new SubViewTemplateData { Template = view, InSafeZone = false };
+            var templateData = new ViewTemplateData
+            {
+                ViewId = viewId, StateId = type.ToString(), Template = view, InSafeZone = false
+            };
 
             if (replace && layer == UIViewer.Layer.Back) viewer.ClearLayer(UIViewer.Layer.Back);
 
@@ -152,8 +155,9 @@ namespace Core.Managers.UI.Impls
 
         private void InitializeMainViews()
         {
-            Log.Info("initialize main views = " + viewRegistryData.Length);
-            foreach (var viewDataVo in viewRegistryData) RegisterView(viewDataVo.type, viewDataVo.aViewRegistry);
+            foreach (var viewDataVo in viewRegistryData) RegisterView(viewDataVo.type, viewDataVo.viewRegistry);
+
+            Log.Info("initialized global views: " + _viewsRegistry.Count);
         }
 
         private void RegisterView(ViewRegistryType viewId, IUIViewRegistry view) => _viewsRegistry.TryAdd(viewId, view);

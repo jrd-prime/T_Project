@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Core.Extensions;
+using Db.Data;
 using Game.UI.Interfaces;
 using R3;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Position = UnityEngine.UIElements.Position;
 
 namespace Game.UI.Common
 {
@@ -15,9 +18,26 @@ namespace Game.UI.Common
         protected TemplateContainer Template;
         protected VisualElement RootContainer;
         protected bool IsInitialized;
+        protected Label ViewMainHeader;
 
         protected readonly Dictionary<Button, EventCallback<ClickEvent>> CallbacksCache = new();
         protected readonly CompositeDisposable Disposables = new();
+
+        private void Awake()
+        {
+            if (template == null) throw new NullReferenceException("Template is null. " + name);
+
+            Template = template.Instantiate();
+
+            RootContainer = Template.GetVisualElement<VisualElement>(UIElementId.ContainerId, name);
+            Template.style.position = Position.Absolute;
+            Template.style.left = Template.style.top = Template.style.right = Template.style.bottom = 0f;
+
+            ViewMainHeader = RootContainer.GetVisualElement<Label>(UIElementId.TitleId, name);
+            InitializeView();
+
+            IsInitialized = true;
+        }
 
         /// <summary>
         /// Register initialized callbacks

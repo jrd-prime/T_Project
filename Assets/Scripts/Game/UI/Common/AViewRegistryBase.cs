@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using Core.Extensions;
 using Db.Data;
-using Game.UI.Common.Base.Data;
 using Game.UI.Data;
 using Game.UI.Interfaces;
-using ModestTree;
 using UnityEngine;
 using UnityEngine.UIElements;
 using ZLinq;
@@ -15,79 +13,66 @@ namespace Game.UI.Common
     [RequireComponent(typeof(UIDocument))]
     public abstract class AViewRegistryBase : MonoBehaviour, IUIViewRegistry
     {
-        [SerializeField] private SubViewBaseDataVo[] subViews;
         [SerializeField] public bool inSafeZone;
+        [SerializeField] private ViewBaseDataVo[] views;
 
-        protected readonly Dictionary<string, AViewBase> SubViewsCache = new();
-        protected VisualElement ViewContainer { get; private set; }
-
+        private VisualElement _viewContainer;
         private VisualElement _root;
+
+        protected readonly Dictionary<string, AViewBase> ViewsCache = new();
 
 
         private void Awake()
         {
-            if (!HasMainSubView()) throw new Exception("Main view not found in sub views. " + GetType());
+            if (!HasMainView()) throw new Exception("Main view not found in views. " + GetType());
+
             _root = GetComponent<UIDocument>().rootVisualElement;
 
-            ViewContainer = _root.GetVisualElement<VisualElement>(UIElementId.MainViewContainerId, GetType().Name);
-            ViewContainer.style.left = inSafeZone ? 0 : 100;
-            ViewContainer.style.right = inSafeZone ? 0 : 100;
-            ViewContainer.style.top = inSafeZone ? 0 : 100;
-            ViewContainer.style.bottom = inSafeZone ? 0 : 100;
+            _viewContainer = _root.GetVisualElement<VisualElement>(UIElementId.MainViewContainerId, GetType().Name);
+            _viewContainer.style.left = inSafeZone ? 0 : 100;
+            _viewContainer.style.right = inSafeZone ? 0 : 100;
+            _viewContainer.style.top = inSafeZone ? 0 : 100;
+            _viewContainer.style.bottom = inSafeZone ? 0 : 100;
+            _viewContainer.style.display = DisplayStyle.None;
 
-            foreach (var subView in subViews) RegisterSubView(subView);
-
-            Hide();
+            RegisterViews();
         }
 
-        private void RegisterSubView(SubViewBaseDataVo subView) => SubViewsCache.Add(subView.subViewId, subView.view);
-        private bool HasMainSubView() => subViews.AsValueEnumerable().Any(viewData => viewData.subViewId == "main");
-
-        public SubViewTemplateData GetSubViewTemplateData(string subState)
+        /// <summary>
+        /// Добавляет вьюшки в кэш с id
+        /// </summary>
+        private void RegisterViews()
         {
-            var subView = GetSubView(subState) ?? throw new NullReferenceException("SubView is null. " + subState);
-
-            return new SubViewTemplateData
-            {
-                Template = subView.GetTemplate()
-            };
+            foreach (var subView in views) ViewsCache.Add(subView.id, subView.view);
         }
 
-        private AViewBase GetSubView(string viewId)
-        {
-            if (SubViewsCache.Count == 0) throw new Exception("SubViewsCache is empty. " + GetType());
-
-            if (!SubViewsCache.TryGetValue(viewId, out var subViewBase))
-                throw new KeyNotFoundException($"SubView not found in cache for: {viewId}");
-
-            return subViewBase;
-        }
-
-
-        public void Show()
-        {
-            Log.Info("Show main view for " + GetType());
-            _root.style.display = DisplayStyle.Flex;
-        }
-
-        public void Hide()
-        {
-            Log.Info("Hide main view for " + GetType());
-            _root.style.display = DisplayStyle.None;
-        }
-
+        /// <summary>
+        /// Получить VisualElement вью по id
+        /// </summary>
         public VisualElement GetView(string viewId)
         {
-            var view = GetSubView(viewId) ?? throw new NullReferenceException("SubView is null. " + viewId);
+            if (ViewsCache.Count == 0) throw new Exception("ViewsCache is empty. " + GetType());
 
-            ViewContainer.Clear();
-            ViewContainer.Add(view.GetTemplate());
+            if (!ViewsCache.TryGetValue(viewId, out var view))
+                throw new KeyNotFoundException($"View not found in cache for: {viewId} / {GetType()}");
 
-            if (ViewContainer == null) throw new NullReferenceException("ViewContainer is null. " + name);
+            var template = view.GetTemplate();
 
-            return ViewContainer;
+            _viewContainer.Clear();
+            _viewContainer.Add(template);
+
+            return _viewContainer;
         }
 
-        public bool HasView(string viewId) => SubViewsCache.ContainsKey(viewId);
+        /// <summary>
+        /// Есть ли вьюшка с ViewConst.MainViewId в списке
+        /// </summary>
+        private bool HasMainView() =>
+            views.AsValueEnumerable().Any(viewData => viewData.id == ViewConst.MainViewId);
+
+        /// <summary>
+        /// Есть ли вьюшка в кеше по id
+        /// </summary>
+        public bool HasView(string viewId) => ViewsCache.ContainsKey(viewId);
     }
 }

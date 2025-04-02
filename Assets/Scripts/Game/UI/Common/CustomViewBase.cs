@@ -1,10 +1,6 @@
 ﻿using System;
-using Core.Extensions;
 using Core.Providers.Localization;
-using Db.Data;
 using Game.UI.Interfaces.Model;
-using ModestTree;
-using UnityEngine.UIElements;
 using Zenject;
 
 namespace Game.UI.Common
@@ -13,22 +9,6 @@ namespace Game.UI.Common
     {
         [Inject] protected TUIViewModel ViewModel { get; private set; }
         [Inject] protected ILocalizationProvider LocalizationManager { get; private set; }
-
-        protected Label ViewMainHeader;
-
-        private void Awake()
-        {
-            if (template == null) throw new NullReferenceException("Template is null. " + name);
-
-            Template = template.Instantiate();
-
-            RootContainer = Template.GetVisualElement<VisualElement>(UIElementId.ContainerId, name);
-            ViewMainHeader = RootContainer.GetVisualElement<Label>(UIElementId.TitleId, name);
-            InitializeView();
-
-            Log.Warn("Init view " + GetType());
-            IsInitialized = true;
-        }
 
         private void Start()
         {

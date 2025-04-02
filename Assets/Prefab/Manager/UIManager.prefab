@@ -128,9 +128,9 @@ MonoBehaviour:
   viewer: {fileID: 465249794774269285}
   viewRegistryData:
   - type: 1
-    aViewRegistry: {fileID: 3329116100063990923}
+    viewRegistry: {fileID: 3329116100063990923}
   - type: 0
-    aViewRegistry: {fileID: 3791082369725825881}
+    viewRegistry: {fileID: 3791082369725825881}
 --- !u!1001 &3729071611334864009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -151,6 +151,42 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 2158129854552389634, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
+      propertyPath: views.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2158129854552389634, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
+      propertyPath: views.Array.data[0].id
+      value: main
+      objectReference: {fileID: 0}
+    - target: {fileID: 2158129854552389634, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
+      propertyPath: views.Array.data[1].id
+      value: settings
+      objectReference: {fileID: 0}
+    - target: {fileID: 2158129854552389634, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
+      propertyPath: views.Array.data[2].id
+      value: settings-audio
+      objectReference: {fileID: 0}
+    - target: {fileID: 2158129854552389634, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
+      propertyPath: views.Array.data[3].id
+      value: settings-video
+      objectReference: {fileID: 0}
+    - target: {fileID: 2158129854552389634, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
+      propertyPath: views.Array.data[0].view
+      value: 
+      objectReference: {fileID: 6409177903133155265}
+    - target: {fileID: 2158129854552389634, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
+      propertyPath: views.Array.data[1].view
+      value: 
+      objectReference: {fileID: 9047019438746439950}
+    - target: {fileID: 2158129854552389634, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
+      propertyPath: views.Array.data[2].view
+      value: 
+      objectReference: {fileID: 8270577108666011782}
+    - target: {fileID: 2158129854552389634, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
+      propertyPath: views.Array.data[3].view
+      value: 
+      objectReference: {fileID: 4332883034648689175}
     - target: {fileID: 2158129854552389634, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
       propertyPath: subViews.Array.data[3].subViewId
       value: settings-video
@@ -243,6 +279,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54dc74e2fa7245279b2921135765899b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4332883034648689175 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1144245218256000670, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
+  m_PrefabInstance: {fileID: 3729071611334864009}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25a59b1b8f694a5c803e7a5cc1e556bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6409177903133155265 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7724143432311206728, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
+  m_PrefabInstance: {fileID: 3729071611334864009}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd297eac4fa6407f9870400dc734be70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8270577108666011782 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4685622475539119119, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
+  m_PrefabInstance: {fileID: 3729071611334864009}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f30ec17e05da40e188d0344a3c2a8c36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9047019438746439950 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5642213051556085127, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
+  m_PrefabInstance: {fileID: 3729071611334864009}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6453e3bdfaf458b9d81d421b71ccb47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &9103166663723395369 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5590272287496635808, guid: d9acf0a4c807ac2448fc67217d895118, type: 3}
@@ -305,9 +385,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7368398928717124621, guid: 92ce101cc187cc24aa8d313df5c026cb, type: 3}
+      propertyPath: views.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7368398928717124621, guid: 92ce101cc187cc24aa8d313df5c026cb, type: 3}
       propertyPath: subViews.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7368398928717124621, guid: 92ce101cc187cc24aa8d313df5c026cb, type: 3}
+      propertyPath: views.Array.data[0].id
+      value: main
+      objectReference: {fileID: 0}
+    - target: {fileID: 7368398928717124621, guid: 92ce101cc187cc24aa8d313df5c026cb, type: 3}
+      propertyPath: views.Array.data[0].view
+      value: 
+      objectReference: {fileID: 1782452054533588721}
     - target: {fileID: 7368398928717124621, guid: 92ce101cc187cc24aa8d313df5c026cb, type: 3}
       propertyPath: subViews.Array.data[0].view
       value: 
@@ -426,6 +518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8130c7fab05efce43807c86b1ae6c2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugTemplateContainer: {fileID: 9197481963319205126, guid: dd3a941823cf31641a69bd683720e9e0, type: 3}
 --- !u!4 &3856231984919142884 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6169290260211608906, guid: e113fa82f18951b49ada69a409d95af0, type: 3}

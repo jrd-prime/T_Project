@@ -23,7 +23,7 @@ namespace Game.UI.Common
 
         protected void Start()
         {
-            foreach (var viewBase in SubViewsCache)
+            foreach (var viewBase in ViewsCache)
             {
                 _container.Inject(viewBase.Value);
             }

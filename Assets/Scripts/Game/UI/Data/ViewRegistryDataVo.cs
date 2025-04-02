@@ -1,6 +1,5 @@
 ﻿using System;
 using Game.UI.Common;
-using UnityEngine.Serialization;
 
 namespace Game.UI.Data
 {
@@ -8,7 +7,7 @@ namespace Game.UI.Data
     public struct ViewRegistryDataVo
     {
         public ViewRegistryType type;
-        [FormerlySerializedAs("viewRegistry")] public AViewRegistryBase aViewRegistry;
+        public AViewRegistryBase viewRegistry;
     }
 
     public enum ViewRegistryType

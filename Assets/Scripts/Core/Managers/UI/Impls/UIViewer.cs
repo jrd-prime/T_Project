@@ -16,40 +16,46 @@ namespace Core.Managers.UI.Impls
             RootVisualElement.style.marginTop = safeZoneOffset.y;
         }
 
-        private void Prepare(SubViewTemplateData subViewTemplateData)
+        private void Prepare(ViewTemplateData viewTemplateData)
         {
-            var view = subViewTemplateData.Template;
-            if (view == null) throw new NullReferenceException("View is null.");
+            var view = viewTemplateData.Template ?? throw new NullReferenceException("View is null.");
+
             view.pickingMode = PickingMode.Ignore;
 
-            if (subViewTemplateData.InSafeZone) ToSafe();
+            if (viewTemplateData.InSafeZone) ToSafe();
 
             view.style.position = Position.Absolute;
-            view.style.left = 100;
-            view.style.top = 100;
-            view.style.right = 100;
-            view.style.bottom = 100;
+            view.style.left = view.style.top = view.style.right = view.style.bottom = 0f;
+            view.style.display = DisplayStyle.Flex;
+            
+            AddDebug(view, viewTemplateData);
         }
 
-        public void ShowNewBase(SubViewTemplateData subViewTemplateData)
+        private void AddDebug(VisualElement view, ViewTemplateData data)
+        {
+            ViewerDebugContainer.Text.text = $"{data.StateId} /  {data.ViewId}";
+            view.Add(ViewerDebugContainer.DebugContainer);
+        }
+
+        public void ShowNewBase(ViewTemplateData viewTemplateData)
         {
             Debug.Log("<color=yellow>[VIEWER MAIN]</color> Show view");
-            Prepare(subViewTemplateData);
-            MainLayer.Add(subViewTemplateData.Template);
+            Prepare(viewTemplateData);
+            MainLayer.Add(viewTemplateData.Template);
         }
 
-        public void ShowOverSubView(SubViewTemplateData subViewTemplateData)
+        public void ShowOverSubView(ViewTemplateData viewTemplateData)
         {
             Debug.Log("<color=yellow>[VIEWER OVER]</color> Show view");
-            Prepare(subViewTemplateData);
-            TopLayer.Add(subViewTemplateData.Template);
+            Prepare(viewTemplateData);
+            TopLayer.Add(viewTemplateData.Template);
         }
 
-        public void ShowUnderSubView(SubViewTemplateData subViewTemplateData)
+        public void ShowUnderSubView(ViewTemplateData viewTemplateData)
         {
             Debug.Log("<color=yellow>[VIEWER UNDER]</color> Show view");
-            Prepare(subViewTemplateData);
-            BackLayer.Add(subViewTemplateData.Template);
+            Prepare(viewTemplateData);
+            BackLayer.Add(viewTemplateData.Template);
         }
 
         public void HideView() => ClearAll();
