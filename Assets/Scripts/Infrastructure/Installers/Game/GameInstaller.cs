@@ -2,11 +2,12 @@
 using Core.Character.Hero;
 using Core.Managers.Camera._Game._Scripts.Framework.Manager.JCamera;
 using Core.Managers.Game;
-using Core.Managers.NewUIManager.Impls;
+using Core.Managers.Game.Impls;
+using Core.Managers.UI.Impls;
 using Game.Systems;
-using Game.UI._old.Gameplay;
-using Game.UI._old.Menu;
-using Game.UI._old.Pause;
+using Game.UI.Impls.Gameplay.Gameplay;
+using Game.UI.Impls.Menu;
+using Game.UI.Impls.Pause;
 using ModestTree;
 using UnityEngine;
 using Zenject;
@@ -74,7 +75,7 @@ namespace Infrastructure.Installers.Game
 
             container.BindInterfacesAndSelfTo<T>()
                 .FromInstance(component)
-                .AsCached();
+                .AsSingle();
         }
 
         private void RegisterPrefabComponent<T>(DiContainer container, T prefabComponent, string componentName)

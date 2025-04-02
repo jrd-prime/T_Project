@@ -1,6 +1,6 @@
 ﻿using Bootstrap;
 using Cysharp.Threading.Tasks;
-using Game.SO;
+using Db.SO;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;

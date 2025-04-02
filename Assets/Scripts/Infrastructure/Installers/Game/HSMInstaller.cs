@@ -1,7 +1,4 @@
-﻿using Core.HSM;
-using Core.HSM.States;
-using Core.HSM.States.Gameplay;
-using Core.HSM.States.Menu;
+﻿using Core.Managers.HSM.Impls;
 using Zenject;
 
 namespace Infrastructure.Installers.Game

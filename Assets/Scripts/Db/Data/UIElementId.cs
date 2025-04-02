@@ -2,14 +2,18 @@
 {
     public static class UIElementId
     {
+        public const string MainViewContainerId = "main-view-container";
         public const string ContainerId = "container";
         public const string TitleId = "title";
 
+
         //Menu
+
         // Main
         public const string MenuMainContainerId = "menu-main-container";
 
         public const string MenuMainContentId = "menu-main-content";
+
 
         // Settings
         public const string MenuSettingsContainerId = "menu-settings-container";
@@ -18,6 +22,7 @@
 
         // Pause
         public const string PauseMainContainerId = "pause-main-container";
+
 
         // Buttons
         public const string StartBtnId = "start-btn";
