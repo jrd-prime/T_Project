@@ -13,15 +13,11 @@ namespace Game.UI.Impls.Menu.Views
         private Button _settingsBtn;
         private Button _exitBtn;
 
-        private VisualElement _content;
-
         protected override void InitializeView()
         {
-            _content = RootContainer.GetVisualElement<VisualElement>(UIElementId.MenuMainContainerId, name);
-
-            _playBtn = _content.GetVisualElement<Button>(UIElementId.StartBtnId, name);
-            _settingsBtn = _content.GetVisualElement<Button>(UIElementId.SettingsBtnId, name);
-            _exitBtn = _content.GetVisualElement<Button>(UIElementId.ExitBtnId, name);
+            _playBtn = ContentContainer.GetVisualElement<Button>(UIElementId.StartBtnId, name);
+            _settingsBtn = ContentContainer.GetVisualElement<Button>(UIElementId.SettingsBtnId, name);
+            _exitBtn = ContentContainer.GetVisualElement<Button>(UIElementId.ExitBtnId, name);
         }
 
         protected override void CreateAndInitComponents()
@@ -38,21 +34,9 @@ namespace Game.UI.Impls.Menu.Views
 
         protected override void InitializeCallbacks()
         {
-            CallbacksCache.Add(_playBtn, _ =>
-            {
-                Debug.LogWarning(" Play Button Clicked");
-                ViewModel.StartBtnClicked();
-            });
-            CallbacksCache.Add(_settingsBtn, _ =>
-            {
-                Debug.LogWarning(" Settings Button Clicked");
-                ViewModel.SettingsBtnClicked();
-            });
-            CallbacksCache.Add(_exitBtn, _ =>
-            {
-                Debug.LogWarning(" Exit Button Clicked");
-                ViewModel.ExitBtnClicked();
-            });
+            CallbacksCache.Add(_playBtn, _ => ViewModel.StartBtnClicked());
+            CallbacksCache.Add(_settingsBtn, _ => ViewModel.SettingsBtnClicked());
+            CallbacksCache.Add(_exitBtn, _ => ViewModel.ExitBtnClicked());
         }
     }
 }

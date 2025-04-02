@@ -7,7 +7,7 @@ using Core.Managers.UI.Impls;
 using Game.Systems;
 using Game.UI.Impls.Gameplay.Gameplay;
 using Game.UI.Impls.Menu;
-using Game.UI.Impls.Pause;
+using Infrastructure.Input.Handlers;
 using ModestTree;
 using UnityEngine;
 using Zenject;
@@ -29,62 +29,67 @@ namespace Infrastructure.Installers.Game
             _mainEmpty = GameObject.Find("--- MAIN");
             if (!_mainEmpty) throw new NullReferenceException("Main empty game object is not found. (--- MAIN)");
 
-            InitializeManagers(Container);
+            InitializeManagers();
 
             Container.BindInterfacesAndSelfTo<GameManagerRequestHandler>().AsSingle();
 
 
-            InitializeUIModelsAndViewModels(Container);
-            InitializeViewStates(Container);
+            InitializeUIModelsAndViewModels();
+            InitializeViewStates();
 
             Container.Bind<CameraFollowSystem>().AsSingle();
 
-            Container.BindInterfacesTo<HeroModel>().AsSingle();
+            Container.BindInterfacesTo<HeroModel>().AsSingle().NonLazy();
+
+            BindKeyHandlers();
         }
 
-        private void InitializeManagers(DiContainer container)
+        private void BindKeyHandlers()
         {
-            RegisterComponent(container, cameraManager, "CameraManager");
-            RegisterPrefabComponent<GameManager>(container, gameManagerPrefab, "GameManager");
-            RegisterPrefabComponent<UIManager>(container, uiManagerPrefab, "UIManager");
+            Container.Bind<EscapeKeyHandler>().AsSingle().NonLazy();
+            Container.Bind<InventoryKeyHandler>().AsSingle().NonLazy();
         }
 
-        private static void InitializeViewStates(DiContainer container)
+        private void InitializeManagers()
+        {
+            RegisterComponent(cameraManager, "CameraManager");
+            RegisterPrefabComponent<GameManager>(gameManagerPrefab, "GameManager");
+            RegisterPrefabComponent<UIManager>(uiManagerPrefab, "UIManager");
+        }
+
+        private void InitializeViewStates()
         {
             // container.BindInterfacesAndSelfTo<NewMenuState>().AsSingle();
             // container.BindInterfacesAndSelfTo<NewGameplayState>().AsSingle();
             // container.BindInterfacesAndSelfTo<PauseState>().AsSingle();
         }
 
-        private static void InitializeUIModelsAndViewModels(DiContainer container)
+        private void InitializeUIModelsAndViewModels()
         {
-            container.BindInterfacesAndSelfTo<MenuModel>().AsSingle();
-            container.BindInterfacesAndSelfTo<MenuViewModel>().AsSingle();
+            Container.BindInterfacesAndSelfTo<MenuModel>().AsSingle();
+            Container.BindInterfacesAndSelfTo<MenuViewModel>().AsSingle();
 
-            container.BindInterfacesAndSelfTo<GameplayModel>().AsSingle();
-            container.BindInterfacesAndSelfTo<GameplayViewModel>().AsSingle();
-
-            container.BindInterfacesAndSelfTo<PauseModel>().AsSingle();
-            container.BindInterfacesAndSelfTo<PauseViewModel>().AsSingle();
+            Container.BindInterfacesAndSelfTo<GameplayModel>().AsSingle();
+            Container.BindInterfacesAndSelfTo<GameplayViewModel>().AsSingle();
         }
 
-        private void RegisterComponent<T>(DiContainer container, T component, string componentName) where T : class
+        private void RegisterComponent<T>(T component, string componentName) where T : class
         {
             if (component == null)
                 throw new NullReferenceException($"{componentName} is null in {gameObject.name}");
 
-            container.BindInterfacesAndSelfTo<T>()
+            Container.BindInterfacesAndSelfTo<T>()
                 .FromInstance(component)
                 .AsSingle();
         }
 
-        private void RegisterPrefabComponent<T>(DiContainer container, T prefabComponent, string componentName)
+        private void RegisterPrefabComponent<T>(T prefabComponent, string componentName)
             where T : MonoBehaviour
         {
             if (prefabComponent == null)
                 throw new NullReferenceException($"{componentName} is null in {gameObject.name}");
 
-            container.BindInterfacesAndSelfTo<T>()
+            Container.BindInterfacesAndSelfTo<T>()
                 .FromComponentInNewPrefab(prefabComponent.gameObject) // Извлекаем GameObject из MonoBehaviour
                 .AsSingle().OnInstantiated<T>((ctx, vacuumContainer) =>
                 {

@@ -2,6 +2,7 @@
 using Db.SO;
 using Game.Systems;
 using Infrastructure.Input;
+using Infrastructure.Input.Interfaces;
 using JetBrains.Annotations;
 using R3;
 using UnityEngine;
@@ -17,6 +18,10 @@ namespace Core.Character.Hero
     [UsedImplicitly]
     public sealed class HeroModel : ModelBase, IHeroModel, IInitializable, IFixedTickable
     {
+        public HeroModel(DiContainer container) : base(container)
+        {
+        }
+
         public ReadOnlyReactiveProperty<Vector3> Position { get; private set; }
         public ReadOnlyReactiveProperty<Quaternion> Rotation { get; private set; }
         public ReadOnlyReactiveProperty<float> Health { get; private set; }
@@ -41,7 +46,11 @@ namespace Core.Character.Hero
             _heroSettings = SettingsProvider.GetSettings<HeroSettings>();
 
             _ijInput = Container.ResolveAndCheckOnNull<IJInput>();
-            _ijInput.MoveDirection.Subscribe(SetDirection).AddTo(Disposables);
+
+            // _ijInput
+            //     .MoveDirection
+            //     .Subscribe(SetDirection)
+            //     .AddTo(Disposables);
         }
 
         public void FixedTick()

@@ -6,9 +6,12 @@
   "play-ttl": "play",
   "settings-ttl": "Settings",
   "exit-ttl": "exit",
-  "back-ttl": "back",
+  "back": "back",
   "start-ttl": "start",
   "video": "Video",
+  "continue": "Continue",
   "audio": "Audio",
-  "pause": "pause"
+  "pause": "pause",
+  "to-main-menu": "To main menu",
+  "inventory": "Inventory"
 }

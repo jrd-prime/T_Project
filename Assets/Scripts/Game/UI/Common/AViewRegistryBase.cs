@@ -57,6 +57,7 @@ namespace Game.UI.Common
                 throw new KeyNotFoundException($"View not found in cache for: {viewId} / {GetType()}");
 
             var template = view.GetTemplate();
+            template.ContentToCenter();
 
             _viewContainer.Clear();
             _viewContainer.Add(template);

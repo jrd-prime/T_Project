@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Extensions;
 using Core.Managers.UI.Common;
 using Game.UI.Common.Base.Data;
 using Tools;
@@ -24,10 +25,9 @@ namespace Core.Managers.UI.Impls
 
             if (viewTemplateData.InSafeZone) ToSafe();
 
-            view.style.position = Position.Absolute;
-            view.style.left = view.style.top = view.style.right = view.style.bottom = 0f;
+            view.SetFullScreen();
             view.style.display = DisplayStyle.Flex;
-            
+
             AddDebug(view, viewTemplateData);
         }
 

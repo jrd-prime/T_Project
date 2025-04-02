@@ -8,9 +8,9 @@ namespace Core.Managers.UI.Interfaces
         void HideView(string viewId);
         void HideAllViews();
         void SwitchToView(string viewId);
-
         void SetAndShowBaseView(ViewRegistryType type);
-        void ShowView(ViewRegistryType type, string viewId, UIViewer.Layer layer, bool replace = false);
         void ShowPreviousView();
+        bool IsGameplayMainViewActive();
+        void ShowView(ViewRegistryType type, string viewId, UIViewer.Layer layer, bool replace);
     }
 }

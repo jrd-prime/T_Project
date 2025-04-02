@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8622133437046720539}
   - component: {fileID: 1608875450264645948}
   - component: {fileID: -8506971877034887242}
-  - component: {fileID: 6970705620255845612}
   m_Layer: 0
   m_Name: GameContext
   m_TagString: Untagged
@@ -51,7 +50,6 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 1608875450264645948}
   - {fileID: -8506971877034887242}
-  - {fileID: 6970705620255845612}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -94,17 +92,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b0da6af9ccb4b1d8f636b088c761414, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6970705620255845612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3304703473384007565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aca07b022a7348a68715277b3c7e5f89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

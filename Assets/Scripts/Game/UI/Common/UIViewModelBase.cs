@@ -33,6 +33,12 @@ namespace Game.UI.Common
         protected void SwitchToPreviousView() => SignalBus.Fire(new SwitchToPreviousViewSignalVo());
         protected void ChangeGameStateTo(Type type) => SignalBus.Fire(new ChangeGameStateSignalVo(type));
 
+        protected void ChangeGameStateAndShowView(Type stateType, ViewRegistryType registryType, string viewId)
+        {
+            SignalBus.Fire(new ChangeGameStateSignalVo(stateType));
+            SignalBus.Fire(new SwitchLocalViewSignalVo(registryType, viewId));
+        }
+
         public abstract void Initialize();
         protected abstract ViewRegistryType GetRegistryType();
 

@@ -14,6 +14,8 @@ namespace Game.UI.Impls.Menu
         void ExitBtnClicked();
         void AudioBtnClicked();
         void VideoBtnClicked();
+        void ContinueBtnClicked();
+        void MenuBtnClicked();
     }
 
     public sealed class MenuViewModel : UIViewModelBase<IMenuModel>, IMenuViewModel
@@ -24,10 +26,17 @@ namespace Game.UI.Impls.Menu
 
         protected override ViewRegistryType GetRegistryType() => ViewRegistryType.Menu;
 
+        // State
         public void StartBtnClicked() => ChangeGameStateTo(typeof(GameplayState));
+        public void ContinueBtnClicked() => ChangeGameStateTo(typeof(GameplayState));
+
+        // Local
         public void SettingsBtnClicked() => SwitchLocalViewTo("settings");
         public void AudioBtnClicked() => SwitchLocalViewTo("settings-audio");
         public void VideoBtnClicked() => SwitchLocalViewTo("settings-video");
+        public void MenuBtnClicked() => SwitchLocalViewTo("main");
+
+        // Global
         public void BackBtnClicked() => SwitchToPreviousView();
         public void ExitBtnClicked() => ExitHelp.ExitGame();
     }

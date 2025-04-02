@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Managers.UI.Interfaces;
 using Core.Managers.UI.Signals;
+using Game.UI.Common;
 using Game.UI.Common.Base.Data;
 using Game.UI.Data;
 using Game.UI.Interfaces;
@@ -12,18 +13,18 @@ using Zenject;
 
 namespace Core.Managers.UI.Impls
 {
+    //TODO баг, когда пауза открывается, то в стек добавляется и мэйн, хотя его не надо добавлять, эскейп должен работать не так
     public sealed class UIManager : MonoBehaviour, IUIManager
     {
         [SerializeField] private UIViewer viewer;
         [SerializeField] private ViewRegistryDataVo[] viewRegistryData = Array.Empty<ViewRegistryDataVo>();
 
+        [Inject] private readonly SignalBus _signalBus;
+
         private readonly Dictionary<ViewRegistryType, IUIViewRegistry> _viewsRegistry = new();
         private readonly Stack<(string viewId, UIViewer.Layer layer)> _viewStack = new();
         private ViewRegistryType _currentViewRegistryType;
         private IUIViewRegistry _currentViewRegistry;
-
-        [Inject] private readonly SignalBus _signalBus;
-
 
         private void Awake()
         {
@@ -40,7 +41,7 @@ namespace Core.Managers.UI.Impls
 
         private void OnSwitchLocalViewSignal(SwitchLocalViewSignalVo signal)
         {
-            Log.Info("switch local view signal / " + signal.ViewId);
+            Log.Info("switch local view signal -> " + signal.ViewRegistryType + " / " + signal.ViewId);
             ShowView(signal.ViewRegistryType, signal.ViewId);
         }
 
@@ -83,7 +84,14 @@ namespace Core.Managers.UI.Impls
                     throw new ArgumentOutOfRangeException(nameof(layer), layer, null);
             }
 
-            if (_viewStack.Count == 0 || _viewStack.Peek().viewId != viewId) _viewStack.Push((viewId, layer));
+            if (_viewStack.Count == 0 || _viewStack.Peek().viewId != viewId)
+            {
+                _viewStack.Push((viewId, layer));
+            }
+            else if (!replace) _viewStack.Push((viewId, layer));
+            
+            
+            Debug.LogWarning("" + _viewStack.Count);
         }
 
         public void HideView(string viewId)
@@ -92,7 +100,6 @@ namespace Core.Managers.UI.Impls
             var viewInStack = _viewStack.FirstOrDefault(v => v.viewId == viewId);
             if (viewInStack.viewId == null) return;
 
-            // Удаляем все вхождения viewId из стека
             var tempStack = new Stack<(string viewId, UIViewer.Layer layer)>();
             while (_viewStack.Count > 0)
             {
@@ -101,12 +108,9 @@ namespace Core.Managers.UI.Impls
                     tempStack.Push(item);
             }
 
-            while (tempStack.Count > 0)
-            {
-                _viewStack.Push(tempStack.Pop());
-            }
+            while (tempStack.Count > 0) _viewStack.Push(tempStack.Pop());
 
-            viewer.ClearLayer(viewInStack.layer); // Удаляем только указанный слой
+            viewer.ClearLayer(viewInStack.layer);
         }
 
         public void HideAllViews()
@@ -126,7 +130,6 @@ namespace Core.Managers.UI.Impls
 
             if (!_currentViewRegistry.HasView(viewId))
                 Log.Error($"Registry {_currentViewRegistry.GetType().Name} doesn't have view with id: {viewId}");
-
             ShowView(_currentViewRegistryType, viewId);
         }
 
@@ -144,18 +147,34 @@ namespace Core.Managers.UI.Impls
             ShowView(_currentViewRegistryType, previous.viewId, previous.layer, replace: false);
         }
 
+        public bool IsGameplayMainViewActive()
+        {
+            var d = _currentViewRegistryType == ViewRegistryType.Gameplay && _viewStack.Count == 1;
+            Debug.LogWarning("d = " + d);
+            return d;
+        }
+
         public void SetAndShowBaseView(ViewRegistryType type)
         {
             Log.Info($"set base view {type}");
             HideAllViews();
             _currentViewRegistryType = type;
             _currentViewRegistry = _viewsRegistry[type];
-            ShowView(type, "main", UIViewer.Layer.Back, replace: true);
+            ShowView(type, ViewConst.MainViewId, UIViewer.Layer.Back, true);
         }
 
         private void InitializeMainViews()
         {
-            foreach (var viewDataVo in viewRegistryData) RegisterView(viewDataVo.type, viewDataVo.viewRegistry);
+            foreach (var viewDataVo in viewRegistryData)
+            {
+                if (viewDataVo.viewRegistry == null)
+                {
+                    Log.Error("View registry not set for " + viewDataVo.type);
+                    continue;
+                }
+
+                RegisterView(viewDataVo.type, viewDataVo.viewRegistry);
+            }
 
             Log.Info("initialized global views: " + _viewsRegistry.Count);
         }
