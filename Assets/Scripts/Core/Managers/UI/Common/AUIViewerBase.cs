@@ -13,8 +13,8 @@ namespace Core.Managers.UI.Common
         protected VisualElement DebugContainer { get; private set; }
         protected VisualElement RootVisualElement { get; private set; }
         protected VisualElement RootContainer { get; private set; }
-        protected VisualElement BackLayer { get; private set; }
-        protected VisualElement MainLayer { get; private set; }
+        protected VisualElement MidLayer { get; private set; }
+        protected VisualElement DefaultLayer { get; private set; }
         protected VisualElement TopLayer { get; private set; }
         protected ViewerDebugContainer ViewerDebugContainer { get; private set; }
 
@@ -24,8 +24,8 @@ namespace Core.Managers.UI.Common
             RootVisualElement = GetComponent<UIDocument>().rootVisualElement;
 
             RootContainer = RootVisualElement.GetVisualElement<VisualElement>("viewer-container", name);
-            BackLayer = RootContainer.GetVisualElement<VisualElement>("back-layer", name);
-            MainLayer = RootContainer.GetVisualElement<VisualElement>("main-layer", name);
+            MidLayer = RootContainer.GetVisualElement<VisualElement>("back-layer", name);
+            DefaultLayer = RootContainer.GetVisualElement<VisualElement>("main-layer", name);
             TopLayer = RootContainer.GetVisualElement<VisualElement>("top-layer", name);
 
             ViewerDebugContainer = new ViewerDebugContainer(debugTemplateContainer);

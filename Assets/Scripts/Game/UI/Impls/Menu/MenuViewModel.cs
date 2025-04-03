@@ -1,4 +1,5 @@
 ﻿using Core.Managers.HSM.Impls.States.Gameplay;
+using Core.Managers.UI.Impls;
 using Game.UI.Common;
 using Game.UI.Data;
 using Game.UI.Interfaces.Model;
@@ -31,10 +32,12 @@ namespace Game.UI.Impls.Menu
         public void ContinueBtnClicked() => ChangeGameStateTo(typeof(GameplayState));
 
         // Local
-        public void SettingsBtnClicked() => SwitchLocalViewTo("settings");
-        public void AudioBtnClicked() => SwitchLocalViewTo("settings-audio");
-        public void VideoBtnClicked() => SwitchLocalViewTo("settings-video");
-        public void MenuBtnClicked() => SwitchLocalViewTo("main");
+        public void SettingsBtnClicked() => ShowLocalView(ViewIDConst.Settings);
+
+
+        public void AudioBtnClicked() => ShowLocalView("settings-audio");
+        public void VideoBtnClicked() => ShowLocalView("settings-video");
+        public void MenuBtnClicked() => ShowLocalView("main");
 
         // Global
         public void BackBtnClicked() => SwitchToPreviousView();

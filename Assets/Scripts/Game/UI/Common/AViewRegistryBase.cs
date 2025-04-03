@@ -66,10 +66,10 @@ namespace Game.UI.Common
         }
 
         /// <summary>
-        /// Есть ли вьюшка с ViewConst.MainViewId в списке
+        /// Есть ли вьюшка с ViewIDConst.Main в списке
         /// </summary>
         private bool HasMainView() =>
-            views.AsValueEnumerable().Any(viewData => viewData.id == ViewConst.MainViewId);
+            views.AsValueEnumerable().Any(viewData => viewData.id == ViewIDConst.Main);
 
         /// <summary>
         /// Есть ли вьюшка в кеше по id

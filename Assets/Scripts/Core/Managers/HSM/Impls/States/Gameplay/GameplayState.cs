@@ -1,6 +1,8 @@
 ﻿using Core.Managers.HSM.Common;
 using Core.Managers.HSM.Impls.States.Gameplay.SubStates_example;
+using Core.Managers.HSM.Interfaces;
 using Core.Managers.UI.Interfaces;
+using Game.UI.Common;
 using Game.UI.Data;
 
 namespace Core.Managers.HSM.Impls.States.Gameplay
@@ -12,20 +14,20 @@ namespace Core.Managers.HSM.Impls.States.Gameplay
             AddSubState<GameplayMainSubState>(new GameplayMainSubState(this, uiManager));
             AddSubState<PausedSubState>(new PausedSubState(this, uiManager));
             AddSubState<InventoryOpenSubState>(new InventoryOpenSubState(this, uiManager));
-            
+
             SetInitialSubState<GameplayMainSubState>();
         }
 
-        public override void Enter()
+        public override void Enter(IState previousState)
         {
-            UIManager.SetAndShowBaseView(ViewRegistryType.Gameplay);
-            base.Enter(); // for substates
+            UIManager.SetAndShowBaseView(ViewRegistryType.Gameplay, ViewIDConst.Main);
+            base.Enter(previousState); // for substates
         }
 
-        public override void Exit()
+        public override void Exit(IState previousState)
         {
             UIManager.HideAllViews();
-            base.Exit(); // или перед?
+            base.Exit(previousState); // или перед?
         }
     }
 }

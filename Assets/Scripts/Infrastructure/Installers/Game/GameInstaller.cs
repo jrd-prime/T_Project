@@ -27,7 +27,7 @@ namespace Infrastructure.Installers.Game
             Log.Info("<color=cyan>GameInstaller</color>");
 
             _mainEmpty = GameObject.Find("--- MAIN");
-            if (!_mainEmpty) throw new NullReferenceException("Main empty game object is not found. (--- MAIN)");
+            if (!_mainEmpty) throw new NullReferenceException("Main empty game object is not found. (--- Default)");
 
             InitializeManagers();
 

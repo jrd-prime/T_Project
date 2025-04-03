@@ -15,7 +15,7 @@ namespace Core.Managers.HSM.Impls
     /// </summary>
     public sealed class HSM
     {
-        private IState _currentState;
+        public IState CurrentState { get; private set; }
         private readonly Dictionary<Type, IState> _states = new();
 
         public HSM(SignalBus signalBus, IUIManager uiManager)
@@ -23,7 +23,8 @@ namespace Core.Managers.HSM.Impls
             InitializeMainStates(uiManager);
 
             var rootState = _states[typeof(MenuState)];
-            _currentState = rootState;
+            PreviousState = null;
+            CurrentState = rootState;
 
             signalBus.Subscribe<ChangeGameStateSignalVo>(OnChangeGameStateSignal);
         }
@@ -36,14 +37,14 @@ namespace Core.Managers.HSM.Impls
             RegisterState<GameplayState>(new GameplayState(this, uiManager));
         }
 
-        public void Start() => _currentState.Enter();
+        public void Start() => CurrentState.Enter(PreviousState);
 
         public void Update()
         {
             Log.Info("hsm updated");
-            _currentState.Update();
-            var nextState = _currentState.HandleTransition();
-            if (nextState != null && nextState != _currentState) TransitionTo(nextState);
+            CurrentState.Update();
+            var nextState = CurrentState.HandleTransition();
+            if (nextState != null && nextState != CurrentState) TransitionTo(nextState);
         }
 
         public void TransitionTo<T>(T stateType) where T : Type
@@ -55,10 +56,13 @@ namespace Core.Managers.HSM.Impls
         private void TransitionTo(IState newState)
         {
             Log.Info($"hsm transition to {newState.GetType().Name}");
-            _currentState.Exit();
-            _currentState = newState;
-            _currentState.Enter();
+            PreviousState = CurrentState;
+            CurrentState.Exit(PreviousState);
+            CurrentState = newState;
+            CurrentState.Enter(PreviousState);
         }
+
+        public IState PreviousState { get; private set; }
 
         private void RegisterState<T>(IState state) where T : IState => _states[typeof(T)] = state;
     }

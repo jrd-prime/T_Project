@@ -13,7 +13,7 @@ namespace Infrastructure.Installers.Game
             // HSM
             Container.DeclareSignal<ChangeGameStateSignalVo>();
             // UI Manager
-            Container.DeclareSignal<SwitchLocalViewSignalVo>();
+            Container.DeclareSignal<ShowViewSignalVo>();
             Container.DeclareSignal<SwitchToPreviousViewSignalVo>();
             // Key
             Container.DeclareSignal<EscapeKeySignal>();

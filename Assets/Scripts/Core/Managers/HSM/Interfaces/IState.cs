@@ -2,8 +2,8 @@
 {
     public interface IState
     {
-        void Enter();
-        void Exit();
+        void Enter(IState previousState);
+        void Exit(IState previousState);
         void Update();
         IState HandleTransition();
     }

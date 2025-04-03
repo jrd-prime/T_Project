@@ -1,5 +1,6 @@
 ﻿using System;
 using Core.Managers.HSM.Signals;
+using Core.Managers.UI.Impls;
 using Core.Managers.UI.Signals;
 using Game.UI.Data;
 using Game.UI.Interfaces.Model;
@@ -27,8 +28,10 @@ namespace Game.UI.Common
             RegistryType = GetRegistryType();
         }
 
-        protected void SwitchLocalViewTo(string viewId) =>
-            SignalBus.Fire(new SwitchLocalViewSignalVo(RegistryType, viewId));
+
+        protected void ShowLocalView(string viewId, UIViewer.Layer layer = UIViewer.Layer.Default,
+            bool isOverlay = false) =>
+            SignalBus.Fire(new ShowViewSignalVo(RegistryType, viewId, layer, isOverlay));
 
         protected void SwitchToPreviousView() => SignalBus.Fire(new SwitchToPreviousViewSignalVo());
         protected void ChangeGameStateTo(Type type) => SignalBus.Fire(new ChangeGameStateSignalVo(type));
@@ -36,7 +39,7 @@ namespace Game.UI.Common
         protected void ChangeGameStateAndShowView(Type stateType, ViewRegistryType registryType, string viewId)
         {
             SignalBus.Fire(new ChangeGameStateSignalVo(stateType));
-            SignalBus.Fire(new SwitchLocalViewSignalVo(registryType, viewId));
+            SignalBus.Fire(new ShowViewSignalVo(registryType, viewId));
         }
 
         public abstract void Initialize();

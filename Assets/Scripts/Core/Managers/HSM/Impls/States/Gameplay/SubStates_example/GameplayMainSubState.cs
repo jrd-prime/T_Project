@@ -10,7 +10,7 @@ namespace Core.Managers.HSM.Impls.States.Gameplay.SubStates_example
         {
         }
 
-        public override void Enter()
+        public override void Enter(IState previousState)
         {
             UIManager.SwitchToView("main");
         }
