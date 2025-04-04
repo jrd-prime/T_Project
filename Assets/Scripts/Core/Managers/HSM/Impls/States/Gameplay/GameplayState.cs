@@ -1,6 +1,7 @@
 ﻿using Core.Managers.HSM.Common;
 using Core.Managers.HSM.Impls.States.Gameplay.SubStates_example;
 using Core.Managers.HSM.Interfaces;
+using Core.Managers.UI.Impls;
 using Core.Managers.UI.Interfaces;
 using Game.UI.Common;
 using Game.UI.Data;
@@ -20,7 +21,7 @@ namespace Core.Managers.HSM.Impls.States.Gameplay
 
         public override void Enter(IState previousState)
         {
-            UIManager.ShowViewNew(ViewRegistryType.Gameplay, ViewIDConst.Main);
+            UIManager.ShowView(new UIManagerViewDataVo(ViewRegistryType.Gameplay, ViewIDConst.Main));
         }
 
         public override void Exit(IState previousState)

@@ -14,7 +14,7 @@ namespace Infrastructure.Installers.Game
             Container.DeclareSignal<ChangeGameStateSignalVo>();
             // UI Manager
             Container.DeclareSignal<ShowViewSignalVo>();
-            Container.DeclareSignal<SwitchToPreviousViewSignalVo>();
+            Container.DeclareSignal<ShowPreviousViewSignalVo>();
             // Key
             Container.DeclareSignal<EscapeKeySignal>();
             Container.DeclareSignal<InventoryKeySignal>();

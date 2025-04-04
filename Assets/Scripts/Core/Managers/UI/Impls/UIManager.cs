@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Managers.UI.Interfaces;
 using Core.Managers.UI.Signals;
 using Game.UI.Common;
@@ -19,9 +18,8 @@ namespace Core.Managers.UI.Impls
         [SerializeField] private ViewRegistryDataVo[] viewRegistryData = Array.Empty<ViewRegistryDataVo>();
 
         [Inject] private readonly SignalBus _signalBus;
-
+        private readonly Stack<(string viewId, UIViewer.Layer layer)> _viewStack = new();
         private readonly Dictionary<ViewRegistryType, IUIViewRegistry> _viewsRegistry = new();
-        public Stack<(string viewId, UIViewer.Layer layer)> _viewStack { get; } = new();
 
         private ViewRegistryType _currentViewRegistryType = ViewRegistryType.NotSet;
         private IUIViewRegistry _currentViewRegistry;
@@ -36,7 +34,7 @@ namespace Core.Managers.UI.Impls
             InitializeMainViews();
 
             _signalBus.Subscribe<ShowViewSignalVo>(OnShowViewSignal);
-            _signalBus.Subscribe<SwitchToPreviousViewSignalVo>(OnSwitchToPreviousViewSignal);
+            _signalBus.Subscribe<ShowPreviousViewSignalVo>(OnSwitchToPreviousViewSignal);
         }
 
         public void ShowPreviousViewNew()
@@ -50,7 +48,7 @@ namespace Core.Managers.UI.Impls
 
             var previous = _viewStack.Peek();
             Log.Warn($"Restoring previous view: {previous.viewId} on layer {previous.layer}");
-            ShowViewNew(_currentViewRegistryType, previous.viewId, previous.layer);
+            ShowView(new UIManagerViewDataVo(_currentViewRegistryType, previous.viewId, previous.layer));
         }
 
         public bool IsViewActive(string viewId) => _currentViewId == viewId;
@@ -63,125 +61,111 @@ namespace Core.Managers.UI.Impls
             _currentOverlayView = null;
         }
 
-        private void OnSwitchToPreviousViewSignal() => ShowPreviousViewNew();
+        public bool IsOverlayIt(string viewId) => _currentOverlayView == viewId;
 
-        private void OnShowViewSignal(ShowViewSignalVo signal)
+
+        public void ShowView(UIManagerViewDataVo data)
         {
-            Log.Warn("switch local view signal -> " + signal.ViewRegistryType + " / " + signal.ViewId);
-            ShowViewNew(signal.ViewRegistryType, signal.ViewId, signal.Layer, signal.IsOverlay);
+            _currentViewRegistry = GetViewRegistry(data.RegistryType);
+
+            if (!data.IsOverlay) _currentViewId = data.ViewId;
+
+            UpdateViewState(data);
+            ShowViewWithTemplate(data);
         }
 
-        public void ShowViewNew(ViewRegistryType type, string viewId, UIViewer.Layer layer = UIViewer.Layer.Default,
-            bool isOverlay = false)
+        /// <summary>
+        /// Активен ли мэйн вьюв для типа вью регистра
+        /// </summary>
+        public bool IsMainViewActive(ViewRegistryType registryType) =>
+            _currentViewRegistryType == registryType && _currentViewId == ViewIDConst.Main;
+
+        private void UpdateViewState(UIManagerViewDataVo data)
         {
-            Log.Warn($"// Show view -> {type} / {viewId} on layer {layer} (overlay: {isOverlay})");
-
-            _currentViewRegistry = GetViewRegistry(type);
-
-            if (!isOverlay) _currentViewId = viewId;
-
             if (_currentViewRegistryType == ViewRegistryType.NotSet)
             {
-                Log.Warn("// registry type not set. push in stack");
-                if (isOverlay) Log.Warn("isOverlay = true. It's not work when registryType != currentRegistryType");
-                _currentViewRegistryType = type;
-                _viewStack.Push((viewId, layer));
+                InitializeViewStack(data);
+                return;
             }
-            else if (_currentViewRegistryType == type)
+
+            if (_currentViewRegistryType == data.RegistryType)
             {
-                Log.Warn("// same registry.");
-
-                if (_viewStack.Count == 0) Log.Error("// Why stack is empty???");
-
-                if (!isOverlay)
-                {
-                    
-                    Log.Warn("// overlay = FALSE");
-                    if (_viewStack.Peek().viewId != viewId)
-                    {
-                        viewer.ClearLayer(layer);
-                        Log.Warn("// push view to stack -> " + viewId + " on layer " + layer);
-                        _viewStack.Push((viewId, layer));
-                    }
-                }
-                else
-                {
-                    Log.Warn("// overlay = TRUE");
-                    _currentOverlayView = viewId;
-                }
+                HandleSameRegistry(data);
+                return;
             }
-            else if (_currentViewRegistryType != type)
+
+            SwitchToNewRegistry(data);
+        }
+
+        private void InitializeViewStack(UIManagerViewDataVo data)
+        {
+            _currentViewRegistryType = data.RegistryType;
+            _viewStack.Push((data.ViewId, data.Layer));
+            if (data.IsOverlay) Log.Warn("Overlay ignored: registry type not set");
+        }
+
+        private void HandleSameRegistry(UIManagerViewDataVo data)
+        {
+            if (_viewStack.Count == 0)
             {
-                Log.Warn("// new registry. hide views. clear stack. push in stack");
-                if (isOverlay) Log.Warn("isOverlay = true. It's not work when registryType != currentRegistryType");
-                _currentViewRegistryType = type;
-                viewer.HideView();
-                _viewStack.Clear();
-                _viewStack.Push((viewId, layer));
-                _currentOverlayView = null;
+                Log.Error("View stack is empty");
+                return;
             }
 
+            if (data.IsOverlay)
+            {
+                _currentOverlayView = data.ViewId;
+                return;
+            }
+
+            if (_viewStack.Peek().viewId == data.ViewId) return;
+
+            viewer.ClearLayer(data.Layer);
+            _viewStack.Push((data.ViewId, data.Layer));
+        }
+
+        private void ShowViewWithTemplate(UIManagerViewDataVo data)
+        {
             var templateData = new ViewTemplateData
             {
-                ViewId = viewId,
-                StateId = type.ToString(),
-                Template = _currentViewRegistry.GetView(viewId),
+                ViewId = data.ViewId,
+                StateId = data.RegistryType.ToString(),
+                Template = _currentViewRegistry.GetView(data.ViewId),
                 InSafeZone = false,
-                DebugData = new DebugDataVo("stack", _viewStack.Count, isOverlay)
+                UIViewerDebugData = new UIViewerDebugDataVo("stack", _viewStack.Count, data.IsOverlay)
             };
 
-            viewer.ShowView(templateData, layer);
+            viewer.ShowView(templateData, data.Layer);
         }
 
-        public void HideView(string viewId)
+        private void SwitchToNewRegistry(UIManagerViewDataVo data)
         {
-            Log.Info($"hide view {viewId}");
-            var viewInStack = _viewStack.FirstOrDefault(v => v.viewId == viewId);
-            if (viewInStack.viewId == null) return;
-
-            var tempStack = new Stack<(string viewId, UIViewer.Layer layer)>();
-            while (_viewStack.Count > 0)
-            {
-                var item = _viewStack.Pop();
-                if (item.viewId != viewId)
-                    tempStack.Push(item);
-            }
-
-            while (tempStack.Count > 0) _viewStack.Push(tempStack.Pop());
-
-            viewer.ClearLayer(viewInStack.layer);
-        }
-
-        public void HideAllViews()
-        {
-            Log.Info("hide all views");
+            _currentViewRegistryType = data.RegistryType;
             viewer.HideView();
             _viewStack.Clear();
+            _viewStack.Push((data.ViewId, data.Layer));
+            _currentOverlayView = null;
+            if (data.IsOverlay) Log.Warn("Overlay ignored: different registry type");
         }
 
-        private IUIViewRegistry GetViewRegistry(ViewRegistryType type)
+        private IUIViewRegistry GetViewRegistry(ViewRegistryType registryType)
         {
-            if (_viewsRegistry.TryGetValue(type, out var viewRegistry)) return viewRegistry;
+            if (_viewsRegistry.TryGetValue(registryType, out var viewRegistry)) return viewRegistry;
 
-            throw new KeyNotFoundException($"View registry for type {type} not found in cache");
+            throw new KeyNotFoundException($"View registry for type {registryType} not found in cache");
         }
 
-        public bool IsMainViewActive(ViewRegistryType type)
-        {
-            Log.Warn("Is main view active " + type + " / " + _currentViewRegistryType + " / " + _currentViewId);
-            return _currentViewRegistryType == type && _currentViewId == ViewIDConst.Main;
-        }
+        private void OnSwitchToPreviousViewSignal() => ShowPreviousViewNew();
 
+        private void OnShowViewSignal(ShowViewSignalVo signal) =>
+            ShowView(new UIManagerViewDataVo(signal.ViewRegistryType, signal.ViewId, signal.Layer, signal.IsOverlay));
 
         private void InitializeMainViews()
         {
             foreach (var viewDataVo in viewRegistryData)
             {
                 if (!viewDataVo.viewRegistry)
-                {
-                    Log.Error("View registry not set for " + viewDataVo.type);
-                    continue;
-                }
+                    throw new NullReferenceException("View registry not set for " + viewDataVo.type);
 
                 RegisterView(viewDataVo.type, viewDataVo.viewRegistry);
             }
@@ -189,13 +173,13 @@ namespace Core.Managers.UI.Impls
             Log.Info("initialized global views: " + _viewsRegistry.Count);
         }
 
-        private void RegisterView(ViewRegistryType viewId, IUIViewRegistry view) => _viewsRegistry.TryAdd(viewId, view);
-    }
+        private void RegisterView(ViewRegistryType registryType, IUIViewRegistry registry) =>
+            _viewsRegistry.TryAdd(registryType, registry);
 
-    public record DebugDataVo(string Name, int ViewStackCount, bool IsOverlay)
-    {
-        public string Name { get; } = Name;
-        public int ViewStackCount { get; } = ViewStackCount;
-        public bool IsOverlay { get; } = IsOverlay;
+        private void OnDestroy()
+        {
+            _signalBus.Unsubscribe<ShowViewSignalVo>(OnShowViewSignal);
+            _signalBus.Unsubscribe<ShowPreviousViewSignalVo>(OnSwitchToPreviousViewSignal);
+        }
     }
 }

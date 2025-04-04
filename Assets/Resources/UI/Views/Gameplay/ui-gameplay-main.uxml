@@ -1,6 +1,6 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/USS/shared.uss?fileID=7433441132597879392&amp;guid=0371bfa22ee0c2f48808f8045cc5c0a5&amp;type=3#shared" />
-    <engine:VisualElement name="container" class="container-absolute" style="flex-grow: 1;">
+    <engine:VisualElement name="container" class="container-absolute" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
         <engine:VisualElement name="main-content-container" style="flex-grow: 1; position: absolute; top: 0; left: 0; bottom: 0; right: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; align-items: center; justify-content: center; align-self: center;">
             <engine:Label text="GAMEPLAY" name="title" style="position: absolute; top: 0;" />
             <engine:VisualElement name="action-bar-container" style="flex-grow: 1; position: absolute; bottom: 0; width: auto; height: auto; flex-direction: row; align-items: center; justify-content: center; align-self: center; align-content: center; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;">
