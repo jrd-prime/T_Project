@@ -5,9 +5,14 @@
   "start": "старт",
   "play-ttl": "Играть",
   "settings-ttl": "Настройки",
+  "back": "назад",
   "exit-ttl": "Выход",
   "start-ttl": "старт",
+  "continue": "продолжить",
   "video": "Видео",
   "audio": "Аудио",
-  "pause": "пауза"
+  "pause": "пауза",
+  "to-main-menu": "В главное меню",
+
+  "inventory": "инвентарь",
 }

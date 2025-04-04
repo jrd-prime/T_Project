@@ -11,7 +11,7 @@ namespace Core.Providers
 {
     public interface ISettingsProvider : IBootable
     {
-        public T GetSettings<T>() where T : SettingsBase;
+        T GetSettings<T>() where T : SettingsBase;
     }
 
     public sealed class SettingsProvider : ISettingsProvider

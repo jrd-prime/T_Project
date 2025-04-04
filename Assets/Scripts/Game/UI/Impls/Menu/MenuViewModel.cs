@@ -1,4 +1,5 @@
 ﻿using Core.Managers.HSM.Impls.States.Gameplay;
+using Core.Managers.UI.Impls;
 using Game.UI.Common;
 using Game.UI.Data;
 using Game.UI.Interfaces.Model;
@@ -14,6 +15,8 @@ namespace Game.UI.Impls.Menu
         void ExitBtnClicked();
         void AudioBtnClicked();
         void VideoBtnClicked();
+        void ContinueBtnClicked();
+        void MenuBtnClicked();
     }
 
     public sealed class MenuViewModel : UIViewModelBase<IMenuModel>, IMenuViewModel
@@ -24,10 +27,19 @@ namespace Game.UI.Impls.Menu
 
         protected override ViewRegistryType GetRegistryType() => ViewRegistryType.Menu;
 
+        // State
         public void StartBtnClicked() => ChangeGameStateTo(typeof(GameplayState));
-        public void SettingsBtnClicked() => SwitchLocalViewTo("settings");
-        public void AudioBtnClicked() => SwitchLocalViewTo("settings-audio");
-        public void VideoBtnClicked() => SwitchLocalViewTo("settings-video");
+        public void ContinueBtnClicked() => ChangeGameStateTo(typeof(GameplayState));
+
+        // Local
+        public void SettingsBtnClicked() => ShowLocalView(ViewIDConst.Settings);
+
+
+        public void AudioBtnClicked() => ShowLocalView(ViewIDConst.SettingsAudio);
+        public void VideoBtnClicked() => ShowLocalView(ViewIDConst.SettingsVideo);
+        public void MenuBtnClicked() => ShowLocalView(ViewIDConst.Main);
+
+        // Global
         public void BackBtnClicked() => SwitchToPreviousView();
         public void ExitBtnClicked() => ExitHelp.ExitGame();
     }

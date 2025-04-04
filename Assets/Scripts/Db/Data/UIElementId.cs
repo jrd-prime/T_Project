@@ -9,9 +9,6 @@
 
         //Menu
 
-        // Main
-        public const string MenuMainContainerId = "menu-main-container";
-
         public const string MenuMainContentId = "menu-main-content";
 
 

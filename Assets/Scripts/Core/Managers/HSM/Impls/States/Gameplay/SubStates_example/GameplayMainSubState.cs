@@ -1,6 +1,8 @@
 ﻿using Core.Managers.HSM.Common;
 using Core.Managers.HSM.Interfaces;
 using Core.Managers.UI.Interfaces;
+using Game.UI.Common;
+using Game.UI.Data;
 
 namespace Core.Managers.HSM.Impls.States.Gameplay.SubStates_example
 {
@@ -10,9 +12,8 @@ namespace Core.Managers.HSM.Impls.States.Gameplay.SubStates_example
         {
         }
 
-        public override void Enter()
+        public override void Enter(IState previousState)
         {
-            UIManager.SwitchToView("main");
         }
 
         public override void Update()

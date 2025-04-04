@@ -1,4 +1,5 @@
-﻿using Core.Managers.UI.Impls;
+﻿using System.Collections.Generic;
+using Core.Managers.UI.Impls;
 using Game.UI.Data;
 
 namespace Core.Managers.UI.Interfaces
@@ -7,10 +8,15 @@ namespace Core.Managers.UI.Interfaces
     {
         void HideView(string viewId);
         void HideAllViews();
-        void SwitchToView(string viewId);
 
-        void SetAndShowBaseView(ViewRegistryType type);
-        void ShowView(ViewRegistryType type, string viewId, UIViewer.Layer layer, bool replace = false);
-        void ShowPreviousView();
+        void ShowViewNew(ViewRegistryType type, string viewId, UIViewer.Layer layer = UIViewer.Layer.Default,
+            bool isOverlay = false);
+
+        Stack<(string viewId, UIViewer.Layer layer)> _viewStack { get; }
+        bool IsMainViewActive(ViewRegistryType type);
+        void ShowPreviousViewNew();
+        bool IsViewActive(string viewId);
+        bool IsOverlayViewActive();
+        void CloseOverlayView();
     }
 }

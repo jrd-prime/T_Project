@@ -11,9 +11,9 @@ namespace Core.Providers
 {
     public interface IAssetProvider : IBootable
     {
-        public UniTask<SceneInstance> LoadSceneAsync(string assetId, LoadSceneMode loadSceneMode);
-        public UniTask<GameObject> InstantiateAsync(AssetReference assetId, Transform parent = null);
-        public GameObject Instantiate(AssetReferenceGameObject assetId, Transform parent = null);
+        UniTask<SceneInstance> LoadSceneAsync(string assetId, LoadSceneMode loadSceneMode);
+        UniTask<GameObject> InstantiateAsync(AssetReference assetId, Transform parent = null);
+        GameObject Instantiate(AssetReferenceGameObject assetId, Transform parent = null);
     }
 
     [UsedImplicitly]

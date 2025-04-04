@@ -10,14 +10,10 @@ using ZLinq;
 
 namespace Game.UI.Common
 {
-    [RequireComponent(typeof(UIDocument))]
     public abstract class AViewRegistryBase : MonoBehaviour, IUIViewRegistry
     {
         [SerializeField] public bool inSafeZone;
         [SerializeField] private ViewBaseDataVo[] views;
-
-        private VisualElement _viewContainer;
-        private VisualElement _root;
 
         protected readonly Dictionary<string, AViewBase> ViewsCache = new();
 
@@ -25,16 +21,6 @@ namespace Game.UI.Common
         private void Awake()
         {
             if (!HasMainView()) throw new Exception("Main view not found in views. " + GetType());
-
-            _root = GetComponent<UIDocument>().rootVisualElement;
-
-            _viewContainer = _root.GetVisualElement<VisualElement>(UIElementId.MainViewContainerId, GetType().Name);
-            _viewContainer.style.left = inSafeZone ? 0 : 100;
-            _viewContainer.style.right = inSafeZone ? 0 : 100;
-            _viewContainer.style.top = inSafeZone ? 0 : 100;
-            _viewContainer.style.bottom = inSafeZone ? 0 : 100;
-            _viewContainer.style.display = DisplayStyle.None;
-
             RegisterViews();
         }
 
@@ -57,18 +43,16 @@ namespace Game.UI.Common
                 throw new KeyNotFoundException($"View not found in cache for: {viewId} / {GetType()}");
 
             var template = view.GetTemplate();
+            template.ContentToCenter();
 
-            _viewContainer.Clear();
-            _viewContainer.Add(template);
-
-            return _viewContainer;
+            return template;
         }
 
         /// <summary>
-        /// Есть ли вьюшка с ViewConst.MainViewId в списке
+        /// Есть ли вьюшка с ViewIDConst.Main в списке
         /// </summary>
         private bool HasMainView() =>
-            views.AsValueEnumerable().Any(viewData => viewData.id == ViewConst.MainViewId);
+            views.AsValueEnumerable().Any(viewData => viewData.id == ViewIDConst.Main);
 
         /// <summary>
         /// Есть ли вьюшка в кеше по id

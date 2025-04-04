@@ -12,7 +12,7 @@ namespace Core.Providers.Localization
 {
     public interface ILocalizationProvider : IBootable
     {
-        public string Localize(string key);
+        string Localize(string key);
     }
 
     public class LocalizationProvider : ILocalizationProvider

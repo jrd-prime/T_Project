@@ -1,6 +1,7 @@
 ﻿using Core.Extensions;
 using Core.Providers;
 using R3;
+using UnityEngine;
 using Zenject;
 
 namespace Core.Character.Hero
@@ -12,8 +13,7 @@ namespace Core.Character.Hero
 
         protected readonly CompositeDisposable Disposables = new();
 
-        [Inject]
-        private void Construct(DiContainer container)
+        protected ModelBase(DiContainer container)
         {
             Container = container;
             SettingsProvider = Container.ResolveAndCheckOnNull<ISettingsProvider>();

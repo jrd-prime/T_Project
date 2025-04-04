@@ -6,7 +6,6 @@ using Game.UI.Interfaces;
 using R3;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Position = UnityEngine.UIElements.Position;
 
 namespace Game.UI.Common
 {
@@ -22,21 +21,29 @@ namespace Game.UI.Common
 
         protected readonly Dictionary<Button, EventCallback<ClickEvent>> CallbacksCache = new();
         protected readonly CompositeDisposable Disposables = new();
+        protected VisualElement ContentContainer;
 
         private void Awake()
         {
             if (template == null) throw new NullReferenceException("Template is null. " + name);
 
             Template = template.Instantiate();
+            Template.SetFullScreen();
 
             RootContainer = Template.GetVisualElement<VisualElement>(UIElementId.ContainerId, name);
-            Template.style.position = Position.Absolute;
-            Template.style.left = Template.style.top = Template.style.right = Template.style.bottom = 0f;
+            ContentContainer = RootContainer.GetVisualElement<VisualElement>(UIElementId.ContainerId, name);
 
             ViewMainHeader = RootContainer.GetVisualElement<Label>(UIElementId.TitleId, name);
             InitializeView();
 
             IsInitialized = true;
+        }
+
+        public TemplateContainer GetTemplate()
+        {
+            if (!IsInitialized) throw new Exception("View is not initialized. " + name);
+
+            return Template ?? throw new NullReferenceException("Template is null. " + name);
         }
 
         /// <summary>
@@ -48,18 +55,6 @@ namespace Game.UI.Common
 
             foreach (var callback in CallbacksCache)
                 callback.Key.RegisterCallback(callback.Value);
-        }
-
-        /// <summary>
-        /// Unregister initialized callbacks
-        /// </summary>
-        protected void UnregisterCallbacks()
-        {
-            Debug.LogWarning("unreg callbacks " + name);
-            if (CallbacksCache.Count == 0) return;
-
-            foreach (var callback in CallbacksCache)
-                callback.Key.UnregisterCallback(callback.Value);
         }
 
         /// <summary>
@@ -82,15 +77,21 @@ namespace Game.UI.Common
         /// </summary>
         protected abstract void InitializeCallbacks();
 
-        public TemplateContainer GetTemplate()
-        {
-            if (!IsInitialized) throw new Exception("View is not initialized. " + name);
 
-            return Template ?? throw new NullReferenceException("Template is null. " + name);
+        /// <summary>
+        /// Unregister initialized callbacks
+        /// </summary>
+        private void UnregisterCallbacks()
+        {
+            if (CallbacksCache.Count == 0) return;
+
+            foreach (var callback in CallbacksCache)
+                callback.Key.UnregisterCallback(callback.Value);
         }
 
         private void OnDestroy()
         {
+            UnregisterCallbacks();
             Disposables?.Dispose();
         }
     }

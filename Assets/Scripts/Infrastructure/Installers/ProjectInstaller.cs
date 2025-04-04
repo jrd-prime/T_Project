@@ -3,6 +3,8 @@ using Core.Providers;
 using Core.Providers.Localization;
 using Db.SO;
 using Infrastructure.Input;
+using Infrastructure.Input.Handlers;
+using Infrastructure.Input.Interfaces;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Profiling;
@@ -18,7 +20,6 @@ namespace Infrastructure.Installers
         public override void InstallBindings()
         {
             Debug.Log("<color=cyan>ProjectInstaller</color>");
-
             SignalBusInstaller.Install(Container);
 
             if (mainSettings == null) throw new NullReferenceException("MainSettings is null.");
@@ -27,13 +28,18 @@ namespace Infrastructure.Installers
             if (eventSystem == null) throw new NullReferenceException("EventSystem is null.");
             Container.Bind<EventSystem>().FromInstance(eventSystem).AsSingle();
 
-            var input = gameObject.AddComponent<DesktopInput>();
-            Container.Bind<IJInput>().To<DesktopInput>().FromInstance(input).AsSingle();
+            BindInput();
+
 
             Container.Bind<ISettingsProvider>().To<SettingsProvider>().AsSingle();
             Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle();
             Container.Bind<ILocalizationProvider>().To<LocalizationProvider>().AsSingle();
             Container.Bind<FirstSceneProvider>().AsSingle();
+        }
+
+        private void BindInput()
+        {
+            Container.Bind<IJInput>().To<DesktopInput>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();
         }
 
         private void OnApplicationQuit()

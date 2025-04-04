@@ -11,10 +11,9 @@ namespace Core.Managers.HSM.Impls.States.Gameplay.SubStates_example
         {
         }
 
-        public override void Enter()
+        public override void Enter(IState previousState)
         {
             Console.WriteLine("Entering Paused SubState");
-            UIManager.SwitchToView("PauseView");
         }
 
         public override void Update()

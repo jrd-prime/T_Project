@@ -19,16 +19,16 @@ namespace Core.Managers.HSM.Common
             UIManager = uiManager;
         }
 
-        public virtual void Enter()
+        public virtual void Enter(IState previousState)
         {
             Log.Info($"enter state {GetType().Name}");
-            CurrentSubState?.Enter();
+            CurrentSubState?.Enter(previousState);
         }
 
-        public virtual void Exit()
+        public virtual void Exit(IState previousState)
         {
             Log.Info($"exit state {GetType().Name}");
-            CurrentSubState?.Exit();
+            CurrentSubState?.Exit(previousState);
         }
 
         public virtual void Update()
@@ -54,9 +54,12 @@ namespace Core.Managers.HSM.Common
         {
             if (newState == CurrentSubState) return;
 
-            CurrentSubState?.Exit();
+            PreviousState = CurrentSubState;
+            CurrentSubState?.Exit(PreviousState);
             CurrentSubState = newState;
-            CurrentSubState?.Enter();
+            CurrentSubState?.Enter(PreviousState);
         }
+
+        public IState PreviousState;
     }
 }

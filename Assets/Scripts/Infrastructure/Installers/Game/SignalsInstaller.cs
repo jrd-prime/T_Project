@@ -1,5 +1,7 @@
 ﻿using Core.Managers.HSM.Signals;
 using Core.Managers.UI.Signals;
+using Infrastructure.Input.Handlers;
+using Infrastructure.Input.Signals;
 using Zenject;
 
 namespace Infrastructure.Installers.Game
@@ -11,8 +13,11 @@ namespace Infrastructure.Installers.Game
             // HSM
             Container.DeclareSignal<ChangeGameStateSignalVo>();
             // UI Manager
-            Container.DeclareSignal<SwitchLocalViewSignalVo>();
+            Container.DeclareSignal<ShowViewSignalVo>();
             Container.DeclareSignal<SwitchToPreviousViewSignalVo>();
+            // Key
+            Container.DeclareSignal<EscapeKeySignal>();
+            Container.DeclareSignal<InventoryKeySignal>();
         }
     }
 }

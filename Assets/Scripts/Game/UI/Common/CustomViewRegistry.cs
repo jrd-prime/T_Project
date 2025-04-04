@@ -8,7 +8,6 @@ namespace Game.UI.Common
     {
         protected TViewModel ViewModel { get; private set; }
         protected ILocalizationProvider LocalizationManager;
-        // protected Dictionary<TSubViewType, TemplateContainer> InitializedViewsCache = new();
 
         private DiContainer _container;
 

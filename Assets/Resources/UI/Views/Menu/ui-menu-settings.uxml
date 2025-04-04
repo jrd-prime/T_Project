@@ -1,16 +1,14 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Content/UI/USS/shared.uss?fileID=7433441132597879392&amp;guid=0371bfa22ee0c2f48808f8045cc5c0a5&amp;type=3#shared" />
-    <engine:VisualElement name="container" class="container-absolute" style="align-items: center; justify-content: center; align-self: center; align-content: center; background-color: rgba(0, 0, 0, 0.5); -unity-font-definition: url(&quot;project://database/Assets/Content/Fonts/SofiaSans/SofiaSans-VariableFont_wght.ttf?fileID=12800000&amp;guid=1bca949100cedc8498d4d9904a73d064&amp;type=3#SofiaSans-VariableFont_wght&quot;); -unity-font-style: normal; -unity-text-align: middle-center;">
-        <engine:VisualElement name="menu-settings-container" style="flex-grow: 0; width: 15%; height: auto; min-height: 10%; background-color: rgba(0, 0, 0, 0.3); border-top-left-radius: 16px; border-top-right-radius: 16px; border-bottom-right-radius: 16px; border-bottom-left-radius: 16px; padding-top: 16px; padding-right: 16px; padding-bottom: 16px; padding-left: 16px;">
-            <engine:VisualElement name="main-content-container" style="flex-grow: 1; position: relative; top: 0; left: 0; bottom: 0; right: 0; align-items: center; justify-content: center; align-self: auto; align-content: center;">
-                <engine:VisualElement name="header" style="flex-grow: 1; position: relative; top: 0; left: 0; right: 0; height: 40px; align-items: center; justify-content: center; align-self: center; align-content: center; width: 100%;">
-                    <engine:Label text="Label" name="title" class="ttl" style="position: absolute; align-self: auto; align-content: auto; align-items: auto;" />
-                </engine:VisualElement>
-                <engine:VisualElement name="content" style="flex-grow: 1; top: 0; bottom: 0; left: 0; right: 0; width: 100%; margin-bottom: 20px; margin-top: 20px; margin-right: 20px; margin-left: 20px;">
-                    <engine:Button text="vid" name="video-btn" class="menu-btn" />
-                    <engine:Button text="aud" name="audio-btn" class="menu-btn" />
-                    <engine:Button text="back" name="back-btn" class="menu-btn" />
-                </engine:VisualElement>
+    <Style src="project://database/Assets/Resources/UI/USS/shared.uss?fileID=7433441132597879392&amp;guid=0371bfa22ee0c2f48808f8045cc5c0a5&amp;type=3#shared" />
+    <engine:VisualElement name="container" style="flex-grow: 0; width: 15%; height: auto; min-height: 10%; background-color: rgba(0, 0, 0, 0.3); border-top-left-radius: 16px; border-top-right-radius: 16px; border-bottom-right-radius: 16px; border-bottom-left-radius: 16px; padding-top: 16px; padding-right: 16px; padding-bottom: 16px; padding-left: 16px;">
+        <engine:VisualElement name="main-content-container" style="flex-grow: 1; position: relative; top: 0; left: 0; bottom: 0; right: 0; align-items: center; justify-content: center; align-self: auto; align-content: center;">
+            <engine:VisualElement name="header" style="flex-grow: 1; position: relative; top: 0; left: 0; right: 0; height: 40px; align-items: center; justify-content: center; align-self: center; align-content: center; width: 100%;">
+                <engine:Label text="Label" name="title" class="ttl" style="position: absolute; align-self: auto; align-content: auto; align-items: auto;" />
+            </engine:VisualElement>
+            <engine:VisualElement name="content" style="flex-grow: 1; top: 0; bottom: 0; left: 0; right: 0; width: 100%; margin-bottom: 20px; margin-top: 20px; margin-right: 20px; margin-left: 20px;">
+                <engine:Button text="vid" name="video-btn" class="menu-btn" />
+                <engine:Button text="aud" name="audio-btn" class="menu-btn" />
+                <engine:Button text="back" name="back-btn" class="menu-btn" />
             </engine:VisualElement>
         </engine:VisualElement>
     </engine:VisualElement>

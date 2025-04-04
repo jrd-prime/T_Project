@@ -5,20 +5,15 @@ namespace Core.Managers.Game.Interfaces
 {
     public interface IGameManager : IInitializable
     {
-        // public ReactiveProperty<int> PlayerInitialHealth { get; }
-        // public ReadOnlyReactiveProperty<int> PlayerHealth { get; }
-        public ReactiveProperty<bool> IsGameRunning { get; }
-        // public ReactiveProperty<DayTimerDataModel> GameTimeData { get; }
+        //  ReactiveProperty<int> PlayerInitialHealth { get; }
+        //  ReadOnlyReactiveProperty<int> PlayerHealth { get; }
+        ReactiveProperty<bool> IsGameRunning { get; }
+        //  ReactiveProperty<DayTimerDataModel> GameTimeData { get; }
 
-
-        public void GameOver();
-
-        public void StopTheGame();
-
-        public void StartNewGame();
-
-        public void Pause();
-
-        public void UnPause();
+        void GameOver();
+        void StopTheGame();
+        void StartNewGame();
+        void Pause();
+        void UnPause();
     }
 }
