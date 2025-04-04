@@ -14,7 +14,6 @@ namespace Core.Managers.HSM.Impls.States.Gameplay.SubStates_example
         public override void Enter(IState previousState)
         {
             Console.WriteLine("Entering InventoryOpen SubState");
-            UIManager.SwitchToView("InventoryView");
         }
 
         public override void Update()

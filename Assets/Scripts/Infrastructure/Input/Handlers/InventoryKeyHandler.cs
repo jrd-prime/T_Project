@@ -24,11 +24,10 @@ namespace Infrastructure.Input.Handlers
         private void OnInventorySignal(InventoryKeySignal obj)
         {
             Log.Info("Inventory key pressed");
-            if (UIManager.IsGameplayMainViewActive() &&
-                !UIManager._viewStack.Any(v => v.viewId == ViewIDConst.InventoryViewId))
+            if (UIManager.IsMainViewActive(ViewRegistryType.Gameplay))
             {
-                // UIManager.ShowView(ViewRegistryType.Gameplay, ViewIDConst.InventoryViewId, UIViewer.Layer.Top, false,
-                //     true);
+                Log.Warn("main in gameplay");
+                UIManager.ShowViewNew(ViewRegistryType.Gameplay, ViewIDConst.Inventory, UIViewer.Layer.Top, true);
             }
         }
     }

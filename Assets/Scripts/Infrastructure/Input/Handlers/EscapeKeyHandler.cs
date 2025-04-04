@@ -46,6 +46,13 @@ namespace Infrastructure.Input.Handlers
 
                     break;
                 case GameplayState:
+                    if (UIManager.IsOverlayViewActive())
+                    {
+                        UIManager.CloseOverlayView();
+                        return;
+
+                    }
+                    
                     if (UIManager.IsMainViewActive(ViewRegistryType.Gameplay))
                     {
                         SignalBus.Fire(new ChangeGameStateSignalVo(typeof(MenuState)));

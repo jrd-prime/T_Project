@@ -34,13 +34,13 @@ namespace Core.Managers.UI.Impls
         private void AddDebug(VisualElement view, ViewTemplateData data)
         {
             ViewerDebugContainer.Text.text =
-                $"{data.StateId} /  {data.ViewId}. {data.DebugData.Name}: {data.DebugData.ViewStackCount}";
+                $"{data.StateId} /  {data.ViewId}. {data.DebugData.Name}: {data.DebugData.ViewStackCount.ToString()}. Overlay: {data.DebugData.IsOverlay.ToString()}";
             view.Add(ViewerDebugContainer.DebugContainer);
         }
 
         public void ShowView(ViewTemplateData data, Layer layer)
         {
-            Log.Warn($"<color=green>[VIEWER]</color> ... {data.StateId} /  {data.ViewId} (layer: {layer})");
+            Log.Info($"<color=green>[VIEWER]</color> ... {data.StateId} /  {data.ViewId} (layer: {layer})");
             Prepare(data);
 
             switch (layer)
@@ -56,6 +56,7 @@ namespace Core.Managers.UI.Impls
 
         public void ClearLayer(Layer layer)
         {
+            Log.Warn("clear layer = " + layer);
             switch (layer)
             {
                 case Layer.Default: DefaultLayer.Clear(); break;
@@ -67,6 +68,7 @@ namespace Core.Managers.UI.Impls
 
         private void ClearAll()
         {
+            Log.Warn("clear all layers");
             DefaultLayer.Clear();
             MidLayer.Clear();
             TopLayer.Clear();

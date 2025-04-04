@@ -35,9 +35,9 @@ namespace Game.UI.Impls.Menu
         public void SettingsBtnClicked() => ShowLocalView(ViewIDConst.Settings);
 
 
-        public void AudioBtnClicked() => ShowLocalView("settings-audio");
-        public void VideoBtnClicked() => ShowLocalView("settings-video");
-        public void MenuBtnClicked() => ShowLocalView("main");
+        public void AudioBtnClicked() => ShowLocalView(ViewIDConst.SettingsAudio);
+        public void VideoBtnClicked() => ShowLocalView(ViewIDConst.SettingsVideo);
+        public void MenuBtnClicked() => ShowLocalView(ViewIDConst.Main);
 
         // Global
         public void BackBtnClicked() => SwitchToPreviousView();

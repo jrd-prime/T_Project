@@ -26,6 +26,7 @@ namespace Core.Managers.UI.Impls
         private ViewRegistryType _currentViewRegistryType = ViewRegistryType.NotSet;
         private IUIViewRegistry _currentViewRegistry;
         private string _currentViewId;
+        private string _currentOverlayView;
 
         private void Awake()
         {
@@ -53,6 +54,15 @@ namespace Core.Managers.UI.Impls
         }
 
         public bool IsViewActive(string viewId) => _currentViewId == viewId;
+        public bool IsOverlayViewActive() => _currentOverlayView != null;
+
+        public void CloseOverlayView()
+        {
+            Log.Warn("Close overlay view");
+            viewer.ClearLayer(UIViewer.Layer.Top);
+            _currentOverlayView = null;
+        }
+
         private void OnSwitchToPreviousViewSignal() => ShowPreviousViewNew();
 
         private void OnShowViewSignal(ShowViewSignalVo signal)
@@ -64,101 +74,63 @@ namespace Core.Managers.UI.Impls
         public void ShowViewNew(ViewRegistryType type, string viewId, UIViewer.Layer layer = UIViewer.Layer.Default,
             bool isOverlay = false)
         {
-            if (!_viewsRegistry.TryGetValue(type, out var viewRegistry))
-            {
-                Log.Error($"// view registry for type {type} not found");
-                return;
-            }
-
             Log.Warn($"// Show view -> {type} / {viewId} on layer {layer} (overlay: {isOverlay})");
 
-            _currentViewId = viewId;
+            _currentViewRegistry = GetViewRegistry(type);
+
+            if (!isOverlay) _currentViewId = viewId;
 
             if (_currentViewRegistryType == ViewRegistryType.NotSet)
             {
                 Log.Warn("// registry type not set. push in stack");
+                if (isOverlay) Log.Warn("isOverlay = true. It's not work when registryType != currentRegistryType");
                 _currentViewRegistryType = type;
                 _viewStack.Push((viewId, layer));
             }
             else if (_currentViewRegistryType == type)
             {
-                Log.Warn("// same registry. if view not same - push in stack ");
+                Log.Warn("// same registry.");
 
                 if (_viewStack.Count == 0) Log.Error("// Why stack is empty???");
 
-                if (_viewStack.Peek().viewId != viewId)
+                if (!isOverlay)
                 {
-                    Log.Warn("// push view to stack -> " + viewId + " on layer " + layer);
-                    _viewStack.Push((viewId, layer));
+                    
+                    Log.Warn("// overlay = FALSE");
+                    if (_viewStack.Peek().viewId != viewId)
+                    {
+                        viewer.ClearLayer(layer);
+                        Log.Warn("// push view to stack -> " + viewId + " on layer " + layer);
+                        _viewStack.Push((viewId, layer));
+                    }
+                }
+                else
+                {
+                    Log.Warn("// overlay = TRUE");
+                    _currentOverlayView = viewId;
                 }
             }
             else if (_currentViewRegistryType != type)
             {
                 Log.Warn("// new registry. hide views. clear stack. push in stack");
+                if (isOverlay) Log.Warn("isOverlay = true. It's not work when registryType != currentRegistryType");
                 _currentViewRegistryType = type;
                 viewer.HideView();
                 _viewStack.Clear();
                 _viewStack.Push((viewId, layer));
+                _currentOverlayView = null;
             }
 
             var templateData = new ViewTemplateData
             {
                 ViewId = viewId,
                 StateId = type.ToString(),
-                Template = viewRegistry.GetView(viewId),
+                Template = _currentViewRegistry.GetView(viewId),
                 InSafeZone = false,
-                DebugData = new DebugDataVo("stack", _viewStack.Count)
+                DebugData = new DebugDataVo("stack", _viewStack.Count, isOverlay)
             };
 
             viewer.ShowView(templateData, layer);
-        }
-
-        public void ShowView1(ViewRegistryType type, string viewId)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public void ShowView(ViewRegistryType type, string viewId)
-        {
-            ShowView1(type, viewId, UIViewer.Layer.Default, replace: true);
-        }
-
-        public void ShowView1(ViewRegistryType type, string viewId, UIViewer.Layer layer, bool replace = false,
-            bool isOverlay = false)
-        {
-            Log.Info($"show view -> {type} / {viewId} on layer {layer} (replace: {replace}, overlay: {isOverlay})");
-
-            if (!_viewsRegistry.TryGetValue(type, out var viewRegistry))
-            {
-                Log.Error($"view registry for type {type} not found");
-                return;
-            }
-
-            var view = viewRegistry.GetView(viewId);
-            var templateData = new ViewTemplateData
-            {
-                ViewId = viewId, StateId = type.ToString(), Template = view, InSafeZone = false
-            };
-
-            if (replace && layer == UIViewer.Layer.Default) viewer.ClearLayer(UIViewer.Layer.Default);
-
-            // Добавляем в стек только базовые вьюшки (не оверлеи)
-            if (!isOverlay && (_viewStack.Count == 0 || _viewStack.Peek().viewId != viewId))
-            {
-                _viewStack.Push((viewId, layer));
-            }
-
-            Log.Info($"Stack after show: {string.Join(", ", _viewStack.Select(v => v.viewId))}");
-        }
-
-        public void SetAndShowBaseView(ViewRegistryType type, string viewId = ViewIDConst.Main)
-        {
-            Log.Info($"set base view {type} with viewId {viewId}");
-            HideAllViews();
-            _currentViewRegistryType = type;
-            _currentViewRegistry = _viewsRegistry[type];
-            ShowView1(type, viewId, UIViewer.Layer.Default, true);
         }
 
         public void HideView(string viewId)
@@ -187,26 +159,18 @@ namespace Core.Managers.UI.Impls
             _viewStack.Clear();
         }
 
-        public void SwitchToView(string viewId)
+        private IUIViewRegistry GetViewRegistry(ViewRegistryType type)
         {
-            Log.Info($"switch to view {viewId}");
-            if (_viewStack.Count > 0 && _viewStack.Peek().viewId != viewId)
-                HideView(_viewStack.Peek().viewId);
+            if (_viewsRegistry.TryGetValue(type, out var viewRegistry)) return viewRegistry;
 
-            if (!_currentViewRegistry.HasView(viewId))
-                Log.Error($"Registry {_currentViewRegistry.GetType().Name} doesn't have view with id: {viewId}");
-            ShowView(_currentViewRegistryType, viewId);
+            throw new KeyNotFoundException($"View registry for type {type} not found in cache");
         }
 
-        public bool IsGameplayMainViewActive()
+        public bool IsMainViewActive(ViewRegistryType type)
         {
-            var d = _currentViewRegistryType == ViewRegistryType.Gameplay && _viewStack.Count == 1;
-            Debug.LogWarning("d = " + d);
-            return d;
+            Log.Warn("Is main view active " + type + " / " + _currentViewRegistryType + " / " + _currentViewId);
+            return _currentViewRegistryType == type && _currentViewId == ViewIDConst.Main;
         }
-
-        public bool IsMainViewActive(ViewRegistryType type) =>
-            _currentViewRegistryType == type && _currentViewId == ViewIDConst.Main;
 
 
         private void InitializeMainViews()
@@ -228,9 +192,10 @@ namespace Core.Managers.UI.Impls
         private void RegisterView(ViewRegistryType viewId, IUIViewRegistry view) => _viewsRegistry.TryAdd(viewId, view);
     }
 
-    public record DebugDataVo(string Name, int ViewStackCount)
+    public record DebugDataVo(string Name, int ViewStackCount, bool IsOverlay)
     {
         public string Name { get; } = Name;
         public int ViewStackCount { get; } = ViewStackCount;
+        public bool IsOverlay { get; } = IsOverlay;
     }
 }

@@ -1,5 +1,5 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <engine:VisualElement name="container" style="flex-grow: 0; width: 200px; height: 300px; -unity-text-align: middle-center; background-color: rgba(0, 0, 0, 0.31); border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px;">
+    <engine:VisualElement name="container" style="flex-grow: 0; width: 200px; height: 300px; -unity-text-align: middle-center; background-color: rgba(0, 0, 0, 0.89); border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px;">
         <engine:VisualElement name="main-content-container" style="flex-grow: 1;">
             <engine:VisualElement name="menu-header" style="flex-grow: 1;">
                 <engine:Label text="Label" name="title" />

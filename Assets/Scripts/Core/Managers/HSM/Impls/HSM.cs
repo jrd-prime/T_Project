@@ -16,6 +16,8 @@ namespace Core.Managers.HSM.Impls
     public sealed class HSM
     {
         public IState CurrentState { get; private set; }
+
+        private IState _previousState;
         private readonly Dictionary<Type, IState> _states = new();
 
         public HSM(SignalBus signalBus, IUIManager uiManager)
@@ -23,53 +25,61 @@ namespace Core.Managers.HSM.Impls
             InitializeMainStates(uiManager);
 
             var rootState = _states[typeof(MenuState)];
-            PreviousState = null;
+            _previousState = null;
             CurrentState = rootState;
 
             signalBus.Subscribe<ChangeGameStateSignalVo>(OnChangeGameStateSignal);
         }
 
-        private void OnChangeGameStateSignal(ChangeGameStateSignalVo signal) => TransitionTo(signal.StateType);
-
+        /// <summary>
+        /// Создаем экземпляры глобальных состояний и регистрируем
+        /// </summary>
         private void InitializeMainStates(IUIManager uiManager)
         {
             RegisterState<MenuState>(new MenuState(this, uiManager));
             RegisterState<GameplayState>(new GameplayState(this, uiManager));
         }
 
+        /// <summary>
+        /// Запуск дефолтного состояния
+        /// </summary>
         public void Start()
         {
-            Log.Info("Start HSM with state " + CurrentState.GetType().Name);
-            CurrentState.Enter(PreviousState);
+            Log.Info($"<color=green>[{nameof(HSM)}]</color> Start with state  {CurrentState.GetType().Name}");
+            CurrentState.Enter(_previousState);
         }
 
+        /// <summary>
+        /// Обновление состояния
+        /// </summary>
         public void Update()
         {
-            Log.Warn("hsm updated");
+            Log.Warn($"<color=green>[{nameof(HSM)}]</color> Update!");
             CurrentState.Update();
             var nextState = CurrentState.HandleTransition();
-            if (nextState != null && nextState != CurrentState) TransitionTo(nextState);
+            if (nextState != null && nextState != CurrentState) TransitionTo(nextState.GetType());
         }
 
-        public void TransitionTo<T>(T stateType) where T : Type
+        /// <summary>
+        /// Смена состояния
+        /// </summary>
+        private void TransitionTo<T>(T stateType) where T : Type
         {
-            if (!_states.TryGetValue(stateType, out IState newState))
+            if (!_states.TryGetValue(stateType, out var newState))
                 throw new Exception($"state {stateType.Name} not found");
 
-            TransitionTo(newState);
-        }
-
-        private void TransitionTo(IState newState)
-        {
-            Log.Warn($"<color=green>[{nameof(HSM)}]</color> {CurrentState.GetType().Name} > {newState.GetType().Name}");
-            PreviousState = CurrentState;
-            CurrentState.Exit(PreviousState);
+            Log.Info($"<color=green>[{nameof(HSM)}]</color> {CurrentState.GetType().Name} > {newState.GetType().Name}");
+            _previousState = CurrentState;
+            CurrentState.Exit(_previousState);
             CurrentState = newState;
-            CurrentState.Enter(PreviousState);
+            CurrentState.Enter(_previousState);
         }
 
-        public IState PreviousState { get; private set; }
+        private void OnChangeGameStateSignal(ChangeGameStateSignalVo signal) => TransitionTo(signal.StateType);
 
+        /// <summary>
+        /// Регистрация глобального состояния
+        /// </summary>
         private void RegisterState<T>(IState state) where T : IState => _states[typeof(T)] = state;
     }
 }
