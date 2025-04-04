@@ -1,8 +1,6 @@
-﻿using System;
-using Core.Managers.HSM.Common;
+﻿using Core.Managers.HSM.Common;
 using Core.Managers.HSM.Impls.States.Gameplay;
 using Core.Managers.HSM.Interfaces;
-using Core.Managers.UI.Impls;
 using Core.Managers.UI.Interfaces;
 using Game.UI.Common;
 using Game.UI.Data;
@@ -21,11 +19,11 @@ namespace Core.Managers.HSM.Impls.States.Menu
             // Если приходим иг геймплея, то попадаем в паузу
             if (previousState is GameplayState)
             {
-                UIManager.ShowViewNew(ViewRegistryType.Menu, ViewIDConst.Pause, UIViewer.Layer.Default);
+                UIManager.ShowViewNew(ViewRegistryType.Menu, ViewIDConst.Pause);
                 return;
             }
 
-            UIManager.ShowViewNew(ViewRegistryType.Menu, ViewIDConst.Main, UIViewer.Layer.Default);
+            UIManager.ShowViewNew(ViewRegistryType.Menu, ViewIDConst.Main);
         }
 
         public override void Exit(IState previousState)

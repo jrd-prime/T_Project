@@ -13,7 +13,6 @@ using Zenject;
 
 namespace Core.Managers.UI.Impls
 {
-    //TODO баг, когда пауза открывается, то в стек добавляется и мэйн, хотя его не надо добавлять, эскейп должен работать не так
     public sealed class UIManager : MonoBehaviour, IUIManager
     {
         [SerializeField] private UIViewer viewer;
@@ -23,21 +22,6 @@ namespace Core.Managers.UI.Impls
 
         private readonly Dictionary<ViewRegistryType, IUIViewRegistry> _viewsRegistry = new();
         public Stack<(string viewId, UIViewer.Layer layer)> _viewStack { get; } = new();
-
-
-        public void ShowPreviousViewNew()
-        {
-            Log.Warn("show previous view new");
-            if (_viewStack.Count <= 1) return;
-            var current = _viewStack.Pop();
-            viewer.ClearLayer(current.layer);
-
-            if (_viewStack.Count <= 0) return;
-
-            var previous = _viewStack.Peek();
-            Log.Warn($"Restoring previous view: {previous.viewId} on layer {previous.layer}");
-            ShowViewNew(_currentViewRegistryType, previous.viewId, previous.layer);
-        }
 
         private ViewRegistryType _currentViewRegistryType = ViewRegistryType.NotSet;
         private IUIViewRegistry _currentViewRegistry;
@@ -54,6 +38,21 @@ namespace Core.Managers.UI.Impls
             _signalBus.Subscribe<SwitchToPreviousViewSignalVo>(OnSwitchToPreviousViewSignal);
         }
 
+        public void ShowPreviousViewNew()
+        {
+            Log.Warn("show previous view new");
+            if (_viewStack.Count <= 1) return;
+            var current = _viewStack.Pop();
+            viewer.ClearLayer(current.layer);
+
+            if (_viewStack.Count <= 0) return;
+
+            var previous = _viewStack.Peek();
+            Log.Warn($"Restoring previous view: {previous.viewId} on layer {previous.layer}");
+            ShowViewNew(_currentViewRegistryType, previous.viewId, previous.layer);
+        }
+
+        public bool IsViewActive(string viewId) => _currentViewId == viewId;
         private void OnSwitchToPreviousViewSignal() => ShowPreviousViewNew();
 
         private void OnShowViewSignal(ShowViewSignalVo signal)
@@ -65,45 +64,53 @@ namespace Core.Managers.UI.Impls
         public void ShowViewNew(ViewRegistryType type, string viewId, UIViewer.Layer layer = UIViewer.Layer.Default,
             bool isOverlay = false)
         {
-            Log.Warn($"Show view -> {type} / {viewId} on layer {layer} (overlay: {isOverlay})");
-
-            if (_currentViewRegistryType == ViewRegistryType.NotSet) _currentViewRegistryType = type;
-
             if (!_viewsRegistry.TryGetValue(type, out var viewRegistry))
             {
-                Log.Error($"view registry for type {type} not found");
+                Log.Error($"// view registry for type {type} not found");
                 return;
             }
 
-            if (_currentViewRegistryType == type)
+            Log.Warn($"// Show view -> {type} / {viewId} on layer {layer} (overlay: {isOverlay})");
+
+            _currentViewId = viewId;
+
+            if (_currentViewRegistryType == ViewRegistryType.NotSet)
             {
-                Log.Warn("push view to stack -> " + viewId + " on layer " + layer);
+                Log.Warn("// registry type not set. push in stack");
+                _currentViewRegistryType = type;
+                _viewStack.Push((viewId, layer));
+            }
+            else if (_currentViewRegistryType == type)
+            {
+                Log.Warn("// same registry. if view not same - push in stack ");
 
-                if (_viewStack.Count == 0) _viewStack.Push((viewId, layer));
+                if (_viewStack.Count == 0) Log.Error("// Why stack is empty???");
 
-                if (_viewStack.Count > 0)
+                if (_viewStack.Peek().viewId != viewId)
                 {
-                    if (_viewStack.Peek().viewId != viewId) _viewStack.Push((viewId, layer));
+                    Log.Warn("// push view to stack -> " + viewId + " on layer " + layer);
+                    _viewStack.Push((viewId, layer));
                 }
             }
-            else
+            else if (_currentViewRegistryType != type)
             {
-                Log.Warn("clear view stack");
+                Log.Warn("// new registry. hide views. clear stack. push in stack");
+                _currentViewRegistryType = type;
+                viewer.HideView();
                 _viewStack.Clear();
+                _viewStack.Push((viewId, layer));
             }
 
-
-            var view = viewRegistry.GetView(viewId);
             var templateData = new ViewTemplateData
             {
-                ViewId = viewId, StateId = type.ToString(), Template = view, InSafeZone = false,
+                ViewId = viewId,
+                StateId = type.ToString(),
+                Template = viewRegistry.GetView(viewId),
+                InSafeZone = false,
                 DebugData = new DebugDataVo("stack", _viewStack.Count)
             };
 
             viewer.ShowView(templateData, layer);
-
-            _currentViewRegistryType = type;
-            _currentViewId = viewId;
         }
 
         public void ShowView1(ViewRegistryType type, string viewId)
@@ -178,8 +185,6 @@ namespace Core.Managers.UI.Impls
             Log.Info("hide all views");
             viewer.HideView();
             _viewStack.Clear();
-            // Не сбрасываем _currentViewRegistryType, если это не требуется
-            // Если нужно сбросить, можно сделать _currentViewRegistryType = default(ViewRegistryType);
         }
 
         public void SwitchToView(string viewId)
@@ -208,7 +213,7 @@ namespace Core.Managers.UI.Impls
         {
             foreach (var viewDataVo in viewRegistryData)
             {
-                if (viewDataVo.viewRegistry == null)
+                if (!viewDataVo.viewRegistry)
                 {
                     Log.Error("View registry not set for " + viewDataVo.type);
                     continue;

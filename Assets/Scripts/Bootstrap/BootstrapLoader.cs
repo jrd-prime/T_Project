@@ -7,8 +7,8 @@ namespace Bootstrap
 {
     public interface IBootable
     {
-        public UniTask InitializationOnBoot();
-        public string Description { get; }
+        UniTask InitializationOnBoot();
+        string Description { get; }
     }
 
     public sealed class BootstrapLoader : IInitializable

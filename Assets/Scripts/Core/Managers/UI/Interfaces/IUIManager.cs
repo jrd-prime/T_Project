@@ -20,5 +20,6 @@ namespace Core.Managers.UI.Interfaces
         Stack<(string viewId, UIViewer.Layer layer)> _viewStack { get; }
         bool IsMainViewActive(ViewRegistryType type);
         void ShowPreviousViewNew();
+        bool IsViewActive(string viewId);
     }
 }

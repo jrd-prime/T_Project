@@ -40,7 +40,7 @@ namespace Core.Managers.UI.Impls
 
         public void ShowView(ViewTemplateData data, Layer layer)
         {
-            Log.Warn($"<color=yellow>[VIEWER {layer}]</color> ... {data.StateId} /  {data.ViewId}");
+            Log.Warn($"<color=green>[VIEWER]</color> ... {data.StateId} /  {data.ViewId} (layer: {layer})");
             Prepare(data);
 
             switch (layer)

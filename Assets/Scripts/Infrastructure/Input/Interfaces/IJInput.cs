@@ -5,9 +5,9 @@ namespace Infrastructure.Input.Interfaces
 {
     public interface IJInput
     {
-        public Observable<Vector3> MoveDirection { get; }
-        public Observable<Unit> OnEscape { get; }
-        public Observable<Unit> OnInventory { get; }
-        public Observable<Unit> OnQuestLog { get; }
+        Observable<Vector3> MoveDirection { get; }
+        Observable<Unit> OnEscape { get; }
+        Observable<Unit> OnInventory { get; }
+        Observable<Unit> OnQuestLog { get; }
     }
 }

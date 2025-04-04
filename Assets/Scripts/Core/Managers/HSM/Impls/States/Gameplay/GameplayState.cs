@@ -20,13 +20,12 @@ namespace Core.Managers.HSM.Impls.States.Gameplay
 
         public override void Enter(IState previousState)
         {
-            UIManager.SetAndShowBaseView(ViewRegistryType.Gameplay, ViewIDConst.Main);
-            base.Enter(previousState); // for substates
+            UIManager.ShowViewNew(ViewRegistryType.Gameplay, ViewIDConst.Main);
         }
 
         public override void Exit(IState previousState)
         {
-            UIManager.HideAllViews();
+            // UIManager.HideAllViews();
             base.Exit(previousState); // или перед?
         }
     }

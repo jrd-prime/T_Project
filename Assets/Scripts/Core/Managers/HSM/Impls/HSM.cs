@@ -37,11 +37,15 @@ namespace Core.Managers.HSM.Impls
             RegisterState<GameplayState>(new GameplayState(this, uiManager));
         }
 
-        public void Start() => CurrentState.Enter(PreviousState);
+        public void Start()
+        {
+            Log.Info("Start HSM with state " + CurrentState.GetType().Name);
+            CurrentState.Enter(PreviousState);
+        }
 
         public void Update()
         {
-            Log.Info("hsm updated");
+            Log.Warn("hsm updated");
             CurrentState.Update();
             var nextState = CurrentState.HandleTransition();
             if (nextState != null && nextState != CurrentState) TransitionTo(nextState);
@@ -49,13 +53,15 @@ namespace Core.Managers.HSM.Impls
 
         public void TransitionTo<T>(T stateType) where T : Type
         {
-            Log.Info($"hsm transition to {stateType}");
-            if (_states.TryGetValue(stateType, out IState newState)) TransitionTo(newState);
+            if (!_states.TryGetValue(stateType, out IState newState))
+                throw new Exception($"state {stateType.Name} not found");
+
+            TransitionTo(newState);
         }
 
         private void TransitionTo(IState newState)
         {
-            Log.Info($"hsm transition to {newState.GetType().Name}");
+            Log.Warn($"<color=green>[{nameof(HSM)}]</color> {CurrentState.GetType().Name} > {newState.GetType().Name}");
             PreviousState = CurrentState;
             CurrentState.Exit(PreviousState);
             CurrentState = newState;

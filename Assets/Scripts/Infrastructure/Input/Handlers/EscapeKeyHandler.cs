@@ -26,26 +26,36 @@ namespace Infrastructure.Input.Handlers
         private void OnEscapeSignal(EscapeKeySignal signal)
         {
             Debug.LogWarning("escape key pressed");
-            if (HSM.CurrentState != null)
-                switch (HSM.CurrentState)
-                {
-                    case MenuState:
-                        if (!UIManager.IsMainViewActive(ViewRegistryType.Menu))
-                        {
-                            UIManager.ShowPreviousViewNew();
-                        }
-                        break;
-                    case GameplayState:
-                        if (UIManager.IsMainViewActive(ViewRegistryType.Gameplay))
-                        {
-                            SignalBus.Fire(new ChangeGameStateSignalVo(typeof(MenuState)));
-                        }
 
-                        break;
-                    default:
-                        Log.Error("unknown state");
-                        break;
-                }
+            if (HSM.CurrentState == null) return;
+
+            switch (HSM.CurrentState)
+            {
+                case MenuState:
+                    if (!UIManager.IsMainViewActive(ViewRegistryType.Menu))
+                    {
+                        Log.Warn("Not main view active");
+                        if (UIManager.IsViewActive(ViewIDConst.Pause))
+                        {
+                            Log.Warn("Pause view active");
+                            SignalBus.Fire(new ChangeGameStateSignalVo(typeof(GameplayState)));
+                            return;
+                        }
+                        UIManager.ShowPreviousViewNew();
+                    }
+
+                    break;
+                case GameplayState:
+                    if (UIManager.IsMainViewActive(ViewRegistryType.Gameplay))
+                    {
+                        SignalBus.Fire(new ChangeGameStateSignalVo(typeof(MenuState)));
+                    }
+
+                    break;
+                default:
+                    Log.Error("unknown state");
+                    break;
+            }
         }
     }
 }
