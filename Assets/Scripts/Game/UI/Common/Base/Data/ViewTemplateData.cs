@@ -9,6 +9,6 @@ namespace Game.UI.Common.Base.Data
         public string StateId;
         public bool InSafeZone;
         public VisualElement Template;
-        public DebugDataVo DebugData;
+        public UIViewerDebugDataVo UIViewerDebugData;
     }
 }

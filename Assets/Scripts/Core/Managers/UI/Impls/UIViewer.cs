@@ -8,45 +8,33 @@ using UnityEngine.UIElements;
 
 namespace Core.Managers.UI.Impls
 {
+    /// <summary>
+    /// Показывает вьюшки по слоям
+    /// </summary>
     public sealed class UIViewer : AUIViewerBase
     {
-        private void ToSafe()
+        private void PrepareTemplate(ViewTemplateData viewTemplateData)
         {
-            var safeZoneOffset = ScreenHelper.GetSafeZoneOffset(800f, 360f);
-            RootVisualElement.style.marginLeft = safeZoneOffset.x >= 16 ? safeZoneOffset.x : 16;
-            RootVisualElement.style.marginTop = safeZoneOffset.y;
-        }
-
-        private void Prepare(ViewTemplateData viewTemplateData)
-        {
-            var view = viewTemplateData.Template ?? throw new NullReferenceException("View is null.");
-
-            view.pickingMode = PickingMode.Ignore;
+            var template = viewTemplateData.Template;
 
             if (viewTemplateData.InSafeZone) ToSafe();
 
-            view.SetFullScreen();
-            view.style.display = DisplayStyle.Flex;
+            template.SetFullScreen();
+            template.pickingMode = PickingMode.Ignore;
+            template.style.display = DisplayStyle.Flex;
 
-            AddDebug(view, viewTemplateData);
-        }
-
-        private void AddDebug(VisualElement view, ViewTemplateData data)
-        {
-            ViewerDebugContainer.Text.text =
-                $"{data.StateId} /  {data.ViewId}. {data.DebugData.Name}: {data.DebugData.ViewStackCount.ToString()}. Overlay: {data.DebugData.IsOverlay.ToString()}";
-            view.Add(ViewerDebugContainer.DebugContainer);
+            AddDebug(template, viewTemplateData);
         }
 
         public void ShowView(ViewTemplateData data, Layer layer)
         {
             Log.Info($"<color=green>[VIEWER]</color> ... {data.StateId} /  {data.ViewId} (layer: {layer})");
-            Prepare(data);
+
+            PrepareTemplate(data);
 
             switch (layer)
             {
                 case Layer.Default: DefaultLayer.Add(data.Template); break;
-                case Layer.Mid: MidLayer.Add(data.Template); break;
                 case Layer.Top: TopLayer.Add(data.Template); break;
                 default: throw new ArgumentOutOfRangeException(nameof(layer), layer, null);
             }
@@ -56,11 +44,9 @@ namespace Core.Managers.UI.Impls
 
         public void ClearLayer(Layer layer)
         {
-            Log.Warn("clear layer = " + layer);
             switch (layer)
             {
                 case Layer.Default: DefaultLayer.Clear(); break;
-                case Layer.Mid: MidLayer.Clear(); break;
                 case Layer.Top: TopLayer.Clear(); break;
                 default: throw new ArgumentOutOfRangeException(nameof(layer), layer, null);
             }
@@ -68,16 +54,27 @@ namespace Core.Managers.UI.Impls
 
         private void ClearAll()
         {
-            Log.Warn("clear all layers");
             DefaultLayer.Clear();
-            MidLayer.Clear();
             TopLayer.Clear();
+        }
+
+        private void AddDebug(VisualElement view, ViewTemplateData data)
+        {
+            ViewerDebugContainer.Text.text =
+                $"{data.StateId} /  {data.ViewId}. {data.UIViewerDebugData.Name}: {data.UIViewerDebugData.ViewStackCount.ToString()}. Overlay: {data.UIViewerDebugData.IsOverlay.ToString()}";
+            view.Add(ViewerDebugContainer.DebugContainer);
+        }
+
+        private void ToSafe()
+        {
+            var safeZoneOffset = ScreenHelper.GetSafeZoneOffset(800f, 360f);
+            RootVisualElement.style.marginLeft = safeZoneOffset.x >= 16 ? safeZoneOffset.x : 16;
+            RootVisualElement.style.marginTop = safeZoneOffset.y;
         }
 
         public enum Layer
         {
             Default,
-            Mid,
             Top
         }
     }

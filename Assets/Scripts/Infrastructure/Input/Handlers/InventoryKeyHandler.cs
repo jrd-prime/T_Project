@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using Core.Managers.HSM.Impls;
+﻿using Core.Managers.HSM.Impls;
+using Core.Managers.HSM.Impls.States.Gameplay;
 using Core.Managers.UI.Impls;
 using Core.Managers.UI.Interfaces;
 using Game.UI.Common;
@@ -16,19 +16,34 @@ namespace Infrastructure.Input.Handlers
         {
         }
 
-        protected override void InitializeSubscriptions()
-        {
-            AddSubscription(OnInventorySignal);
-        }
+        protected override void InitializeSubscriptions() => AddSubscription(OnInventorySignal);
 
         private void OnInventorySignal(InventoryKeySignal obj)
         {
             Log.Info("Inventory key pressed");
-            if (UIManager.IsMainViewActive(ViewRegistryType.Gameplay))
+            if (ShouldCloseInventory())
             {
-                Log.Warn("main in gameplay");
-                UIManager.ShowViewNew(ViewRegistryType.Gameplay, ViewIDConst.Inventory, UIViewer.Layer.Top, true);
+                UIManager.CloseOverlayView();
+                return;
             }
+
+            if (UIManager.IsMainViewActive(ViewRegistryType.Gameplay)) ShowInventoryOverlay();
+        }
+
+        private bool ShouldCloseInventory() =>
+            UIManager.IsOverlayViewActive() &&
+            UIManager.IsOverlayIt(ViewIDConst.Inventory) &&
+            HSM.CurrentState is GameplayState;
+
+        private void ShowInventoryOverlay()
+        {
+            var data = new UIManagerViewDataVo(
+                ViewRegistryType.Gameplay,
+                ViewIDConst.Inventory,
+                UIViewer.Layer.Top,
+                true);
+
+            UIManager.ShowView(data);
         }
     }
 }

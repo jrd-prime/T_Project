@@ -33,7 +33,7 @@ namespace Game.UI.Common
             bool isOverlay = false) =>
             SignalBus.Fire(new ShowViewSignalVo(RegistryType, viewId, layer, isOverlay));
 
-        protected void SwitchToPreviousView() => SignalBus.Fire(new SwitchToPreviousViewSignalVo());
+        protected void SwitchToPreviousView() => SignalBus.Fire(new ShowPreviousViewSignalVo());
         protected void ChangeGameStateTo(Type type) => SignalBus.Fire(new ChangeGameStateSignalVo(type));
 
         protected void ChangeGameStateAndShowView(Type stateType, ViewRegistryType registryType, string viewId)
