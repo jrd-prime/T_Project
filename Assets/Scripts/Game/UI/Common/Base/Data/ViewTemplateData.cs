@@ -1,4 +1,5 @@
-﻿using Core.Managers.UI.Impls;
+﻿using Core.Managers.UI.Data;
+using Core.Managers.UI.Impls;
 using UnityEngine.UIElements;
 
 namespace Game.UI.Common.Base.Data

@@ -21,13 +21,11 @@ namespace Core.Managers.HSM.Common
 
         public virtual void Enter(IState previousState)
         {
-            Log.Info($"enter state {GetType().Name}");
             CurrentSubState?.Enter(previousState);
         }
 
         public virtual void Exit(IState previousState)
         {
-            Log.Info($"exit state {GetType().Name}");
             CurrentSubState?.Exit(previousState);
         }
 

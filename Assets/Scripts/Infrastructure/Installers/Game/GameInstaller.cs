@@ -39,7 +39,7 @@ namespace Infrastructure.Installers.Game
 
             Container.Bind<CameraFollowSystem>().AsSingle();
 
-            Container.BindInterfacesTo<HeroModel>().AsSingle().NonLazy();
+            // Container.BindInterfacesTo<HeroModel>().AsSingle().NonLazy();
 
             BindKeyHandlers();
         }
@@ -52,7 +52,8 @@ namespace Infrastructure.Installers.Game
 
         private void InitializeManagers()
         {
-            RegisterComponent(cameraManager, "CameraManager");
+            // RegisterComponent(cameraManager, "CameraManager");
+            RegisterPrefabComponent(cameraManager, "CameraManager");
             RegisterPrefabComponent<GameManager>(gameManagerPrefab, "GameManager");
             RegisterPrefabComponent<UIManager>(uiManagerPrefab, "UIManager");
         }

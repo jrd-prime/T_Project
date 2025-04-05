@@ -29,7 +29,7 @@ namespace Game.UI.Common
         }
 
 
-        protected void ShowLocalView(string viewId, UIViewer.Layer layer = UIViewer.Layer.Default,
+        protected void ShowLocalView(string viewId, UIRenderer.Layer layer = UIRenderer.Layer.Default,
             bool isOverlay = false) =>
             SignalBus.Fire(new ShowViewSignalVo(RegistryType, viewId, layer, isOverlay));
 

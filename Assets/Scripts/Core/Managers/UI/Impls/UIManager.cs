@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Core.Managers.UI.Data;
 using Core.Managers.UI.Interfaces;
 using Core.Managers.UI.Signals;
 using Game.UI.Common;
@@ -14,11 +15,12 @@ namespace Core.Managers.UI.Impls
 {
     public sealed class UIManager : MonoBehaviour, IUIManager
     {
-        [SerializeField] private UIViewer viewer;
+        [SerializeField] private bool debug = true;
+        [SerializeField] private UIRenderer uiRenderer;
         [SerializeField] private ViewRegistryDataVo[] viewRegistryData = Array.Empty<ViewRegistryDataVo>();
 
         [Inject] private readonly SignalBus _signalBus;
-        private readonly Stack<(string viewId, UIViewer.Layer layer)> _viewStack = new();
+        private readonly Stack<(string viewId, UIRenderer.Layer layer)> _viewStack = new();
         private readonly Dictionary<ViewRegistryType, IUIViewRegistry> _viewsRegistry = new();
 
         private ViewRegistryType _currentViewRegistryType = ViewRegistryType.NotSet;
@@ -28,7 +30,7 @@ namespace Core.Managers.UI.Impls
 
         private void Awake()
         {
-            if (!viewer) Log.Error("Viewer not set");
+            if (!uiRenderer) Log.Error("Viewer not set");
             if (viewRegistryData.Length == 0) Log.Error("Main views data not set");
 
             InitializeMainViews();
@@ -39,15 +41,14 @@ namespace Core.Managers.UI.Impls
 
         public void ShowPreviousViewNew()
         {
-            Log.Warn("show previous view new");
             if (_viewStack.Count <= 1) return;
             var current = _viewStack.Pop();
-            viewer.ClearLayer(current.layer);
+            uiRenderer.ClearLayer(current.layer);
 
             if (_viewStack.Count <= 0) return;
 
             var previous = _viewStack.Peek();
-            Log.Warn($"Restoring previous view: {previous.viewId} on layer {previous.layer}");
+            if (debug) Log.Info($"Restoring previous view: {previous.viewId} on layer {previous.layer}");
             ShowView(new UIManagerViewDataVo(_currentViewRegistryType, previous.viewId, previous.layer));
         }
 
@@ -56,8 +57,8 @@ namespace Core.Managers.UI.Impls
 
         public void CloseOverlayView()
         {
-            Log.Warn("Close overlay view");
-            viewer.ClearLayer(UIViewer.Layer.Top);
+            if (debug) Log.Warn("Close overlay view");
+            uiRenderer.ClearLayer(UIRenderer.Layer.Top);
             _currentOverlayView = null;
         }
 
@@ -101,7 +102,7 @@ namespace Core.Managers.UI.Impls
         {
             _currentViewRegistryType = data.RegistryType;
             _viewStack.Push((data.ViewId, data.Layer));
-            if (data.IsOverlay) Log.Warn("Overlay ignored: registry type not set");
+            // if (data.IsOverlay) Log.Warn("Overlay ignored: registry type not set");
         }
 
         private void HandleSameRegistry(UIManagerViewDataVo data)
@@ -120,7 +121,7 @@ namespace Core.Managers.UI.Impls
 
             if (_viewStack.Peek().viewId == data.ViewId) return;
 
-            viewer.ClearLayer(data.Layer);
+            uiRenderer.ClearLayer(data.Layer);
             _viewStack.Push((data.ViewId, data.Layer));
         }
 
@@ -135,17 +136,17 @@ namespace Core.Managers.UI.Impls
                 UIViewerDebugData = new UIViewerDebugDataVo("stack", _viewStack.Count, data.IsOverlay)
             };
 
-            viewer.ShowView(templateData, data.Layer);
+            uiRenderer.ShowView(templateData, data.Layer);
         }
 
         private void SwitchToNewRegistry(UIManagerViewDataVo data)
         {
             _currentViewRegistryType = data.RegistryType;
-            viewer.HideView();
+            uiRenderer.HideView();
             _viewStack.Clear();
             _viewStack.Push((data.ViewId, data.Layer));
             _currentOverlayView = null;
-            if (data.IsOverlay) Log.Warn("Overlay ignored: different registry type");
+            // if (data.IsOverlay) Log.Warn("Overlay ignored: different registry type");
         }
 
         private IUIViewRegistry GetViewRegistry(ViewRegistryType registryType)
@@ -170,7 +171,7 @@ namespace Core.Managers.UI.Impls
                 RegisterView(viewDataVo.type, viewDataVo.viewRegistry);
             }
 
-            Log.Info("initialized global views: " + _viewsRegistry.Count);
+            if (debug) Log.Info("initialized global views: " + _viewsRegistry.Count);
         }
 
         private void RegisterView(ViewRegistryType registryType, IUIViewRegistry registry) =>

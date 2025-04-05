@@ -6,6 +6,7 @@ using Core.Managers.UI.Interfaces;
 using Game.UI.Common;
 using Game.UI.Data;
 using Infrastructure.Input.Signals;
+using Infrastructure.Input.Signals.Keys;
 using ModestTree;
 using UnityEngine;
 using Zenject;
@@ -25,8 +26,6 @@ namespace Infrastructure.Input.Handlers
 
         private void OnEscapeSignal(EscapeKeySignal signal)
         {
-            Debug.LogWarning("escape key pressed");
-
             if (HSM.CurrentState == null) return;
 
             switch (HSM.CurrentState)

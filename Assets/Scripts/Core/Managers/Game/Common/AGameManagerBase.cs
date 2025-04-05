@@ -1,6 +1,9 @@
 ﻿using Core.Character.Hero;
+using Core.Character.Player;
+using Core.Managers.Camera._Game._Scripts.Framework.Manager.JCamera;
 using Core.Managers.Game.Interfaces;
 using Core.Providers;
+using Game.Systems;
 using ModestTree;
 using R3;
 using UnityEngine;
@@ -21,33 +24,30 @@ namespace Core.Managers.Game.Common
         protected ISettingsProvider SettingsManager;
 
         // private GameTimer _gameTimer;
-        private DiContainer _container;
 
         private readonly CompositeDisposable _disposables = new();
 
         private HSM.Impls.HSM _hsm;
+
         // private GameTimerSettings _gameTimerSettings;
         // private IGameCountdownsController _countdownsController;
+        [Inject] private DiContainer Container;
 
-        [Inject]
-        private void Construct(DiContainer container)
-        {
-            _container = container;
-            _hsm = _container.Resolve<HSM.Impls.HSM>();
-            SettingsManager = _container.Resolve<ISettingsProvider>();
-            // _countdownsController = _container.Resolve<IGameCountdownsController>();
-            // _gameTimerSettings = SettingsManager.GetConfig<GameTimerSettings>();
-        }
 
         public void Initialize()
         {
+            Log.Warn("Init game manager");
+            _hsm = Container.Resolve<HSM.Impls.HSM>();
+            SettingsManager = Container.Resolve<ISettingsProvider>();
+            var player = Container.Resolve<IPlayer>();
+            var cameraManager = Container.Resolve<ICameraManager>();
+
+            cameraManager.SetTarget(player);
             InitGameTimer();
         }
 
         protected void Awake()
         {
-            PlayerModel = _container.Resolve<IHeroModel>();
-
             // PlayerInitialHealth.Value = PlayerModel.CharSettings.health;
 
             // IsGameRunning

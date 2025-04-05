@@ -10,7 +10,7 @@ using Zenject;
 
 namespace Core.Character.Hero
 {
-    public interface IHeroModel : IFollowable
+    public interface IHeroModel 
     {
         public ReadOnlyReactiveProperty<float> Health { get; }
     }
@@ -40,8 +40,6 @@ namespace Core.Character.Hero
             Rotation = _rotation.ToReadOnlyReactiveProperty();
             Health = _health.ToReadOnlyReactiveProperty();
 
-            var cameraFollowSystem = Container.ResolveAndCheckOnNull<CameraFollowSystem>();
-            cameraFollowSystem.SetTarget(this);
 
             _heroSettings = SettingsProvider.GetSettings<HeroSettings>();
 
