@@ -171,7 +171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae354aac09694ce997348c24550f6812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewer: {fileID: 465249794774269285}
+  debug: 0
+  uiRenderer: {fileID: 465249794774269285}
   viewRegistryData:
   - type: 1
     viewRegistry: {fileID: 3329116100063990923}
@@ -537,7 +538,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5569080765298888009, guid: e113fa82f18951b49ada69a409d95af0, type: 3}
       propertyPath: m_Name
-      value: UIViewer
+      value: UIRenderer
       objectReference: {fileID: 0}
     - target: {fileID: 6169290260211608906, guid: e113fa82f18951b49ada69a409d95af0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -605,7 +606,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8130c7fab05efce43807c86b1ae6c2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugTemplateContainer: {fileID: 9197481963319205126, guid: dd3a941823cf31641a69bd683720e9e0, type: 3}
+  debug: 0
+  debugTemplate: {fileID: 9197481963319205126, guid: dd3a941823cf31641a69bd683720e9e0, type: 3}
 --- !u!4 &3856231984919142884 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6169290260211608906, guid: e113fa82f18951b49ada69a409d95af0, type: 3}

@@ -1,5 +1,6 @@
 ﻿using System;
 using Core.Managers.Camera._Game._Scripts.Framework.Manager.JCamera;
+using ModestTree;
 using R3;
 using UnityEngine;
 using Zenject;
@@ -8,20 +9,18 @@ namespace Game.Systems
 {
     public interface IFollowable
     {
-        public ReadOnlyReactiveProperty<Vector3> Position { get; }
-        public ReadOnlyReactiveProperty<Quaternion> Rotation { get; }
+        public ReactiveProperty<Vector3> Position { get; }
     }
 
-    public class CameraFollowSystem
+    public sealed class CameraFollowSystem
     {
-        private ICameraManager _cameraManager;
+        private readonly ICameraManager _cameraManager;
         private bool _hasTarget;
-
-        [Inject]
-        private void Construct(ICameraManager cameraManager) => _cameraManager = cameraManager;
+        public CameraFollowSystem(ICameraManager cameraManager) => _cameraManager = cameraManager;
 
         public void SetTarget(IFollowable target)
         {
+            Log.Warn("CameraFollowSystem.SetTarget");
             if (_cameraManager == null)
                 throw new NullReferenceException("CameraManager is null " + nameof(CameraFollowSystem));
             if (target == null) throw new NullReferenceException("Target is null " + nameof(CameraFollowSystem));

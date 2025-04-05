@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Db.Data
 {
@@ -16,7 +15,7 @@ namespace Db.Data
             Z = z;
         }
 
-        public static implicit operator Vector3(Position pos) => new Vector3(pos.X, pos.Y , pos.Z);
-         public static implicit operator Position(Vector3 vec) => new Position(vec.x, vec.y , vec.z);
+        public static implicit operator Vector3(Position pos) => new Vector3(pos.X, pos.Y, pos.Z);
+        public static implicit operator Position(Vector3 vec) => new Position(vec.x, vec.y, vec.z);
     }
 }

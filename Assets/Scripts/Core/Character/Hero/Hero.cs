@@ -29,9 +29,6 @@ namespace Core.Character.Hero
         private void Start()
         {
             if (_model == null) throw new NullReferenceException("Model is null. " + name);
-
-            _model.Position.Subscribe(SetPosition).AddTo(_disposables);
-            _model.Rotation.Subscribe(SetRotation).AddTo(_disposables);
         }
 
         private void SetPosition(Vector3 position) => _rigidbody.position = position;

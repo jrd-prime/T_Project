@@ -6,12 +6,12 @@ namespace Core.Managers.UI.Signals
     public record ShowViewSignalVo(
         ViewRegistryType ViewRegistryType,
         string ViewId,
-        UIViewer.Layer Layer = UIViewer.Layer.Default,
+        UIRenderer.Layer Layer = UIRenderer.Layer.Default,
         bool IsOverlay = false)
     {
         public ViewRegistryType ViewRegistryType { get; private set; } = ViewRegistryType;
         public string ViewId { get; private set; } = ViewId;
-        public UIViewer.Layer Layer { get; private set; } = Layer;
+        public UIRenderer.Layer Layer { get; private set; } = Layer;
         public bool IsOverlay { get; private set; } = IsOverlay;
     }
 }

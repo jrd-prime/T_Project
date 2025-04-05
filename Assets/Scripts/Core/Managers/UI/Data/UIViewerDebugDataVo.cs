@@ -1,4 +1,4 @@
-﻿namespace Core.Managers.UI.Impls
+﻿namespace Core.Managers.UI.Data
 {
     public record UIViewerDebugDataVo(string Name, int ViewStackCount, bool IsOverlay)
     {
