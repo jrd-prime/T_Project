@@ -1,9 +1,6 @@
-﻿using Core.Extensions;
-using Core.Providers.Localization;
-using Db.Data;
+﻿using Core.Providers.Localization;
 using Game.UI.Common;
 using Game.UI.Impls.Gameplay.Gameplay;
-using Game.UI.Impls.Menu;
 using UnityEngine.UIElements;
 
 namespace Game.UI.Impls.Gameplay.Views

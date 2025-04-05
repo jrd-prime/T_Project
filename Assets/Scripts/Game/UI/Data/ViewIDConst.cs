@@ -1,4 +1,4 @@
-﻿namespace Game.UI.Common
+﻿namespace Game.UI.Data
 {
     public static class ViewIDConst
     {

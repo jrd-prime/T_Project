@@ -1,7 +1,5 @@
 ﻿using Core.Extensions;
 using Db.SO;
-using Game.Systems;
-using Infrastructure.Input;
 using Infrastructure.Input.Interfaces;
 using JetBrains.Annotations;
 using R3;
@@ -39,16 +37,11 @@ namespace Core.Character.Hero
             Position = _position.ToReadOnlyReactiveProperty();
             Rotation = _rotation.ToReadOnlyReactiveProperty();
             Health = _health.ToReadOnlyReactiveProperty();
-
-
+            
             _heroSettings = SettingsProvider.GetSettings<HeroSettings>();
 
             _ijInput = Container.ResolveAndCheckOnNull<IJInput>();
 
-            // _ijInput
-            //     .MoveDirection
-            //     .Subscribe(SetDirection)
-            //     .AddTo(Disposables);
         }
 
         public void FixedTick()

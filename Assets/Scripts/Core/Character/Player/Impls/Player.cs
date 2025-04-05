@@ -1,12 +1,10 @@
-﻿using System;
-using Core.Character.Player.Interactors;
-using Core.Extensions;
-using ModestTree;
+﻿using Core.Character.Player.Interactors;
+using Core.Character.Player.Interfaces;
 using R3;
 using UnityEngine;
 using Zenject;
 
-namespace Core.Character.Player
+namespace Core.Character.Player.Impls
 {
     [RequireComponent(typeof(Rigidbody))]
     public sealed class Player : MonoBehaviour, IPlayer

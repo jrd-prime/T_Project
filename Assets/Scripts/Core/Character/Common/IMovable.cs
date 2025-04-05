@@ -1,7 +1,6 @@
-﻿using Db.Data;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Core.Character.Shared
+namespace Core.Character.Common
 {
     public interface IMovable
     {

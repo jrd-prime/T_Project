@@ -2,7 +2,6 @@
 using Core.Providers.Localization;
 using Db.Data;
 using Game.UI.Common;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Game.UI.Impls.Menu.Views

@@ -1,7 +1,6 @@
 ﻿using Core.Character.Player.Services;
-using Core.Managers.Camera._Game._Scripts.Framework.Manager.JCamera;
+using Core.Managers.Camera.Interfaces;
 using Infrastructure.Input.Signals;
-using R3;
 using UnityEngine;
 using Zenject;
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using Core.Providers.Localization;
 using Game.UI.Interfaces.Model;
-using UnityEngine;
 using Zenject;
 
 namespace Game.UI.Common

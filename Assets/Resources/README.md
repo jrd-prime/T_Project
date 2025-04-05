@@ -86,6 +86,3 @@ Scripts
     - Networking            // Мультиплеер, синхронизация
     - SaveLoad              // Сохранение и загрузка
     - Installers            // DI-контейнер (Zenject)
-- ThirdParty                // Сторонние SDK и плагины
-    - SDKs
-    - Plugins

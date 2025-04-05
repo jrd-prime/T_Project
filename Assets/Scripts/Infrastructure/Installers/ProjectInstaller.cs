@@ -3,7 +3,6 @@ using Core.Providers;
 using Core.Providers.Localization;
 using Db.SO;
 using Infrastructure.Input;
-using Infrastructure.Input.Handlers;
 using Infrastructure.Input.Interfaces;
 using UnityEngine;
 using UnityEngine.EventSystems;

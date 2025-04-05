@@ -1,4 +1,4 @@
-﻿namespace Core.Character.Shared
+﻿namespace Core.Character.Common
 {
     public interface ICharacter : IMovable
     {

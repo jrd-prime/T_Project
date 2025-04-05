@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Core.Managers.UI.Data;
 using Core.Managers.UI.Interfaces;
 using Core.Managers.UI.Signals;
-using Game.UI.Common;
 using Game.UI.Common.Base.Data;
 using Game.UI.Data;
 using Game.UI.Interfaces;

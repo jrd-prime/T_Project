@@ -6,9 +6,6 @@ namespace Core.Character.Player.Services
     {
         private readonly PlayerModel _model;
 
-        public PlayerService(PlayerModel model)
-        {
-            _model = model;
-        }
+        public PlayerService(PlayerModel model) => _model = model;
     }
 }

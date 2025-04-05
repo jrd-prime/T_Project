@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.Extensions;
-using Db.Data;
 using Game.UI.Data;
 using Game.UI.Interfaces;
 using UnityEngine;

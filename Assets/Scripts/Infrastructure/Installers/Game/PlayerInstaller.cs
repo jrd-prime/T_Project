@@ -1,4 +1,4 @@
-﻿using Core.Character.Player;
+﻿using Core.Character.Player.Impls;
 using Core.Character.Player.Interactors;
 using Core.Character.Player.Models;
 using Core.Character.Player.Services;

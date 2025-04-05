@@ -1,6 +1,5 @@
 ﻿using Core.Managers.HSM.Signals;
 using Core.Managers.UI.Signals;
-using Infrastructure.Input;
 using Infrastructure.Input.Signals;
 using Infrastructure.Input.Signals.Keys;
 using Zenject;

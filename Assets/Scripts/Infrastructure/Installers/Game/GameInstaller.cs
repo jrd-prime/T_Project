@@ -1,10 +1,8 @@
 ﻿using System;
-using Core.Character.Hero;
-using Core.Managers.Camera._Game._Scripts.Framework.Manager.JCamera;
+using Core.Managers.Camera.Impls._Game._Scripts.Framework.Manager.JCamera;
 using Core.Managers.Game;
 using Core.Managers.Game.Impls;
 using Core.Managers.UI.Impls;
-using Game.Systems;
 using Game.UI.Impls.Gameplay.Gameplay;
 using Game.UI.Impls.Menu;
 using Infrastructure.Input.Handlers;
@@ -32,14 +30,9 @@ namespace Infrastructure.Installers.Game
             InitializeManagers();
 
             Container.BindInterfacesAndSelfTo<GameManagerRequestHandler>().AsSingle();
-
-
+            
             InitializeUIModelsAndViewModels();
             InitializeViewStates();
-
-            Container.Bind<CameraFollowSystem>().AsSingle();
-
-            // Container.BindInterfacesTo<HeroModel>().AsSingle().NonLazy();
 
             BindKeyHandlers();
         }

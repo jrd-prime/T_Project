@@ -1,7 +1,6 @@
 ﻿using Core.Extensions;
 using Core.Providers;
 using R3;
-using UnityEngine;
 using Zenject;
 
 namespace Core.Character.Hero

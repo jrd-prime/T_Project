@@ -3,11 +3,8 @@ using Core.Managers.HSM.Impls.States.Gameplay;
 using Core.Managers.UI.Data;
 using Core.Managers.UI.Impls;
 using Core.Managers.UI.Interfaces;
-using Game.UI.Common;
 using Game.UI.Data;
-using Infrastructure.Input.Signals;
 using Infrastructure.Input.Signals.Keys;
-using ModestTree;
 using Zenject;
 
 namespace Infrastructure.Input.Handlers

@@ -1,4 +1,4 @@
-﻿using Core.Character.Shared;
+﻿using Core.Character.Common;
 
 namespace Core.Character.Enemy
 {

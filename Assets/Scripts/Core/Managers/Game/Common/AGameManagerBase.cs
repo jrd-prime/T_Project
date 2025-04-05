@@ -1,9 +1,8 @@
 ﻿using Core.Character.Hero;
-using Core.Character.Player;
-using Core.Managers.Camera._Game._Scripts.Framework.Manager.JCamera;
+using Core.Character.Player.Interfaces;
+using Core.Managers.Camera.Interfaces;
 using Core.Managers.Game.Interfaces;
 using Core.Providers;
-using Game.Systems;
 using ModestTree;
 using R3;
 using UnityEngine;

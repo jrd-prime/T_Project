@@ -1,7 +1,6 @@
-﻿using Core.Character.Shared;
-using Game.Systems;
+﻿using Core.Character.Common;
 
-namespace Core.Character.Player
+namespace Core.Character.Player.Interfaces
 {
     public interface IPlayer : ICharacter, IFollowable
     {

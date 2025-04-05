@@ -3,12 +3,9 @@ using Core.Managers.HSM.Impls.States.Gameplay;
 using Core.Managers.HSM.Impls.States.Menu;
 using Core.Managers.HSM.Signals;
 using Core.Managers.UI.Interfaces;
-using Game.UI.Common;
 using Game.UI.Data;
-using Infrastructure.Input.Signals;
 using Infrastructure.Input.Signals.Keys;
 using ModestTree;
-using UnityEngine;
 using Zenject;
 
 namespace Infrastructure.Input.Handlers
