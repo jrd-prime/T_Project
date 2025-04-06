@@ -40,7 +40,6 @@ namespace Infrastructure.Input
             var value = ctx.ReadValue<Vector2>();
             var direction = Vector3.Normalize(new Vector3(value.x, 0, value.y));
             _moveDirectionSignal.SetDirection(direction);
-            Log.Warn("direction = " + direction);
             _signalBus.Fire(_moveDirectionSignal);
         }
 

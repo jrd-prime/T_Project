@@ -1,5 +1,6 @@
 ﻿using Core.Managers.HSM.Signals;
 using Core.Managers.UI.Signals;
+using Game.UI;
 using Infrastructure.Input.Signals;
 using Infrastructure.Input.Signals.Keys;
 using Zenject;
@@ -20,6 +21,9 @@ namespace Infrastructure.Installers.Game
             // Key
             Container.DeclareSignal<EscapeKeySignal>();
             Container.DeclareSignal<InventoryKeySignal>();
+            // UI
+            Container.DeclareSignal<ShowInteractPromptSignal>();
+            Container.DeclareSignal<HideInteractPromptSignal>();
         }
     }
 }

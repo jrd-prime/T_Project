@@ -26,5 +26,10 @@ namespace Core.Character.Player.Interactors
         }
 
         private void OnMoveDirectionSignal(MoveDirectionSignal signal) => MoveDirection = signal.Direction;
+
+        /// <summary>
+        /// Такое себе решение. // TODO: Подумать как лучше сделать с учетом плеера
+        /// </summary>
+        public void SetPosition(Vector3 position) => _service.SetPosition(position);
     }
 }

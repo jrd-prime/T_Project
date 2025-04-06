@@ -1,4 +1,5 @@
-﻿using Core.Character.Player.Interactors;
+﻿using System;
+using Core.Character.Player.Interactors;
 using Core.Character.Player.Interfaces;
 using R3;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace Core.Character.Player.Impls
     [RequireComponent(typeof(Rigidbody))]
     public sealed class Player : MonoBehaviour, IPlayer
     {
+        [SerializeField] private FrontTriggerArea frontTriggerArea;
         public ReactiveProperty<Vector3> Position { get; } = new();
         public int Id { get; }
         public string Name { get; }
@@ -17,75 +19,66 @@ namespace Core.Character.Player.Impls
         public int MaxHealth { get; }
 
         [Inject] private PlayerInteractor _interactor;
-        private readonly CompositeDisposable _disposables = new();
         private Rigidbody _rb;
-        [SerializeField] private float moveSpeed = 5f; // Скорость перемещения
+        [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private float rotationSpeed = 10f;
         [SerializeField] private float acceleration = 0.1f;
-        private Vector3 currentVelocity;
+        private Vector3 _currentVelocity;
         private Camera _mainCamera;
+        private Vector3 _previousPosition;
 
         private void Awake()
         {
+            if (!frontTriggerArea) throw new NullReferenceException($"{nameof(frontTriggerArea)} is null. {name}");
+            frontTriggerArea.Init(this);
+
             _rb = GetComponent<Rigidbody>();
         }
 
-        private void Start()
-        {
-            _mainCamera = _interactor.MainCamera;
-        }
+        private void Start() => _mainCamera = _interactor.MainCamera;
 
         private void FixedUpdate()
         {
-            Vector3 moveDirection = _interactor.MoveDirection;
+            Move(_interactor.MoveDirection);
 
+            if (_previousPosition != transform.position) UpdatePosition();
+        }
+
+        private void UpdatePosition()
+        {
+            var position = transform.position;
+            _previousPosition = position;
+            Position.Value = position;
+            _interactor.SetPosition(position);
+        }
+
+        private void Move(Vector3 moveDirection)
+        {
             if (moveDirection != Vector3.zero)
             {
-                // Преобразуем направление относительно камеры
-                Vector3 cameraForward = _mainCamera.transform.forward;
-                Vector3 cameraRight = _mainCamera.transform.right;
+                var cameraForward = _mainCamera.transform.forward;
+                var cameraRight = _mainCamera.transform.right;
 
-                // Убираем вертикальную составляющую (оставляем только XZ плоскость)
-                cameraForward.y = 0f;
-                cameraRight.y = 0f;
+                cameraForward.y = cameraRight.y = 0f;
                 cameraForward = cameraForward.normalized;
                 cameraRight = cameraRight.normalized;
 
-                // Вычисляем итоговое направление движения
-                Vector3 adjustedDirection =
+                var adjustedDirection =
                     (cameraForward * moveDirection.z + cameraRight * moveDirection.x).normalized;
 
-                Vector3 targetVelocity = adjustedDirection * moveSpeed;
-                currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, acceleration);
+                var targetVelocity = adjustedDirection * moveSpeed;
+                _currentVelocity = Vector3.Lerp(_currentVelocity, targetVelocity, acceleration);
+                _rb.linearVelocity = new Vector3(_currentVelocity.x, _rb.linearVelocity.y, _currentVelocity.z);
 
-                _rb.linearVelocity = new Vector3(currentVelocity.x, _rb.linearVelocity.y, currentVelocity.z);
-
-                // Плавный поворот в направлении движения
-                Quaternion targetRotation = Quaternion.LookRotation(adjustedDirection);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
-                    rotationSpeed * Time.fixedDeltaTime);
+                var targetRotation = Quaternion.LookRotation(adjustedDirection);
+                transform.rotation =
+                    Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
             }
             else
             {
-                // Плавная остановка
-                currentVelocity = Vector3.Lerp(currentVelocity, Vector3.zero, acceleration);
-                _rb.linearVelocity = new Vector3(currentVelocity.x, _rb.linearVelocity.y, currentVelocity.z);
+                _currentVelocity = Vector3.Lerp(_currentVelocity, Vector3.zero, acceleration);
+                _rb.linearVelocity = new Vector3(_currentVelocity.x, _rb.linearVelocity.y, _currentVelocity.z);
             }
-
-            Position.Value = transform.position;
-        }
-
-        public void Move(Vector3 direction)
-        {
-            // Можно использовать этот метод для дополнительной логики при изменении направления
-            // Например, запуск анимации движения
-        }
-
-
-        private void OnDestroy()
-        {
-            // Очищаем подписки
-            _disposables.Dispose();
         }
     }
 }
