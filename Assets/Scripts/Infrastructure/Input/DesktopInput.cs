@@ -19,6 +19,7 @@ namespace Infrastructure.Input
         {
             var inventoryKeySignal = new InventoryKeySignal();
             var escapeKeySignal = new EscapeKeySignal();
+            var interactKeySignal = new InteractKeySignal();
 
             _moveDirectionSignal = new MoveDirectionSignal(Vector3.zero);
 
@@ -30,8 +31,8 @@ namespace Infrastructure.Input
             _inputActions.Player.Move.canceled += OnMove;
 
             _inputActions.UI.Escape.performed += ctx => { FireSignal(escapeKeySignal, "ESC"); };
-
             _inputActions.UI.Inventory.performed += ctx => { FireSignal(inventoryKeySignal, "I"); };
+            _inputActions.UI.Interact.performed += ctx => { FireSignal(interactKeySignal, "E"); };
 
             _inputActions.UI.QuestLog.performed += ctx => { Debug.LogWarning("Key pressed QuestLog"); };
         }

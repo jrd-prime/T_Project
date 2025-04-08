@@ -24,6 +24,7 @@ namespace Infrastructure.Installers.Game
             // Key
             Container.DeclareSignal<EscapeKeySignal>();
             Container.DeclareSignal<InventoryKeySignal>();
+            Container.DeclareSignal<InteractKeySignal>();
             // UI
             Container.DeclareSignal<ShowInteractPromptSignal>();
             Container.DeclareSignal<HideInteractPromptSignal>();
