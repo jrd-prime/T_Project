@@ -12,6 +12,8 @@ namespace Core.Managers.Game.Common
 {
     public abstract class AGameManagerBase : MonoBehaviour, IGameManager
     {
+        public Observable<bool> IsGameStarted => _isGameStarted ? Observable.Return(true) : _onGameStartCommand;
+
         public ReactiveProperty<int> PlayerInitialHealth { get; } = new();
 
         // public ReadOnlyReactiveProperty<int> PlayerHealth => PlayerModel.Health;
@@ -31,7 +33,10 @@ namespace Core.Managers.Game.Common
         // private GameTimerSettings _gameTimerSettings;
         // private IGameCountdownsController _countdownsController;
         [Inject] private DiContainer Container;
+        private bool _isGameStarted;
+        private readonly ReactiveCommand<bool> _onGameStartCommand = new();
 
+        protected SignalBus SignalBus { get; private set; }
 
         public void Initialize()
         {
@@ -41,8 +46,16 @@ namespace Core.Managers.Game.Common
             var player = Container.Resolve<IPlayer>();
             var cameraManager = Container.Resolve<ICameraManager>();
 
+            SignalBus = Container.Resolve<SignalBus>();
+
             cameraManager.SetTarget(player);
             InitGameTimer();
+        }
+
+        protected void SetGameStarted()
+        {
+            _isGameStarted = true;
+            _onGameStartCommand.Execute(true);
         }
 
         protected void Awake()
@@ -85,6 +98,7 @@ namespace Core.Managers.Game.Common
         public abstract void StartNewGame();
         public abstract void Pause();
         public abstract void UnPause();
+        public abstract void ContinueGame();
 
         private void OnDestroy()
         {

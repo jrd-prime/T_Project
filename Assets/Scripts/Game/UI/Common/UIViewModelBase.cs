@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Managers.Game.Interfaces;
 using Core.Managers.HSM.Signals;
 using Core.Managers.UI.Impls;
 using Core.Managers.UI.Signals;
@@ -15,13 +16,15 @@ namespace Game.UI.Common
         protected SignalBus SignalBus { get; private set; }
         protected ViewRegistryType RegistryType { get; private set; }
         protected readonly CompositeDisposable Disposables = new();
+        protected IGameManager GameManager;
 
 
         [Inject]
-        private void Construct(TUIModel model, SignalBus signalBus)
+        private void Construct(TUIModel model, SignalBus signalBus, IGameManager gameManager)
         {
             Model = model;
             SignalBus = signalBus;
+            GameManager = gameManager;
 
             if (Model == null) throw new NullReferenceException($"{typeof(TUIModel)} is null");
 

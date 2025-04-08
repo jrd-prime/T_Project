@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
@@ -34,11 +33,8 @@ namespace Game.UI.Impls
 
         public void SetLabelText(string label, string text)
         {
-            if (_uiDocument.rootVisualElement == null)
-            {
-                _uiDocument.visualTreeAsset = _visualTreeAsset;
-            }
-
+            if (_uiDocument.rootVisualElement == null) _uiDocument.visualTreeAsset = _visualTreeAsset;
+            
             _uiDocument.rootVisualElement.Q<Label>(label).text = text;
         }
 
@@ -134,7 +130,7 @@ namespace Game.UI.Impls
             _meshRenderer.reflectionProbeUsage = ReflectionProbeUsage.Off;
         }
 
-        private Mesh GetQuadMesh()
+        private static Mesh GetQuadMesh()
         {
             var tempQuad = GameObject.CreatePrimitive(PrimitiveType.Quad);
             var quadMesh = tempQuad.GetComponent<MeshFilter>().sharedMesh;

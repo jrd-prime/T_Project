@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Core.Character.Common
+﻿namespace Core.Character.Common
 {
     public interface IMovable
     {

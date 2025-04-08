@@ -27,13 +27,21 @@ namespace Game.UI.Impls.Menu
         protected override ViewRegistryType GetRegistryType() => ViewRegistryType.Menu;
 
         // State
-        public void StartBtnClicked() => ChangeGameStateTo(typeof(GameplayState));
-        public void ContinueBtnClicked() => ChangeGameStateTo(typeof(GameplayState));
+        public void StartBtnClicked()
+        {
+            //TODO выглядит стремно
+            ChangeGameStateTo(typeof(GameplayState));
+            GameManager.StartNewGame();
+        }
+
+        public void ContinueBtnClicked()
+        {
+            ChangeGameStateTo(typeof(GameplayState));
+            GameManager.ContinueGame();
+        }
 
         // Local
         public void SettingsBtnClicked() => ShowLocalView(ViewIDConst.Settings);
-
-
         public void AudioBtnClicked() => ShowLocalView(ViewIDConst.SettingsAudio);
         public void VideoBtnClicked() => ShowLocalView(ViewIDConst.SettingsVideo);
         public void MenuBtnClicked() => ShowLocalView(ViewIDConst.Main);

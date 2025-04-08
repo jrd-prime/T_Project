@@ -1,53 +1,41 @@
-﻿using Game.UI.Impls;
-using ModestTree;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
-namespace Game.UI
+namespace Game.UI.Impls
 {
     public sealed class InteractPromptManager : MonoBehaviour
     {
         [SerializeField] private WorldSpaceUI _uiPromptPrefab;
-        private WorldSpaceUI promptInstance;
 
-        [Inject] private SignalBus signalBus;
-        private Quaternion initialRotation;
-        private const string labelName = "text";
+        [Inject] private SignalBus _signalBus;
+
+        private WorldSpaceUI _uiInstance;
+        private Quaternion _initialRotation;
+        private const string LabelName = "text";
 
         private void Awake()
         {
-            initialRotation = _uiPromptPrefab.transform.rotation;
-            promptInstance = _uiPromptPrefab;
-            promptInstance.gameObject.SetActive(false);
-            signalBus.Subscribe<ShowInteractPromptSignal>(ShowPrompt);
-            signalBus.Subscribe<HideInteractPromptSignal>(HidePrompt);
+            _initialRotation = _uiPromptPrefab.transform.rotation;
+            _uiInstance = _uiPromptPrefab;
+            _uiInstance.gameObject.SetActive(false);
+            _signalBus.Subscribe<ShowInteractPromptSignal>(ShowPrompt);
+            _signalBus.Subscribe<HideInteractPromptSignal>(HidePrompt);
         }
-
-        private void HidePrompt(HideInteractPromptSignal signal) => promptInstance.gameObject.SetActive(false);
 
         private void ShowPrompt(ShowInteractPromptSignal signal)
         {
-            Log.Warn("signal: " + signal.Text + " " + signal.WorldPosition + " / initialRotation: " + initialRotation);
-            promptInstance.gameObject.SetActive(true);
-            promptInstance.transform.SetPositionAndRotation(signal.WorldPosition, initialRotation);
+            _uiInstance.gameObject.SetActive(true);
+            _uiInstance.transform.SetPositionAndRotation(signal.WorldPosition, _initialRotation);
 
-            promptInstance.SetLabelText(labelName, signal.Text);
+            _uiInstance.SetLabelText(LabelName, signal.Text);
         }
+
+        private void HidePrompt(HideInteractPromptSignal signal) => _uiInstance.gameObject.SetActive(false);
 
         private void OnDestroy()
         {
-            signalBus.Unsubscribe<ShowInteractPromptSignal>(ShowPrompt);
-            signalBus.Unsubscribe<HideInteractPromptSignal>(HidePrompt);
+            _signalBus.Unsubscribe<ShowInteractPromptSignal>(ShowPrompt);
+            _signalBus.Unsubscribe<HideInteractPromptSignal>(HidePrompt);
         }
-    }
-
-    public record HideInteractPromptSignal
-    {
-    }
-
-    public record ShowInteractPromptSignal(string Text, Vector3 WorldPosition)
-    {
-        public string Text { get; } = Text;
-        public Vector3 WorldPosition { get; } = WorldPosition;
     }
 }

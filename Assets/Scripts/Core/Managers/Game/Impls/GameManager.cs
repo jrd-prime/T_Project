@@ -1,4 +1,6 @@
 ﻿using Core.Managers.Game.Common;
+using Infrastructure.Input;
+using ModestTree;
 using UnityEngine;
 
 namespace Core.Managers.Game.Impls
@@ -7,11 +9,13 @@ namespace Core.Managers.Game.Impls
     {
         public override void GameOver()
         {
+            Debug.LogWarning("<color=red>GAME OVER</color>");
             IsGameRunning.Value = false;
         }
 
         public override void StopTheGame()
         {
+            Debug.LogWarning("<color=red>GAME STOPPED</color>");
             IsGameRunning.Value = false;
         }
 
@@ -19,7 +23,10 @@ namespace Core.Managers.Game.Impls
         {
             if (IsGameRunning.CurrentValue) return;
 
-            Debug.LogWarning("GAME STARTED");
+            Debug.LogWarning("<color=green>GAME STARTED</color>");
+            SetGameStarted();
+
+            SignalBus.Fire(new EnableInputSignal());
 
             IsGameRunning.Value = true;
             IsGamePaused = false;
@@ -28,18 +35,26 @@ namespace Core.Managers.Game.Impls
 
         public override void Pause()
         {
-            Debug.LogWarning("Game Paused");
+            Log.Warn("GAME PAUSED");
+            SignalBus.Fire(new DisableInputSignal());
             IsGameRunning.Value = false;
             IsGamePaused = true;
-            // Time.timeScale = 0;
+            Time.timeScale = 0;
         }
 
         public override void UnPause()
         {
-            Debug.LogWarning("Game Unpaused");
+            Log.Warn("GAME UNPAUSED");
+
+            SignalBus.Fire(new EnableInputSignal());
             IsGameRunning.Value = true;
             IsGamePaused = false;
-            // Time.timeScale = 1;
+            Time.timeScale = 1;
+        }
+
+        public override void ContinueGame()
+        {
+            Log.Warn("GAME CONTINUED");
         }
     }
 }
