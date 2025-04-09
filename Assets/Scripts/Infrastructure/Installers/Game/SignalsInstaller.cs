@@ -1,6 +1,6 @@
 ﻿using Core.Managers.HSM.Signals;
 using Core.Managers.UI.Signals;
-using Game.UI.Impls;
+using Game.UI.Signals;
 using Infrastructure.Input;
 using Infrastructure.Input.Signals;
 using Infrastructure.Input.Signals.Keys;
@@ -26,8 +26,8 @@ namespace Infrastructure.Installers.Game
             Container.DeclareSignal<InventoryKeySignal>();
             Container.DeclareSignal<InteractKeySignal>();
             // UI
-            Container.DeclareSignal<ShowInteractPromptSignal>();
-            Container.DeclareSignal<HideInteractPromptSignal>();
+            Container.DeclareSignal<ShowInteractTipSignal>();
+            Container.DeclareSignal<HideInteractTipSignal>();
         }
     }
 }

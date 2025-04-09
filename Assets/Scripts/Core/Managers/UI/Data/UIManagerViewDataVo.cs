@@ -1,17 +1,17 @@
-﻿using Core.Managers.UI.Impls;
-using Game.UI.Data;
+﻿using Game.UI.Data;
+using Game.UI.Impls;
 
 namespace Core.Managers.UI.Data
 {
     public record UIManagerViewDataVo(
         ViewRegistryType RegistryType,
         string ViewId,
-        UIRenderer.Layer Layer = UIRenderer.Layer.Default,
+        UIViewer.Layer Layer = UIViewer.Layer.Default,
         bool IsOverlay = false)
     {
         public ViewRegistryType RegistryType { get; } = RegistryType;
         public string ViewId { get; } = ViewId;
-        public UIRenderer.Layer Layer { get; } = Layer;
+        public UIViewer.Layer Layer { get; } = Layer;
         public bool IsOverlay { get; } = IsOverlay;
     }
 }

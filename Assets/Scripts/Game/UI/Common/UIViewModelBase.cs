@@ -1,9 +1,9 @@
 ﻿using System;
 using Core.Managers.Game.Interfaces;
 using Core.Managers.HSM.Signals;
-using Core.Managers.UI.Impls;
 using Core.Managers.UI.Signals;
 using Game.UI.Data;
+using Game.UI.Impls;
 using Game.UI.Interfaces.Model;
 using R3;
 using Zenject;
@@ -32,7 +32,7 @@ namespace Game.UI.Common
         }
 
 
-        protected void ShowLocalView(string viewId, UIRenderer.Layer layer = UIRenderer.Layer.Default,
+        protected void ShowLocalView(string viewId, UIViewer.Layer layer = UIViewer.Layer.Default,
             bool isOverlay = false) =>
             SignalBus.Fire(new ShowViewSignalVo(RegistryType, viewId, layer, isOverlay));
 

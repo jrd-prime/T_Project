@@ -4,6 +4,7 @@ using Bootstrap;
 using Cysharp.Threading.Tasks;
 using Db.SO;
 using Newtonsoft.Json;
+using Unity.AppUI.Core;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Zenject;
@@ -12,7 +13,7 @@ namespace Core.Providers.Localization
 {
     public interface ILocalizationProvider : IBootable
     {
-        string Localize(string key);
+        string Localize(string key, WordTransform wordTransform = WordTransform.None);
     }
 
     public class LocalizationProvider : ILocalizationProvider
@@ -56,11 +57,19 @@ namespace Core.Providers.Localization
             Debug.Log("Localization system initialization completed. Default language: " + _defaultLanguage);
         }
 
-        public string Localize(string key)
+        public string Localize(string key, WordTransform wordTransform = WordTransform.None)
         {
             if (!_localisationCache.TryGetValue(key, out var value))
                 throw new KeyNotFoundException($"Localization key '{key}' not found.");
-            return value;
+
+            return wordTransform switch
+            {
+                WordTransform.None => value,
+                WordTransform.Capitalize => value.Capitalize(),
+                WordTransform.Low => value.ToLower(),
+                WordTransform.Upper => value.ToUpper(),
+                _ => throw new ArgumentOutOfRangeException(nameof(wordTransform), wordTransform, null)
+            };
         }
 
         private async UniTask LoadLocalizationDataAsync(string address)
@@ -84,5 +93,13 @@ namespace Core.Providers.Localization
                 Debug.LogError($"Failed to load localization data: {e.Message}");
             }
         }
+    }
+
+    public enum WordTransform
+    {
+        None = -1,
+        Capitalize,
+        Low,
+        Upper
     }
 }

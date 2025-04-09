@@ -1,4 +1,5 @@
-﻿using Infrastructure.Input.Interfaces;
+﻿using Infrastructure.Input.Common;
+using Infrastructure.Input.Interfaces;
 using Infrastructure.Input.Signals;
 using Infrastructure.Input.Signals.Keys;
 using ModestTree;
@@ -30,9 +31,9 @@ namespace Infrastructure.Input
             _inputActions.Player.Move.performed += OnMove;
             _inputActions.Player.Move.canceled += OnMove;
 
-            _inputActions.UI.Escape.performed += ctx => { FireSignal(escapeKeySignal, "ESC"); };
-            _inputActions.UI.Inventory.performed += ctx => { FireSignal(inventoryKeySignal, "I"); };
-            _inputActions.UI.Interact.performed += ctx => { FireSignal(interactKeySignal, "E"); };
+            _inputActions.UI.Escape.performed += ctx => { FireSignal(escapeKeySignal, KeyName.Escape); };
+            _inputActions.UI.Inventory.performed += ctx => { FireSignal(inventoryKeySignal, KeyName.Inventory); };
+            _inputActions.UI.Interact.performed += ctx => { FireSignal(interactKeySignal, KeyName.Interact); };
 
             _inputActions.UI.QuestLog.performed += ctx => { Debug.LogWarning("Key pressed QuestLog"); };
         }

@@ -2,9 +2,10 @@
 using Core.Managers.Camera.Impls._Game._Scripts.Framework.Manager.JCamera;
 using Core.Managers.Game;
 using Core.Managers.Game.Impls;
-using Core.Managers.UI.Impls;
-using Game.UI.Impls.Gameplay.Gameplay;
-using Game.UI.Impls.Menu;
+using Core.Managers.Game.Interfaces;
+using Game.UI.Impls.Managers;
+using Game.UI.Impls.Views.Gameplay.Gameplay;
+using Game.UI.Impls.Views.Menu;
 using Infrastructure.Input.Handlers;
 using ModestTree;
 using UnityEngine;
@@ -27,10 +28,8 @@ namespace Infrastructure.Installers.Game
             _mainEmpty = GameObject.Find("--- MAIN");
             if (!_mainEmpty) throw new NullReferenceException("Main empty game object is not found. (--- Default)");
 
+            Container.Bind<IGameService>().To<GameService>().AsSingle().NonLazy();
             InitializeManagers();
-
-            Container.BindInterfacesAndSelfTo<GameManagerRequestHandler>().AsSingle();
-            
             InitializeUIModelsAndViewModels();
             InitializeViewStates();
 

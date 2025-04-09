@@ -15,6 +15,12 @@
         public const string Pause = "pause";
         public const string Back = "back";
         public const string Inventory = "inventory";
+        
+        // Interact tips
+        public const string TipCollect = "tip_collect";
+        public const string TipOpen = "tip_open";
+        public const string TipGather = "tip_gather";
+        public const string TipLoot = "tip_loot";
 
         public static readonly string ToMainMenu = $"{To}-{Main}-{Menu}";
     }

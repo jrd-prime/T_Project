@@ -382,6 +382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8623bbb559f34c1f8e9c3154d4c95c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 116458332c3f2f24685b7e98607d1267, type: 2}
 --- !u!4 &813433648 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6316063377492823547, guid: 68e652f32007eb74ba94cd0080ea1509, type: 3}
@@ -472,6 +473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7211148b19d47c390590601141083ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 1f9f29190398eb74eafbdf076c931c2b, type: 2}
 --- !u!1001 &1477173257
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -563,7 +565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e108571c14f94c07878dcc0086caaaef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiPromptPrefab: {fileID: 1767349613}
+  interactablesTipUI: {fileID: 1767349613}
 --- !u!4 &1564900039
 Transform:
   m_ObjectHideFlags: 0
@@ -749,7 +751,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 847235339832149509, guid: 8662e72899e672e448ccd2eb2348f514, type: 3}
-      insertIndex: -1
+      insertIndex: 1
       addedObject: {fileID: 1629388414}
     - targetCorrespondingSourceObject: {fileID: 847235339832149509, guid: 8662e72899e672e448ccd2eb2348f514, type: 3}
       insertIndex: -1
@@ -772,6 +774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69015941ce1d421fb4109e482afdee79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 2abc3bf8038f3734ab17c987ef3a6e05, type: 2}
 --- !u!136 &1629388414
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -888,9 +891,9 @@ MonoBehaviour:
   panelHeight: 180
   panelScale: 2
   pixelsPerUnit: 100
-  _visualTreeAsset: {fileID: 9197481963319205126, guid: 213ed223d3e282d4b8a9ff05af29a07b, type: 3}
-  _panelSettingsAsset: {fileID: 11400000, guid: 628a182ccdb7949479f7079f4b9d36f5, type: 2}
-  _renderTextureAsset: {fileID: 8400000, guid: 55863ccdec2ae2846a8c665339c8760b, type: 2}
+  visualTreeAsset: {fileID: 9197481963319205126, guid: 213ed223d3e282d4b8a9ff05af29a07b, type: 3}
+  panelSettingsAsset: {fileID: 11400000, guid: 628a182ccdb7949479f7079f4b9d36f5, type: 2}
+  renderTextureAsset: {fileID: 8400000, guid: 55863ccdec2ae2846a8c665339c8760b, type: 2}
 --- !u!114 &1767349614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1229,6 +1232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6648ea83e897480899ae75565e506087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: e7e637af338cd774f9a911058bcf4a07, type: 2}
 --- !u!1001 &1900943846
 PrefabInstance:
   m_ObjectHideFlags: 0

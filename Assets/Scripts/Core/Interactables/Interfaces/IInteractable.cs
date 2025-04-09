@@ -3,7 +3,8 @@
     public interface IInteractable
     {
         bool CanInteract { get; }
-        string InteractionPrompt { get; }
+        string InteractionTipNameId { get; }
+        string LocalizationKey { get; }
         void Interact();
     }
 }
