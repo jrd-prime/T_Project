@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Core.Extensions;
+using Core.Managers.UI.Data;
+using Game.Extensions;
 using Game.UI.Data;
 using Game.UI.Interfaces;
 using UnityEngine;

@@ -2,7 +2,6 @@
 using Core.Managers.HSM.Interfaces;
 using Core.Managers.UI.Data;
 using Core.Managers.UI.Interfaces;
-using Game.UI.Data;
 
 namespace Core.Managers.HSM.Impls.States.Gameplay
 {

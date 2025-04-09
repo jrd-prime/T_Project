@@ -1,6 +1,6 @@
-﻿using Core.Character.Common;
+﻿using Core.Character.Common.Interfaces;
 
-namespace Core.Character.Enemy
+namespace Core.Character.Enemy.Interfaces
 {
     public interface IEnemy : ICharacter
     {

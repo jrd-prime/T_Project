@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Managers.UI.Data;
 using Game.UI.Common;
 
 namespace Game.UI.Data
@@ -8,13 +9,5 @@ namespace Game.UI.Data
     {
         public ViewRegistryType type;
         public AViewRegistryBase viewRegistry;
-    }
-
-    public enum ViewRegistryType
-    {
-        NotSet = -1,
-        Gameplay = 0,
-        Menu = 1,
-        Pause = 2
     }
 }

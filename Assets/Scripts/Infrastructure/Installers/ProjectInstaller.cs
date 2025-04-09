@@ -1,9 +1,12 @@
 ﻿using System;
-using Core.Providers;
-using Core.Providers.Localization;
-using Db.SO;
+using Core;
+using Data.SO;
+using Infrastructure.Assets;
+using Infrastructure.Bootstrap;
 using Infrastructure.Input;
 using Infrastructure.Input.Interfaces;
+using Infrastructure.Localization;
+using Infrastructure.Settings;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Profiling;

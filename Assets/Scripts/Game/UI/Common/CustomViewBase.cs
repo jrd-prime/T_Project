@@ -1,6 +1,6 @@
 ﻿using System;
-using Core.Providers.Localization;
 using Game.UI.Interfaces.Model;
+using Infrastructure.Localization;
 using Zenject;
 
 namespace Game.UI.Common

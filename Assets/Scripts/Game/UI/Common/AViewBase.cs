@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Core.Extensions;
-using Db.Data;
+using Game.Extensions;
+using Game.UI.Data;
 using Game.UI.Interfaces;
 using R3;
 using UnityEngine;

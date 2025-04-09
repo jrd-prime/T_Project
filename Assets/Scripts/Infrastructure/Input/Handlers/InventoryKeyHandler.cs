@@ -2,8 +2,6 @@
 using Core.Managers.HSM.Impls.States.Gameplay;
 using Core.Managers.UI.Data;
 using Core.Managers.UI.Interfaces;
-using Game.UI.Data;
-using Game.UI.Impls;
 using Infrastructure.Input.Signals.Keys;
 using Zenject;
 
@@ -38,7 +36,7 @@ namespace Infrastructure.Input.Handlers
             var data = new UIManagerViewDataVo(
                 ViewRegistryType.Gameplay,
                 ViewIDConst.Inventory,
-                UIViewer.Layer.Top,
+                ViewerLayer.Top,
                 true);
 
             UIManager.ShowView(data);

@@ -1,5 +1,4 @@
 ﻿using Core.Managers.UI.Data;
-using Game.UI.Data;
 
 namespace Core.Managers.UI.Interfaces
 {

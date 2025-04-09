@@ -1,7 +1,7 @@
 ﻿using Core.Managers.Game.Interfaces;
 using R3;
 
-namespace Core.Managers.Game
+namespace Core.Managers.Game.Impls
 {
     public sealed class GameService : IGameService
     {

@@ -1,4 +1,4 @@
-﻿using Core.Extensions;
+﻿using Game.Extensions;
 using Game.UI.Common.Base.Component;
 using UnityEngine;
 using UnityEngine.UIElements;

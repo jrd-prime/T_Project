@@ -1,5 +1,5 @@
 ﻿using System;
-using Core.Character.Common;
+using Core.Character.Common.Interfaces;
 using Core.Managers.Camera.Interfaces;
 using ModestTree;
 using R3;
@@ -25,7 +25,7 @@ namespace Core.Managers.Camera.Impls
 
             private void SetCameraPosition(Vector3 position)
             {
-                var newPosition = position + cameraOffset;
+                Vector3 newPosition = position + cameraOffset;
                 if (_mainCamera.transform.position == newPosition) return;
                 _mainCamera.transform.position = newPosition;
             }

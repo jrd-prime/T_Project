@@ -1,6 +1,7 @@
 ﻿using System;
-using Core.Extensions;
+using Core.Managers.UI.Data;
 using Core.Managers.UI.Interfaces;
+using Game.Extensions;
 using Game.UI.Common.Base.Data;
 using ModestTree;
 using Tools;
@@ -13,7 +14,7 @@ namespace Game.UI.Impls
     /// Показывает вьюшки по слоям
     /// </summary>
     [RequireComponent(typeof(UIDocument))]
-    public sealed class UIViewer : MonoBehaviour, IUIViewer
+    public sealed partial class UIViewer : MonoBehaviour, IUIViewer
     {
         [SerializeField] private bool debug = true;
         [SerializeField] private VisualTreeAsset debugTemplate;
@@ -38,29 +39,29 @@ namespace Game.UI.Impls
             if (debug) _uiRendererDebugContainer = new UIRendererDebugContainer(debugTemplate, "debug-container");
         }
 
-        public void ShowView(ViewTemplateData data, Layer layer)
+        public void ShowView(ViewTemplateData data, ViewerLayer viewerLayer)
         {
-            if (debug) Log.Info($"<color=green>[VIEWER]</color> ... {data.StateId} /  {data.ViewId} (layer: {layer})");
+            if (debug) Log.Info($"<color=green>[VIEWER]</color> ... {data.StateId} /  {data.ViewId} (layer: {viewerLayer})");
 
             PrepareTemplate(data);
 
-            switch (layer)
+            switch (viewerLayer)
             {
-                case Layer.Default: _defaultLayer.Add(data.Template); break;
-                case Layer.Top: _topLayer.Add(data.Template); break;
-                default: throw new ArgumentOutOfRangeException(nameof(layer), layer, null);
+                case ViewerLayer.Default: _defaultLayer.Add(data.Template); break;
+                case ViewerLayer.Top: _topLayer.Add(data.Template); break;
+                default: throw new ArgumentOutOfRangeException(nameof(viewerLayer), viewerLayer, null);
             }
         }
 
         public void HideView() => ClearAll();
 
-        public void ClearLayer(Layer layer)
+        public void ClearLayer(ViewerLayer viewerLayer)
         {
-            switch (layer)
+            switch (viewerLayer)
             {
-                case Layer.Default: _defaultLayer.Clear(); break;
-                case Layer.Top: _topLayer.Clear(); break;
-                default: throw new ArgumentOutOfRangeException(nameof(layer), layer, null);
+                case ViewerLayer.Default: _defaultLayer.Clear(); break;
+                case ViewerLayer.Top: _topLayer.Clear(); break;
+                default: throw new ArgumentOutOfRangeException(nameof(viewerLayer), viewerLayer, null);
             }
         }
 
@@ -95,12 +96,6 @@ namespace Game.UI.Impls
             var safeZoneOffset = ScreenHelper.GetSafeZoneOffset(800f, 360f);
             _rootVisualElement.style.marginLeft = safeZoneOffset.x >= 16 ? safeZoneOffset.x : 16;
             _rootVisualElement.style.marginTop = safeZoneOffset.y;
-        }
-
-        public enum Layer
-        {
-            Default,
-            Top
         }
 
         private class UIRendererDebugContainer

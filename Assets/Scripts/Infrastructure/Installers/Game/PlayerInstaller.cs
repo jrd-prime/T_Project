@@ -1,5 +1,5 @@
 ﻿using Core.Character.Player;
-using Game.Character.Player.Impls;
+using Game.Gameplay.Character.Player.Impls;
 using UnityEngine;
 using Zenject;
 

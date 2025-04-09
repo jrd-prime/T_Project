@@ -1,10 +1,9 @@
 ﻿using System;
 using Core.Managers.Game.Interfaces;
 using Core.Managers.HSM.Signals;
-using Core.Managers.UI.Signals;
-using Game.UI.Data;
-using Game.UI.Impls;
+using Core.Managers.UI.Data;
 using Game.UI.Interfaces.Model;
+using Game.UI.Signals;
 using R3;
 using Zenject;
 
@@ -32,9 +31,9 @@ namespace Game.UI.Common
         }
 
 
-        protected void ShowLocalView(string viewId, UIViewer.Layer layer = UIViewer.Layer.Default,
+        protected void ShowLocalView(string viewId, ViewerLayer viewerLayer = ViewerLayer.Default,
             bool isOverlay = false) =>
-            SignalBus.Fire(new ShowViewSignalVo(RegistryType, viewId, layer, isOverlay));
+            SignalBus.Fire(new ShowViewSignalVo(RegistryType, viewId, viewerLayer, isOverlay));
 
         protected void SwitchToPreviousView() => SignalBus.Fire(new ShowPreviousViewSignalVo());
         protected void ChangeGameStateTo(Type type) => SignalBus.Fire(new ChangeGameStateSignalVo(type));

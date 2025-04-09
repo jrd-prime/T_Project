@@ -1,6 +1,6 @@
-﻿using Core.Providers.Localization;
-using Game.UI.Common;
+﻿using Game.UI.Common;
 using Game.UI.Impls.Views.Gameplay.Gameplay;
+using Infrastructure.Localization;
 using UnityEngine.UIElements;
 
 namespace Game.UI.Impls.Views.Gameplay.Views

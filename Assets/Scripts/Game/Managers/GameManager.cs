@@ -1,28 +1,28 @@
-﻿using Core.Character.Player.Interfaces;
+﻿using Core;
+using Core.Character.Player.Interfaces;
 using Core.Managers.Camera.Interfaces;
 using Core.Managers.Game.Interfaces;
-using Core.Providers;
+using Core.Managers.HSM.Impls;
 using Infrastructure.Input;
 using ModestTree;
-using R3;
 using UnityEngine;
 using Zenject;
 
-namespace Core.Managers.Game.Impls
+namespace Game.Managers
 {
     public class GameManager : MonoBehaviour, IGameManager
     {
         [Inject] private DiContainer _container;
 
         private ISettingsProvider SettingsManager;
-        private HSM.Impls.HSM _hsm;
+        private HSM _hsm;
         private IGameService _gameService;
         private SignalBus _signalBus;
 
         public void Initialize()
         {
             Log.Warn("Init game manager");
-            _hsm = _container.Resolve<HSM.Impls.HSM>();
+            _hsm = _container.Resolve<HSM>();
             SettingsManager = _container.Resolve<ISettingsProvider>();
             var player = _container.Resolve<IPlayer>();
 

@@ -1,5 +1,5 @@
-﻿using Game.UI.Common;
-using Game.UI.Data;
+﻿using Core.Managers.UI.Data;
+using Game.UI.Common;
 using Game.UI.Interfaces.Model;
 using R3;
 

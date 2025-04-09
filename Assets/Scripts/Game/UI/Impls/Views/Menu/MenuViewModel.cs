@@ -1,6 +1,6 @@
 ﻿using Core.Managers.HSM.Impls.States.Gameplay;
+using Core.Managers.UI.Data;
 using Game.UI.Common;
-using Game.UI.Data;
 using Game.UI.Interfaces.Model;
 using Tools;
 

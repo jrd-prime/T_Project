@@ -1,4 +1,4 @@
-﻿using Core.Character.Common;
+﻿using Core.Character.Common.Interfaces;
 
 namespace Core.Character.Player.Interfaces
 {

@@ -1,4 +1,4 @@
-﻿using Core.Managers.UI.Data;
+﻿using Game.UI.Data;
 using UnityEngine.UIElements;
 
 namespace Game.UI.Common.Base.Data

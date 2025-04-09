@@ -1,4 +1,4 @@
-﻿using Core.Character.Common;
+﻿using Core.Character.Common.Interfaces;
 using UnityEngine;
 
 namespace Core.Managers.Camera.Interfaces

@@ -1,5 +1,4 @@
 ﻿using Core.Managers.HSM.Signals;
-using Core.Managers.UI.Signals;
 using Game.UI.Signals;
 using Infrastructure.Input;
 using Infrastructure.Input.Signals;

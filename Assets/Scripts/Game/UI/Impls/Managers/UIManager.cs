@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using Core.Managers.UI.Data;
 using Core.Managers.UI.Interfaces;
-using Core.Managers.UI.Signals;
 using Game.UI.Common.Base.Data;
 using Game.UI.Data;
 using Game.UI.Interfaces;
+using Game.UI.Signals;
 using ModestTree;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -20,7 +20,7 @@ namespace Game.UI.Impls.Managers
         [SerializeField] private ViewRegistryDataVo[] viewRegistryData = Array.Empty<ViewRegistryDataVo>();
 
         [Inject] private readonly SignalBus _signalBus;
-        private readonly Stack<(string viewId, UIViewer.Layer layer)> _viewStack = new();
+        private readonly Stack<(string viewId, ViewerLayer layer)> _viewStack = new();
         private readonly Dictionary<ViewRegistryType, IUIViewRegistry> _viewsRegistry = new();
 
         private ViewRegistryType _currentViewRegistryType = ViewRegistryType.NotSet;
@@ -58,7 +58,7 @@ namespace Game.UI.Impls.Managers
         public void CloseOverlayView()
         {
             if (debug) Log.Warn("Close overlay view");
-            uiViewer.ClearLayer(UIViewer.Layer.Top);
+            uiViewer.ClearLayer(ViewerLayer.Top);
             _currentOverlayView = null;
         }
 
@@ -101,7 +101,7 @@ namespace Game.UI.Impls.Managers
         private void InitializeViewStack(UIManagerViewDataVo data)
         {
             _currentViewRegistryType = data.RegistryType;
-            _viewStack.Push((data.ViewId, data.Layer));
+            _viewStack.Push((data.ViewId, data.ViewerLayer));
             // if (data.IsOverlay) Log.Warn("Overlay ignored: registry type not set");
         }
 
@@ -121,8 +121,8 @@ namespace Game.UI.Impls.Managers
 
             if (_viewStack.Peek().viewId == data.ViewId) return;
 
-            uiViewer.ClearLayer(data.Layer);
-            _viewStack.Push((data.ViewId, data.Layer));
+            uiViewer.ClearLayer(data.ViewerLayer);
+            _viewStack.Push((data.ViewId, data.ViewerLayer));
         }
 
         private void ShowViewWithTemplate(UIManagerViewDataVo data)
@@ -136,7 +136,7 @@ namespace Game.UI.Impls.Managers
                 UIViewerDebugData = new UIViewerDebugDataVo("stack", _viewStack.Count, data.IsOverlay)
             };
 
-            uiViewer.ShowView(templateData, data.Layer);
+            uiViewer.ShowView(templateData, data.ViewerLayer);
         }
 
         private void SwitchToNewRegistry(UIManagerViewDataVo data)
@@ -144,7 +144,7 @@ namespace Game.UI.Impls.Managers
             _currentViewRegistryType = data.RegistryType;
             uiViewer.HideView();
             _viewStack.Clear();
-            _viewStack.Push((data.ViewId, data.Layer));
+            _viewStack.Push((data.ViewId, data.ViewerLayer));
             _currentOverlayView = null;
             // if (data.IsOverlay) Log.Warn("Overlay ignored: different registry type");
         }
@@ -159,7 +159,7 @@ namespace Game.UI.Impls.Managers
         private void OnSwitchToPreviousViewSignal() => ShowPreviousViewNew();
 
         private void OnShowViewSignal(ShowViewSignalVo signal) =>
-            ShowView(new UIManagerViewDataVo(signal.ViewRegistryType, signal.ViewId, signal.Layer, signal.IsOverlay));
+            ShowView(new UIManagerViewDataVo(signal.ViewRegistryType, signal.ViewId, signal.ViewerLayer, signal.IsOverlay));
 
         private void InitializeMainViews()
         {
