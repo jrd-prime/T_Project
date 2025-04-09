@@ -1,9 +1,11 @@
-﻿using Core.Managers.Camera.Interfaces;
+﻿using Core.Character.Player;
+using Game.Extensions;
+using Game.Managers;
 using Infrastructure.Input.Signals;
 using UnityEngine;
 using Zenject;
 
-namespace Core.Character.Player
+namespace Game.Gameplay.Character.Player.Impls
 {
     public sealed class PlayerInteractor
     {
@@ -29,6 +31,6 @@ namespace Core.Character.Player
         /// <summary>
         /// Такое себе решение. // TODO: Подумать как лучше сделать с учетом плеера
         /// </summary>
-        public void SetPosition(Vector3 position) => _service.SetPosition(position);
+        public void SetPosition(Vector3 position) => _service.SetPosition(position.ToJVector3());
     }
 }

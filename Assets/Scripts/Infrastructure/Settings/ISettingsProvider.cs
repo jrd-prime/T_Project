@@ -1,7 +1,7 @@
 ﻿using Data.SO;
 using Infrastructure.Bootstrap;
 
-namespace Core
+namespace Infrastructure.Settings
 {
     public interface ISettingsProvider : IBootable
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
 
-namespace Core.Managers
+namespace Game.Managers
 {
     public class CustomPool<T> where T : MonoBehaviour
     {

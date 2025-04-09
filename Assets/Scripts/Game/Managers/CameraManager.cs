@@ -1,31 +1,32 @@
 ﻿using System;
 using Core.Character.Common.Interfaces;
-using Core.Managers.Camera.Interfaces;
+using Core.Data;
+using Game.Extensions;
 using ModestTree;
 using R3;
 using UnityEngine;
 
-namespace Core.Managers.Camera.Impls
+namespace Game.Managers
 {
     namespace _Game._Scripts.Framework.Manager.JCamera
     {
         public sealed class CameraManager : MonoBehaviour, ICameraManager
         {
             [SerializeField] private Vector3 cameraOffset = new(0, 10, -5);
-            private UnityEngine.Camera _mainCamera;
+            private Camera _mainCamera;
             private readonly CompositeDisposable _disposables = new();
             private IFollowable _target;
 
             private void Start()
             {
-                _mainCamera = UnityEngine.Camera.main;
+                _mainCamera = Camera.main;
                 if (!_mainCamera) throw new NullReferenceException($"MainCamera is null. {this}");
                 _mainCamera.transform.position = cameraOffset;
             }
 
-            private void SetCameraPosition(Vector3 position)
+            private void SetCameraPosition(JVector3 position)
             {
-                Vector3 newPosition = position + cameraOffset;
+                Vector3 newPosition = position.ToVector3() + cameraOffset;
                 if (_mainCamera.transform.position == newPosition) return;
                 _mainCamera.transform.position = newPosition;
             }
@@ -50,7 +51,7 @@ namespace Core.Managers.Camera.Impls
                 _disposables?.Dispose();
             }
 
-            public UnityEngine.Camera GetMainCamera() => _mainCamera;
+            public Camera GetMainCamera() => _mainCamera;
             public Vector3 GetCamEulerAngles() => _mainCamera.transform.eulerAngles;
             public Quaternion GetCamRotation() => _mainCamera.transform.rotation;
             private void OnDestroy() => _disposables?.Dispose();

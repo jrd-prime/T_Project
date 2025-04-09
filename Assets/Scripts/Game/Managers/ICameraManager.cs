@@ -1,13 +1,13 @@
 ﻿using Core.Character.Common.Interfaces;
 using UnityEngine;
 
-namespace Core.Managers.Camera.Interfaces
+namespace Game.Managers
 {
     public interface ICameraManager
     {
         void SetTarget(IFollowable target);
         void RemoveTarget();
-        UnityEngine.Camera GetMainCamera();
+        Camera GetMainCamera();
         Vector3 GetCamEulerAngles();
         Quaternion GetCamRotation();
     }

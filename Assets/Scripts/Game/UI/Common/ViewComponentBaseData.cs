@@ -1,7 +1,7 @@
 ﻿using Game.UI.Interfaces.Model;
 using UnityEngine.UIElements;
 
-namespace Game.UI.Common.Base.Component
+namespace Game.UI.Common
 {
     public class ViewComponentBaseData<TUIViewModel> where TUIViewModel : IUIViewModel
     {

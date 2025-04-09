@@ -2,7 +2,7 @@
 using Core.Managers.UI.Data;
 using Core.Managers.UI.Interfaces;
 using Game.Extensions;
-using Game.UI.Common.Base.Data;
+using Game.UI.Data;
 using ModestTree;
 using Tools;
 using UnityEngine;

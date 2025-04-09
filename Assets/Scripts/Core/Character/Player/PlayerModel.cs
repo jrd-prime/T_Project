@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using Core.Data;
 
 namespace Core.Character.Player
 {
@@ -7,6 +7,6 @@ namespace Core.Character.Player
         public int Id { get; set; }
         public int Level { get; set; }
         public int Health { get; set; }
-        public Vector3 Position { get; set; }
+        public JVector3 Position { get; set; }
     }
 }

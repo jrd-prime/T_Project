@@ -1,10 +1,10 @@
-﻿using R3;
-using UnityEngine;
+﻿using Core.Data;
+using R3;
 
 namespace Core.Character.Common.Interfaces
 {
     public interface IFollowable
     {
-        ReactiveProperty<Vector3> Position { get; }
+        ReactiveProperty<JVector3> Position { get; }
     }
 }

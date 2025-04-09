@@ -1,7 +1,6 @@
-﻿using Game.UI.Data;
-using UnityEngine.UIElements;
+﻿using UnityEngine.UIElements;
 
-namespace Game.UI.Common.Base.Data
+namespace Game.UI.Data
 {
     public struct ViewTemplateData
     {

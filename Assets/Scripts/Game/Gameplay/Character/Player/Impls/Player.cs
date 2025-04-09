@@ -1,6 +1,7 @@
 ﻿using System;
-using Core.Character.Player;
 using Core.Character.Player.Interfaces;
+using Core.Data;
+using Game.Extensions;
 using R3;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -12,7 +13,7 @@ namespace Game.Gameplay.Character.Player.Impls
     public sealed class Player : MonoBehaviour, IPlayer
     {
         [FormerlySerializedAs("frontTriggerArea")] [SerializeField] private PlayerFrontTriggerArea playerFrontTriggerArea;
-        public ReactiveProperty<Vector3> Position { get; } = new();
+        public ReactiveProperty<JVector3> Position { get; } = new();
         public int Id { get; }
         public string Name { get; }
         public string Description { get; }
@@ -49,7 +50,7 @@ namespace Game.Gameplay.Character.Player.Impls
         {
             var position = transform.position;
             _previousPosition = position;
-            Position.Value = position;
+            Position.Value = position.ToJVector3();
             _interactor.SetPosition(position);
         }
 

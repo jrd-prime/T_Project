@@ -1,8 +1,8 @@
 ﻿using System;
-using Core.Managers.Camera.Impls._Game._Scripts.Framework.Manager.JCamera;
 using Core.Managers.Game.Impls;
 using Core.Managers.Game.Interfaces;
 using Game.Managers;
+using Game.Managers._Game._Scripts.Framework.Manager.JCamera;
 using Game.UI.Impls.Managers;
 using Game.UI.Impls.Views.Gameplay.Gameplay;
 using Game.UI.Impls.Views.Menu;

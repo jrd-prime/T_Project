@@ -1,7 +1,6 @@
 ﻿using System;
 using DG.Tweening;
 using Game.UI.Common;
-using Game.UI.Common.Base.Component;
 using Game.UI.Impls.Views.Gameplay.Gameplay.View.Components;
 using UnityEngine;
 using UnityEngine.UIElements;

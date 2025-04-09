@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using Core.Data;
 
 namespace Core.Character.Player
 {
@@ -8,6 +8,6 @@ namespace Core.Character.Player
 
         public PlayerService(PlayerModel model) => _model = model;
 
-        public void SetPosition(Vector3 position) => _model.Position = position;
+        public void SetPosition(JVector3 position) => _model.Position = position;
     }
 }

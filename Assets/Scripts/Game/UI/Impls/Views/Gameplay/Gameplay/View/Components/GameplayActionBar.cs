@@ -1,5 +1,5 @@
 ﻿using Game.Extensions;
-using Game.UI.Common.Base.Component;
+using Game.UI.Common;
 using UnityEngine;
 using UnityEngine.UIElements;
 

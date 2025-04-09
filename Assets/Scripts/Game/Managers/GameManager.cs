@@ -1,9 +1,8 @@
-﻿using Core;
-using Core.Character.Player.Interfaces;
-using Core.Managers.Camera.Interfaces;
+﻿using Core.Character.Player.Interfaces;
 using Core.Managers.Game.Interfaces;
 using Core.Managers.HSM.Impls;
 using Infrastructure.Input;
+using Infrastructure.Settings;
 using ModestTree;
 using UnityEngine;
 using Zenject;

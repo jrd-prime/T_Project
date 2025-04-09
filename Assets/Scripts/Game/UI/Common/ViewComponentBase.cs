@@ -4,7 +4,7 @@ using R3;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Game.UI.Common.Base.Component
+namespace Game.UI.Common
 {
     /// <summary>
     /// База компонента вьюва.
