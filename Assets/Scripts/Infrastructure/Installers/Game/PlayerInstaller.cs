@@ -1,7 +1,5 @@
 ﻿using Core.Character.Player;
-using Core.Character.Player.Interactors;
-using Core.Character.Player.Models;
-using Core.Character.Player.Services;
+using Game.Gameplay.Character.Player.Impls;
 using UnityEngine;
 using Zenject;
 

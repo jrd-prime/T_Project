@@ -1,9 +1,10 @@
 ﻿//TODO turn on input after app start
 
-using Bootstrap;
-using Core.Providers;
-using Core.Providers.Localization;
 using Cysharp.Threading.Tasks;
+using Infrastructure.Assets;
+using Infrastructure.Bootstrap;
+using Infrastructure.Localization;
+using Infrastructure.Settings;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;

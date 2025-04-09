@@ -13,5 +13,15 @@
   "audio": "Audio",
   "pause": "pause",
   "to-main-menu": "To main menu",
-  "inventory": "Inventory"
+  "inventory": "Inventory",
+  "door": "Door",
+  "rack": "Rack",
+  "gr_corn": "Corn",
+  "rock": "Rock",
+  "tip_loot" : "search",
+  "tip_collect" : "collect",
+  "tip_open" : "open",
+  "tip_close" : "close",
+  "tip_gather" : "gather"
+ 
 }

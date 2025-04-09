@@ -1,5 +1,5 @@
 #if UNITY_EDITOR
-using Db.Data;
+using Data;
 using UnityEditor;
 
 namespace Code.Tools.Editor

@@ -2,10 +2,7 @@
 using Core.Managers.HSM.Impls.States.Gameplay;
 using Core.Managers.HSM.Interfaces;
 using Core.Managers.UI.Data;
-using Core.Managers.UI.Impls;
 using Core.Managers.UI.Interfaces;
-using Game.UI.Common;
-using Game.UI.Data;
 using ModestTree;
 
 namespace Core.Managers.HSM.Impls.States.Menu
