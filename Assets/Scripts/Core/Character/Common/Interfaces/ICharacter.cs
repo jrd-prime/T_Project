@@ -2,7 +2,7 @@
 {
     public interface ICharacter : IMovable
     {
-        int Id { get; }
+        string Id { get; }
         string Name { get; }
         string Description { get; }
         int Health { get; }

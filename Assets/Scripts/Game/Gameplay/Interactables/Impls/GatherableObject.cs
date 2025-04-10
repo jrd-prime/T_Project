@@ -12,6 +12,11 @@ namespace Game.Gameplay.Interactables.Impls
         private void Gather()
         {
             Log.Warn("// Логика сбора растения " + gameObject.name);
+            foreach (var @return in data.returns)
+            {
+                Log.Warn("return: " + Localize(@return.currency.LocalizationKey, WordTransform.Upper) + " / " +
+                         @return.min + " - " + @return.max + " pc");
+            }
         }
     }
 }

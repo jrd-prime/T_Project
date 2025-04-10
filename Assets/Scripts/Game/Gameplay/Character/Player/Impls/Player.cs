@@ -4,7 +4,6 @@ using Core.Data;
 using Game.Extensions;
 using R3;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace Game.Gameplay.Character.Player.Impls
@@ -12,30 +11,30 @@ namespace Game.Gameplay.Character.Player.Impls
     [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
     public sealed class Player : MonoBehaviour, IPlayer
     {
-        [FormerlySerializedAs("frontTriggerArea")] [SerializeField]
-        private PlayerFrontTriggerArea playerFrontTriggerArea;
+        [SerializeField] private PlayerFrontTriggerArea frontTriggerArea;
+        [SerializeField] private float moveSpeed = 5f;
+        [SerializeField] private float rotationSpeed = 10f;
+        [SerializeField] private float acceleration = 0.1f;
 
         public ReactiveProperty<JVector3> Position { get; } = new();
-        public int Id { get; }
+        public string Id => _interactor.Id;
         public string Name { get; }
         public string Description { get; }
         public int Health { get; }
         public int MaxHealth { get; }
 
         [Inject] private PlayerInteractor _interactor;
+
         private Rigidbody _rb;
-        [SerializeField] private float moveSpeed = 5f;
-        [SerializeField] private float rotationSpeed = 10f;
-        [SerializeField] private float acceleration = 0.1f;
         private Vector3 _currentVelocity;
         private Camera _mainCamera;
         private Vector3 _previousPosition;
 
         private void Awake()
         {
-            if (!playerFrontTriggerArea)
-                throw new NullReferenceException($"{nameof(playerFrontTriggerArea)} is null. {name}");
-            playerFrontTriggerArea.Init(this);
+            if (!frontTriggerArea)
+                throw new NullReferenceException($"{nameof(frontTriggerArea)} is null. {name}");
+            frontTriggerArea.Init(this);
 
             _rb = GetComponent<Rigidbody>();
         }

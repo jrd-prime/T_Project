@@ -10,7 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c93ebeb1786049cd9fe2341148c3c2fc, type: 3}
-  m_Name: grass_GatherableObjectData
+  m_Name: CornPlant_GatherableObjectData
   m_EditorClassIdentifier: 
   Id: 0
-  LocalizationKey: gr_corn
+  LocalizationKey: plant_corn
+  returns:
+  - currency: {fileID: 11400000, guid: c6ffb2da91b5a0c47adf2f74ccbbad4b, type: 2}
+    min: 0
+    max: 2
+  - currency: {fileID: 11400000, guid: 03f2abd49a42c1a4db75a2791209f009, type: 2}
+    min: 1
+    max: 3

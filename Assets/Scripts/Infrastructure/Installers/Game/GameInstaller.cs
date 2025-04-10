@@ -1,6 +1,8 @@
 ﻿using System;
 using Core.Managers.Game.Impls;
 using Core.Managers.Game.Interfaces;
+using Game.Currency;
+using Game.Currency.Impls;
 using Game.Managers;
 using Game.Managers._Game._Scripts.Framework.Manager.JCamera;
 using Game.UI.Impls.Managers;
@@ -29,6 +31,7 @@ namespace Infrastructure.Installers.Game
             if (!_mainEmpty) throw new NullReferenceException("Main empty game object is not found. (--- Default)");
 
             Container.Bind<IGameService>().To<GameService>().AsSingle().NonLazy();
+            Container.Bind<ICurrencyService>().To<CurrencyService>().AsSingle().NonLazy();
             InitializeManagers();
             InitializeUIModelsAndViewModels();
             InitializeViewStates();

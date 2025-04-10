@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be3ba9b5656549fca453e0324e28bbfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerFrontTriggerArea: {fileID: 5522347520603666714}
+  frontTriggerArea: {fileID: 5522347520603666714}
   moveSpeed: 5
   rotationSpeed: 10
   acceleration: 0.1
