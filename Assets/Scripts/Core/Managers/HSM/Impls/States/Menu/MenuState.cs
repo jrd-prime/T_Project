@@ -32,8 +32,6 @@ namespace Core.Managers.HSM.Impls.States.Menu
             {
                 Log.Info("previous state is gameplay");
             }
-
-            Log.Info("prevous state = " + previousState);
         }
 
         public override IState HandleTransition()

@@ -2,7 +2,7 @@
 using Data;
 using UnityEditor;
 
-namespace Code.Tools.Editor
+namespace Scripts.Editor
 {
     public class ToggleInspectorLock : UnityEditor.Editor
     {

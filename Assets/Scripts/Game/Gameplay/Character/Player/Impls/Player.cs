@@ -9,10 +9,12 @@ using Zenject;
 
 namespace Game.Gameplay.Character.Player.Impls
 {
-    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
     public sealed class Player : MonoBehaviour, IPlayer
     {
-        [FormerlySerializedAs("frontTriggerArea")] [SerializeField] private PlayerFrontTriggerArea playerFrontTriggerArea;
+        [FormerlySerializedAs("frontTriggerArea")] [SerializeField]
+        private PlayerFrontTriggerArea playerFrontTriggerArea;
+
         public ReactiveProperty<JVector3> Position { get; } = new();
         public int Id { get; }
         public string Name { get; }
@@ -31,7 +33,8 @@ namespace Game.Gameplay.Character.Player.Impls
 
         private void Awake()
         {
-            if (!playerFrontTriggerArea) throw new NullReferenceException($"{nameof(playerFrontTriggerArea)} is null. {name}");
+            if (!playerFrontTriggerArea)
+                throw new NullReferenceException($"{nameof(playerFrontTriggerArea)} is null. {name}");
             playerFrontTriggerArea.Init(this);
 
             _rb = GetComponent<Rigidbody>();

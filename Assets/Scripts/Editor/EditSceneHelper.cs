@@ -3,7 +3,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Code.Tools.Editor
+namespace Scripts.Editor
 {
     [InitializeOnLoad]
     public static class EditSceneHelper
