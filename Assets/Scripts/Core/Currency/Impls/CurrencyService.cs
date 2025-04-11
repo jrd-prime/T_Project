@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using ModestTree;
 
-namespace Game.Currency.Impls
+namespace Core.Currency.Impls
 {
     public sealed class CurrencyService : ICurrencyService
     {

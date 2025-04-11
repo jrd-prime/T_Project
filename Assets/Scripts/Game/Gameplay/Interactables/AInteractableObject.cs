@@ -1,6 +1,7 @@
 ﻿using System;
 using Core.Interactables.Interfaces;
 using Data;
+using Game.Gameplay.Character.Player.Impls;
 using Infrastructure.Localization;
 using UnityEngine;
 using Zenject;
@@ -16,7 +17,7 @@ namespace Game.Gameplay.Interactables
         public abstract string InteractionTipNameId { get; }
         public string LocalizationKey => data.LocalizationKey;
 
-        [Inject] private DiContainer Container;
+        [Inject] protected DiContainer Container;
 
         private ILocalizationProvider _localizationProvider;
 
@@ -30,6 +31,6 @@ namespace Game.Gameplay.Interactables
         protected string Localize(string key, WordTransform wordTransform = WordTransform.None) =>
             _localizationProvider.Localize(key, wordTransform);
 
-        public abstract void Interact();
+        public abstract void Interact(ICommandExecutor colliderOwner);
     }
 }

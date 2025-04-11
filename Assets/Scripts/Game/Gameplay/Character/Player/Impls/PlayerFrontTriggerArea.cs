@@ -104,7 +104,21 @@ namespace Game.Gameplay.Character.Player.Impls
             }
         }
 
-        private void OnInteractKeySignal(InteractKeySignal signal) => _currentInteractable?.Interact();
+        private void OnInteractKeySignal(InteractKeySignal signal)
+        {
+            _currentInteractable?.Interact(_colliderOwner as ICommandExecutor);
+        }
+
         private bool IsLayerInMask(int layer) => (triggeredByLayer.value & (1 << layer)) != 0;
+    }
+
+    public interface ICommandExecutor
+    {
+        void ExecuteCommand(ICommand command);
+    }
+
+    public interface ICommand
+    {
+        void Execute();
     }
 }

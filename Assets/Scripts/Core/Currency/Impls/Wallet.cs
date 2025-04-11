@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using R3;
 
-namespace Game.Currency.Impls
+namespace Core.Currency.Impls
 {
     [Serializable]
     public sealed class Wallet : IWallet

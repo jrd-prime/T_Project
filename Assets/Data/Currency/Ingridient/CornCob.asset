@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c345c60cb59e46bf82f747ba3abd17d0, type: 3}
+  m_Name: CornCob
+  m_EditorClassIdentifier: 
+  id: b65713f4e75f40c4ab1bd5e6a07f8f82
+  localizationKey: ing_corn_cob
+  description: 
+  iconId: 
+  rarity: 0
+  type: 0
+  maxStackSize: 1

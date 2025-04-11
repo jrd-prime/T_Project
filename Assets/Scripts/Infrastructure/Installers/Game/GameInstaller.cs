@@ -1,8 +1,8 @@
 ﻿using System;
+using Core.Currency;
+using Core.Currency.Impls;
 using Core.Managers.Game.Impls;
 using Core.Managers.Game.Interfaces;
-using Game.Currency;
-using Game.Currency.Impls;
 using Game.Managers;
 using Game.Managers._Game._Scripts.Framework.Manager.JCamera;
 using Game.UI.Impls.Managers;

@@ -1,5 +1,5 @@
 ﻿using Core.Character.Player;
-using Game.Currency;
+using Core.Currency;
 using Game.Extensions;
 using Game.Managers;
 using Infrastructure.Input.Signals;

@@ -1,6 +1,4 @@
-using UnityEngine;
-
-namespace Game.Currency
+namespace Core.Currency
 {
     /// <summary>
     /// Интерфейс, определяющий базовые свойства валюты
@@ -25,7 +23,7 @@ namespace Game.Currency
         /// <summary>
         /// Иконка валюты
         /// </summary>
-        Sprite Icon { get; }
+        string IconId { get; }
         
         /// <summary>
         /// Редкость валюты

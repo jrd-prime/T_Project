@@ -1,6 +1,6 @@
 using System;
 
-namespace Game.Currency
+namespace Core.Currency
 {
     /// <summary>
     /// Интерфейс для объектов, которые могут иметь кошелек

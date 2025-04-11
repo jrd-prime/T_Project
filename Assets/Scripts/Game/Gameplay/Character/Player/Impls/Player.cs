@@ -2,13 +2,14 @@
 using Core.Character.Player.Interfaces;
 using Core.Data;
 using Game.Extensions;
+using ModestTree;
 using R3;
 using UnityEngine;
 using Zenject;
 
 namespace Game.Gameplay.Character.Player.Impls
 {
-    [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
+    [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider), typeof(UnityEngine.Animator))]
     public sealed class Player : MonoBehaviour, IPlayer
     {
         [SerializeField] private PlayerFrontTriggerArea frontTriggerArea;
@@ -20,6 +21,7 @@ namespace Game.Gameplay.Character.Player.Impls
         public string Id => _interactor.Id;
         public string Name { get; }
         public string Description { get; }
+        public object Animator { get; private set; }
         public int Health { get; }
         public int MaxHealth { get; }
 
@@ -36,6 +38,7 @@ namespace Game.Gameplay.Character.Player.Impls
                 throw new NullReferenceException($"{nameof(frontTriggerArea)} is null. {name}");
             frontTriggerArea.Init(this);
 
+            Animator = GetComponent<UnityEngine.Animator>();
             _rb = GetComponent<Rigidbody>();
         }
 
@@ -83,6 +86,12 @@ namespace Game.Gameplay.Character.Player.Impls
                 _currentVelocity = Vector3.Lerp(_currentVelocity, Vector3.zero, acceleration);
                 _rb.linearVelocity = new Vector3(_currentVelocity.x, _rb.linearVelocity.y, _currentVelocity.z);
             }
+        }
+
+        public void ExecuteCommand(ICommand command)
+        {
+            Log.Warn("Player execute command");
+            command.Execute();
         }
     }
 }

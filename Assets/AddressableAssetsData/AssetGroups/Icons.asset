@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Icons
+  m_EditorClassIdentifier: 
+  m_GroupName: Icons
+  m_GUID: 50579d6f04ddc2e41befb16c63cc2bef
+  m_SerializeEntries:
+  - m_GUID: f80d87aa530f28e4fb377a160dec5b4e
+    m_Address: ing_corn_cob
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icons
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: ef1316da2834a4a4eb9277397e6d7618, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: dd4a555303c32274ba3c665ba3a5ee04, type: 2}
+    - {fileID: 11400000, guid: 9f08284d76b45ae42aa8440d11cd09a3, type: 2}

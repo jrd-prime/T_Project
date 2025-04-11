@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using R3;
 
-namespace Game.Currency
+namespace Core.Currency
 {
     /// <summary>
     /// Интерфейс кошелька для объектов, взаимодействующих с валютой

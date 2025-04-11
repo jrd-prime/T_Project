@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Game.Currency
+namespace Core.Currency
 {
     /// <summary>
     /// Интерфейс сервиса управления валютой
