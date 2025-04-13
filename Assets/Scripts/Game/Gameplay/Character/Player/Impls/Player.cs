@@ -3,14 +3,13 @@ using Core.Character.Common.Interfaces;
 using Core.Character.Player.Interfaces;
 using Core.Data;
 using Game.Extensions;
-using ModestTree;
 using R3;
 using UnityEngine;
 using Zenject;
 
 namespace Game.Gameplay.Character.Player.Impls
 {
-    [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider), typeof(UnityEngine.Animator))]
+    [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider), typeof(Animator))]
     public sealed class Player : MonoBehaviour, IPlayer
     {
         [SerializeField] private PlayerFrontTriggerArea frontTriggerArea;
@@ -20,12 +19,12 @@ namespace Game.Gameplay.Character.Player.Impls
 
         public ReactiveProperty<JVector3> Position { get; } = new();
         public string Id => _interactor.Id;
-        public string Name { get; }
-        public string Description { get; }
+        public string Name => _interactor.Name;
+        public string Description => _interactor.Description;
         public object Animator { get; private set; }
-        public int Health { get; }
-        public int MaxHealth { get; }
-        public ICharacterInteractor GetInteractor() => _interactor;
+        public int Health => _interactor.Health;
+        public int MaxHealth => _interactor.MaxHealth;
+        public CharacterState State { get; private set; } = CharacterState.Idle;
 
         [Inject] private PlayerInteractor _interactor;
 
@@ -34,23 +33,20 @@ namespace Game.Gameplay.Character.Player.Impls
         private Camera _mainCamera;
         private Vector3 _previousPosition;
 
-        private void Awake()
+        private void Start()
         {
-            if (!frontTriggerArea)
-                throw new NullReferenceException($"{nameof(frontTriggerArea)} is null. {name}");
+            if (!frontTriggerArea) throw new NullReferenceException($"{nameof(frontTriggerArea)} is null. {name}");
+
             frontTriggerArea.Init(this);
-
-            Animator = GetComponent<UnityEngine.Animator>();
-            Log.Warn("player animator = " + Animator);
+            Animator = GetComponent<Animator>();
             _rb = GetComponent<Rigidbody>();
+            _mainCamera = _interactor.MainCamera;
         }
-
-        private void Start() => _mainCamera = _interactor.MainCamera;
 
         private void FixedUpdate()
         {
+            if (State == CharacterState.Interacting) return;
             Move(_interactor.MoveDirection);
-
             if (_previousPosition != transform.position) UpdatePosition();
         }
 
@@ -66,6 +62,7 @@ namespace Game.Gameplay.Character.Player.Impls
         {
             if (moveDirection != Vector3.zero)
             {
+                State = CharacterState.Moving;
                 var cameraForward = _mainCamera.transform.forward;
                 var cameraRight = _mainCamera.transform.right;
 
@@ -86,9 +83,13 @@ namespace Game.Gameplay.Character.Player.Impls
             }
             else
             {
+                State = CharacterState.Idle;
                 _currentVelocity = Vector3.Lerp(_currentVelocity, Vector3.zero, acceleration);
                 _rb.linearVelocity = new Vector3(_currentVelocity.x, _rb.linearVelocity.y, _currentVelocity.z);
             }
         }
+
+        public ICharacterInteractor GetInteractor() => _interactor;
+        public void SetState(CharacterState state) => State = state;
     }
 }

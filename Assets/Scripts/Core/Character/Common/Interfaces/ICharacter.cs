@@ -1,6 +1,4 @@
-﻿using Game.Gameplay.Character.Player.Impls;
-
-namespace Core.Character.Common.Interfaces
+﻿namespace Core.Character.Common.Interfaces
 {
     public interface ICharacter : IMovable
     {
@@ -11,5 +9,14 @@ namespace Core.Character.Common.Interfaces
         int Health { get; }
         int MaxHealth { get; }
         ICharacterInteractor GetInteractor();
+        CharacterState State { get; }
+        void SetState(CharacterState state);
+    }
+
+    public enum CharacterState
+    {
+        Idle,
+        Moving,
+        Interacting
     }
 }

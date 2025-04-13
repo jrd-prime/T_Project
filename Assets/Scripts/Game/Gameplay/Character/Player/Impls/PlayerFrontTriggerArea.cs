@@ -6,15 +6,11 @@ using Core.Interactables.Interfaces;
 using Game.UI.Signals;
 using Infrastructure.Input.Signals.Keys;
 using Infrastructure.Localization;
-using ModestTree;
 using UnityEngine;
 using Zenject;
 
 namespace Game.Gameplay.Character.Player.Impls
 {
-    /// <summary>
-    /// Place on ICharacter.
-    /// </summary>
     [RequireComponent(typeof(Collider))]
     public sealed class PlayerFrontTriggerArea : MonoBehaviour
     {
@@ -24,11 +20,10 @@ namespace Game.Gameplay.Character.Player.Impls
 
         private ICharacter _colliderOwner;
         private bool _isInitialized;
-        private IInteractable _currentInteractable = null;
+        private IInteractable _currentInteractable;
         private readonly HashSet<IInteractable> _interactablesInTrigger = new();
         private SignalBus _signalBus;
         private ILocalizationProvider _localizationProvider;
-
 
         public void Init(ICharacter owner)
         {
@@ -44,7 +39,7 @@ namespace Game.Gameplay.Character.Player.Impls
         {
             if (!_isInitialized)
             {
-                Log.Error("Not initialized. Use Init(). " + name);
+                Debug.LogError("Not initialized. Use Init(). " + name);
                 return;
             }
 
@@ -58,25 +53,16 @@ namespace Game.Gameplay.Character.Player.Impls
             if (_interactablesInTrigger.Count > 1)
             {
                 var names = string.Join(", ", _interactablesInTrigger.Select(i => ((Component)i).gameObject.name));
-                throw new InvalidOperationException($"Multiple interactables in trigger zone.  [{names}]");
+                throw new InvalidOperationException($"Multiple interactables in trigger zone. [{names}]");
             }
 
             _currentInteractable = interactable;
 
             var position = other.transform.position;
             var promptPosition = new Vector3(position.x, 3f, position.z);
-
             var tip = GetInteractionTip(interactable);
 
             _signalBus.Fire(new ShowInteractTipSignal(tip, promptPosition));
-        }
-
-        private (string, string) GetInteractionTip(IInteractable interactable)
-        {
-            var name1 = _localizationProvider.Localize(interactable.LocalizationKey, WordTransform.Upper);
-            var action = _localizationProvider.Localize(interactable.InteractionTipNameId, WordTransform.Upper);
-
-            return (name1, action);
         }
 
         private void OnTriggerExit(Collider other)
@@ -96,28 +82,36 @@ namespace Game.Gameplay.Character.Player.Impls
             }
         }
 
-        private void OnTriggerStay(Collider other)
+        private async void OnInteractKeySignal(InteractKeySignal signal)
         {
-            if (!_isInitialized) return;
-            if (IsLayerInMask(other.gameObject.layer))
+            if (!_isInitialized || _colliderOwner.State == CharacterState.Interacting || _currentInteractable == null)
             {
+                Debug.LogWarning("Not initialized or already interacting. " + name);
+                return;
+            }
+
+            _colliderOwner.SetState(CharacterState.Interacting);
+            try
+            {
+                await _currentInteractable.InteractAsync(_colliderOwner);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Interaction failed: {ex.Message}");
+            }
+            finally
+            {
+                _colliderOwner.SetState(CharacterState.Idle);
             }
         }
 
-        private void OnInteractKeySignal(InteractKeySignal signal)
+        private (string, string) GetInteractionTip(IInteractable interactable)
         {
-            if (!_colliderOwner.GetInteractor().IsBusy())
-            {
-                _currentInteractable?.Interact(_colliderOwner, OnInteractionComplete);
-                _colliderOwner.GetInteractor().SetBusy(true);
-            }
-            else
-            {
-                Log.Warn("Impossible to interact. Character is busy.");
-            }
+            var name = _localizationProvider.Localize(interactable.LocalizationKey, WordTransform.Upper);
+            var action = _localizationProvider.Localize(interactable.InteractionTipNameId, WordTransform.Upper);
+            return (name, action);
         }
 
-        private void OnInteractionComplete() => _colliderOwner.GetInteractor().SetBusy(false);
         private bool IsLayerInMask(int layer) => (triggeredByLayer.value & (1 << layer)) != 0;
     }
 }

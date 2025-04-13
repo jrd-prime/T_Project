@@ -15,14 +15,17 @@ namespace Game.Gameplay.Character.Player.Impls
         public Vector3 MoveDirection { get; private set; } = Vector3.zero;
         public Camera MainCamera => _cameraManager.GetMainCamera();
         public string Id => _service.Id;
-
+        public string Name { get; private set; }
+        public string Description { get; set; }
+        public int Health { get; set; }
+        public int MaxHealth { get; set; }
+        
 
         private readonly PlayerService _service;
         private readonly SignalBus _signalBus;
         private readonly ICameraManager _cameraManager;
         private readonly IWallet _wallet;
         private readonly IPlayerAnimationService _playerAnimationService;
-        private bool isBusy = false;
 
         public PlayerInteractor(PlayerService service, SignalBus signalBus, ICameraManager cameraManager,
             ICurrencyService currencyService, IPlayerAnimationService playerAnimationService)
@@ -48,9 +51,6 @@ namespace Game.Gameplay.Character.Player.Impls
         {
             _playerAnimationService.AnimateWithTrigger(triggerName, animationStateName, onAnimationComplete);
         }
-
-        public bool IsBusy() => isBusy;
-        public void SetBusy(bool value) => isBusy = value;
     }
 
     public interface IPlayerAnimationService

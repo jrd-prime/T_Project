@@ -1,5 +1,5 @@
-﻿using System;
-using Core.Character.Common.Interfaces;
+﻿using Core.Character.Common.Interfaces;
+using Cysharp.Threading.Tasks;
 
 namespace Core.Interactables.Interfaces
 {
@@ -8,6 +8,6 @@ namespace Core.Interactables.Interfaces
         bool CanInteract { get; }
         string InteractionTipNameId { get; }
         string LocalizationKey { get; }
-        void Interact(ICharacter colliderOwner, Action onInteractionComplete);
+        UniTask InteractAsync(ICharacter character);
     }
 }

@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
 using Data.Interactables;
 using Game.Anima.Data.Interactables;
 using Infrastructure.Localization;
-using ModestTree;
 using UnityEngine;
 
 namespace Game.Gameplay.Interactables.Impls
@@ -10,36 +9,32 @@ namespace Game.Gameplay.Interactables.Impls
     public sealed class GatherableObject : AInteractableObject<GatherableObjectData>
     {
         public override string InteractionTipNameId => LocalizationNameID.TipGather;
-        protected override void OnInteract() => Gather();
 
-        private void Gather()
+        protected override void OnStartInteract()
         {
-            Log.Warn("// Логика сбора растения " + gameObject.name);
+            Debug.Log($"// Начало сбора растения {gameObject.name}");
+        }
 
-            CharacterInteractor.AnimateWithTrigger(InteractableTriggerName.GatherHigh,
-                InteractableAnimationName.GatherHigh,
-                OnAnimationComplete);
+        protected async override UniTask<bool> Animate()
+        {
+            return await PlayAnimationAsync(
+                InteractableTriggerName.GatherHigh,
+                InteractableAnimationName.GatherHigh
+            );
+        }
 
-            // var animator = CharacterInteractor.Animator as Animator;
-            // if (animator != null) animator.SetTrigger("gather_high");
-            // Log.Warn("start wait = " + Time.time);
-            // animator.WaitForAnimationCompleteAsync("gath_an", OnAnimationComplete).Forget();
-            // Log.Warn("after wait = " + Time.time);
-            // var gatherCommand = Container.Resolve<GatherCommand>();
-            // colliderOwner.ExecuteCommand(gatherCommand);
-
+        protected override void OnAnimationComplete()
+        {
             foreach (var @return in data.returns)
             {
-                Log.Warn("return: " + Localize(@return.currency.LocalizationKey, WordTransform.Upper) + " / " +
-                         @return.min + " - " + @return.max + " pc");
+                Debug.Log($"return: {Localize(@return.currency.LocalizationKey, WordTransform.Upper)} / " +
+                          $"{@return.min} - {@return.max} pc");
             }
         }
 
-        private void OnAnimationComplete()
+        protected override void OnInteractionComplete(bool success)
         {
-            Log.Warn("on animation complete = " + Time.time);
-
-            OnInteractionComplete?.Invoke();
+            Debug.Log($"// Завершение сбора растения {gameObject.name}, успех: {success}");
         }
     }
 }

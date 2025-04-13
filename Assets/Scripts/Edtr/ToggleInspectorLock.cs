@@ -4,7 +4,7 @@ using UnityEditor;
 
 namespace Edtr
 {
-    public class ToggleInspectorLock : UnityEditor.Editor
+    public class ToggleInspectorLock : Editor
     {
         [MenuItem(ProjectConstant.AppName + "/Editor Hotkeys/Toggle Inspector Lock #e")]
         public static void ToggleLock() =>

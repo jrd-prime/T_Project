@@ -1,5 +1,4 @@
-﻿using Game.Anima;
-using Zenject;
+﻿using Zenject;
 
 namespace Infrastructure.Installers.Game
 {

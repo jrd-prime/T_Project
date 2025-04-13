@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
 using Data.Interactables;
 using Infrastructure.Localization;
 using ModestTree;
@@ -8,11 +8,22 @@ namespace Game.Gameplay.Interactables.Impls
     public sealed class CollectableObj : AInteractableObject<CollectableObjData>
     {
         public override string InteractionTipNameId => LocalizationNameID.TipCollect;
-        protected override void OnInteract() => Collect();
 
-        private void Collect()
+        protected override void OnStartInteract()
         {
-            Log.Warn("// Логика подбора предмета " + gameObject.name);
+        }
+
+        protected override UniTask<bool> Animate()
+        {
+            return UniTask.FromResult(true);
+        }
+
+        protected override void OnAnimationComplete()
+        {
+        }
+
+        protected override void OnInteractionComplete(bool success)
+        {
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using ModestTree;
 
@@ -51,7 +52,7 @@ namespace Core.Currency.Impls
     {
         public ICurrency GetCurrencyInfo(string currencyId)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

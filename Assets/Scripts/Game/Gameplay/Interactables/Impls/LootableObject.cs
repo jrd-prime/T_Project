@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
 using Data.Interactables;
-using Game.Gameplay.Character.Player.Impls;
 using Infrastructure.Localization;
 using ModestTree;
 
@@ -9,11 +8,22 @@ namespace Game.Gameplay.Interactables.Impls
     public sealed class LootableObject : AInteractableObject<LootableObjectData>
     {
         public override string InteractionTipNameId => LocalizationNameID.TipLoot;
-        protected override void OnInteract() => Loot();
-
-        private void Loot()
+        protected override void OnStartInteract()
         {
-            Log.Warn("// Логика обыска " + gameObject.name);
+            
+        }
+
+        protected override UniTask<bool> Animate()
+        {
+            return UniTask.FromResult(true);
+        }
+
+        protected override void OnAnimationComplete()
+        {
+        }
+
+        protected override void OnInteractionComplete(bool success)
+        {
         }
     }
 }
