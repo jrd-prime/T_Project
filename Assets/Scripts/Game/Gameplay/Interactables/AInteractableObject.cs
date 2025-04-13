@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Character.Common.Interfaces;
 using Core.Interactables.Interfaces;
 using Data;
 using Game.Gameplay.Character.Player.Impls;
@@ -18,8 +19,11 @@ namespace Game.Gameplay.Interactables
         public string LocalizationKey => data.LocalizationKey;
 
         [Inject] protected DiContainer Container;
+        protected ICharacter ColliderOwner { get; private set; }
+        protected ICharacterInteractor CharacterInteractor { get; private set; }
 
         private ILocalizationProvider _localizationProvider;
+        protected Action OnInteractionComplete { get; private set; }
 
 
         private void Awake()
@@ -31,6 +35,14 @@ namespace Game.Gameplay.Interactables
         protected string Localize(string key, WordTransform wordTransform = WordTransform.None) =>
             _localizationProvider.Localize(key, wordTransform);
 
-        public abstract void Interact(ICommandExecutor colliderOwner);
+        public void Interact(ICharacter colliderOwner, Action onInteractionComplete)
+        {
+            ColliderOwner = colliderOwner;
+            OnInteractionComplete = onInteractionComplete;
+            CharacterInteractor = colliderOwner.GetInteractor();
+            OnInteract();
+        }
+
+        protected abstract void OnInteract();
     }
 }

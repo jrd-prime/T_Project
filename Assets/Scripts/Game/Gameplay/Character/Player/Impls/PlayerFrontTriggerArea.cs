@@ -106,19 +106,18 @@ namespace Game.Gameplay.Character.Player.Impls
 
         private void OnInteractKeySignal(InteractKeySignal signal)
         {
-            _currentInteractable?.Interact(_colliderOwner as ICommandExecutor);
+            if (!_colliderOwner.GetInteractor().IsBusy())
+            {
+                _currentInteractable?.Interact(_colliderOwner, OnInteractionComplete);
+                _colliderOwner.GetInteractor().SetBusy(true);
+            }
+            else
+            {
+                Log.Warn("Impossible to interact. Character is busy.");
+            }
         }
 
+        private void OnInteractionComplete() => _colliderOwner.GetInteractor().SetBusy(false);
         private bool IsLayerInMask(int layer) => (triggeredByLayer.value & (1 << layer)) != 0;
-    }
-
-    public interface ICommandExecutor
-    {
-        void ExecuteCommand(ICommand command);
-    }
-
-    public interface ICommand
-    {
-        void Execute();
     }
 }

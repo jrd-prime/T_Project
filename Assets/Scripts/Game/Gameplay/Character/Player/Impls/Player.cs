@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Character.Common.Interfaces;
 using Core.Character.Player.Interfaces;
 using Core.Data;
 using Game.Extensions;
@@ -24,6 +25,7 @@ namespace Game.Gameplay.Character.Player.Impls
         public object Animator { get; private set; }
         public int Health { get; }
         public int MaxHealth { get; }
+        public ICharacterInteractor GetInteractor() => _interactor;
 
         [Inject] private PlayerInteractor _interactor;
 
@@ -39,6 +41,7 @@ namespace Game.Gameplay.Character.Player.Impls
             frontTriggerArea.Init(this);
 
             Animator = GetComponent<UnityEngine.Animator>();
+            Log.Warn("player animator = " + Animator);
             _rb = GetComponent<Rigidbody>();
         }
 
@@ -86,12 +89,6 @@ namespace Game.Gameplay.Character.Player.Impls
                 _currentVelocity = Vector3.Lerp(_currentVelocity, Vector3.zero, acceleration);
                 _rb.linearVelocity = new Vector3(_currentVelocity.x, _rb.linearVelocity.y, _currentVelocity.z);
             }
-        }
-
-        public void ExecuteCommand(ICommand command)
-        {
-            Log.Warn("Player execute command");
-            command.Execute();
         }
     }
 }

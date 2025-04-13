@@ -1,4 +1,5 @@
 ﻿using Core.Character.Player;
+using Game.Anima;
 using Game.Gameplay.Character.Player.Impls;
 using UnityEngine;
 using Zenject;
@@ -18,6 +19,7 @@ namespace Infrastructure.Installers.Game
             Container.BindInterfacesAndSelfTo<PlayerInteractor>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<PlayerService>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<PlayerModel>().AsSingle().NonLazy();
+            Container.Bind<IPlayerAnimationService>().To<PlayerAnimationService>().AsSingle().NonLazy();
         }
     }
 }

@@ -7,7 +7,6 @@ namespace Infrastructure.Installers.Game
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<GatherCommand>().AsSingle().NonLazy();
         }
     }
 }

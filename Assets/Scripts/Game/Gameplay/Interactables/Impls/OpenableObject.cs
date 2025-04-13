@@ -1,5 +1,5 @@
-﻿using Data.Interactables;
-using Game.Gameplay.Character.Player.Impls;
+﻿using System;
+using Data.Interactables;
 using Infrastructure.Localization;
 using ModestTree;
 
@@ -8,9 +8,9 @@ namespace Game.Gameplay.Interactables.Impls
     public sealed class OpenableObject : AInteractableObject<OpenableObjectData>
     {
         public override string InteractionTipNameId => LocalizationNameID.TipOpen;
-        public bool IsOpen { get; private set; }
+        protected override void OnInteract() => OpenClose();
 
-        public override void Interact(ICommandExecutor colliderOwner) => OpenClose();
+        public bool IsOpen { get; private set; }
 
         private void OpenClose()
         {

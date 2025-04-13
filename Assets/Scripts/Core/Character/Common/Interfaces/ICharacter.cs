@@ -2,7 +2,7 @@
 
 namespace Core.Character.Common.Interfaces
 {
-    public interface ICharacter : ICommandExecutor, IMovable
+    public interface ICharacter : IMovable
     {
         string Id { get; }
         string Name { get; }
@@ -10,5 +10,6 @@ namespace Core.Character.Common.Interfaces
         object Animator { get; }
         int Health { get; }
         int MaxHealth { get; }
+        ICharacterInteractor GetInteractor();
     }
 }

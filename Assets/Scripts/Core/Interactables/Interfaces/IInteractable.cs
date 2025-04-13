@@ -1,4 +1,5 @@
-﻿using Game.Gameplay.Character.Player.Impls;
+﻿using System;
+using Core.Character.Common.Interfaces;
 
 namespace Core.Interactables.Interfaces
 {
@@ -7,6 +8,6 @@ namespace Core.Interactables.Interfaces
         bool CanInteract { get; }
         string InteractionTipNameId { get; }
         string LocalizationKey { get; }
-        void Interact(ICommandExecutor colliderOwner);
+        void Interact(ICharacter colliderOwner, Action onInteractionComplete);
     }
 }
