@@ -39,54 +39,43 @@ namespace Game.Gameplay.Interactables
             Character = character;
             CharacterInteractor = character.GetInteractor();
 
-            // Начало взаимодействия
             OnStartInteract();
 
-            // Запуск анимации с тайм-аутом
-            bool animationCompleted = await Animate();
+            var isAnimationCompleted = await Animate();
 
-            // Обработка завершения анимации
-            if (animationCompleted)
-            {
-                OnAnimationComplete();
-            }
-            else
-            {
-                Debug.LogError("Animation timeout!");
-            }
+            if (isAnimationCompleted) OnAnimationComplete();
+            else Log.Error("Animation timeout!");
 
-            // Финализация взаимодействия
-            OnInteractionComplete(animationCompleted);
+            OnInteractionComplete(isAnimationCompleted);
         }
 
-        protected abstract void OnStartInteract();
-        protected abstract UniTask<bool> Animate();
-        protected abstract void OnAnimationComplete();
-        protected abstract void OnInteractionComplete(bool success);
-
-// Общий метод для запуска анимации с тайм-аутом
-        protected async UniTask<bool> PlayAnimationAsync(string triggerName, string animationStateName,
+        protected async UniTask<bool> PlayAnimationByTriggerAsync(
+            string triggerName,
+            string animationStateName,
             float timeoutSeconds = 5f)
         {
             var completion = new UniTaskCompletionSource();
+
             CharacterInteractor.AnimateWithTrigger(
                 triggerName,
                 animationStateName,
                 () => completion.TrySetResult()
             );
 
-            int completedIndex = await UniTask.WhenAny(
+            var completedIndex = await UniTask.WhenAny(
                 completion.Task,
                 UniTask.Delay(TimeSpan.FromSeconds(timeoutSeconds))
             );
 
-            if (completedIndex != 0)
-            {
-                completion.TrySetResult();
-                return false;
-            }
+            if (completedIndex == 0) return true;
 
-            return true;
+            completion.TrySetResult();
+            return false;
         }
+
+        protected abstract void OnStartInteract();
+        protected abstract UniTask<bool> Animate();
+        protected abstract void OnAnimationComplete();
+        protected abstract void OnInteractionComplete(bool success);
     }
 }

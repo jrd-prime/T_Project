@@ -1,5 +1,6 @@
-﻿using Core.Character.Player;
-using Game.Anima;
+﻿using Core.Animations.Interfaces;
+using Core.Character.Player;
+using Game.Anima.Impls;
 using Game.Gameplay.Character.Player.Impls;
 using UnityEngine;
 using Zenject;

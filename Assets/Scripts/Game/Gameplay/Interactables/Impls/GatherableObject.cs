@@ -15,9 +15,9 @@ namespace Game.Gameplay.Interactables.Impls
             Debug.Log($"// Начало сбора растения {gameObject.name}");
         }
 
-        protected async override UniTask<bool> Animate()
+        protected override async UniTask<bool> Animate()
         {
-            return await PlayAnimationAsync(
+            return await PlayAnimationByTriggerAsync(
                 InteractableTriggerName.GatherHigh,
                 InteractableAnimationName.GatherHigh
             );

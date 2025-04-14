@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Game.Anima
+namespace Game.Extensions
 {
     public static class AnimatorExtensions
     {

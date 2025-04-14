@@ -1,19 +1,17 @@
 ﻿using System;
+using Core.Animations.Interfaces;
 using Core.Character.Player.Interfaces;
 using Cysharp.Threading.Tasks;
-using Game.Gameplay.Character.Player.Impls;
+using Game.Extensions;
 using UnityEngine;
 
-namespace Game.Anima
+namespace Game.Anima.Impls
 {
     public sealed class PlayerAnimationService : IPlayerAnimationService
     {
         private readonly IPlayer _player;
 
-        public PlayerAnimationService(IPlayer player)
-        {
-            _player = player;
-        }
+        public PlayerAnimationService(IPlayer player) => _player = player;
 
         public void AnimateWithTrigger(string triggerName, string animationStateName, Action onAnimationComplete)
         {

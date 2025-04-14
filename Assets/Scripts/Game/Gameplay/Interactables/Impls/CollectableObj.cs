@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using Data.Interactables;
+using Game.Anima.Data.Interactables;
 using Infrastructure.Localization;
-using ModestTree;
 
 namespace Game.Gameplay.Interactables.Impls
 {
@@ -13,9 +13,12 @@ namespace Game.Gameplay.Interactables.Impls
         {
         }
 
-        protected override UniTask<bool> Animate()
+        protected override async UniTask<bool> Animate()
         {
-            return UniTask.FromResult(true);
+            return await PlayAnimationByTriggerAsync(
+                InteractableTriggerName.GatherHigh,
+                InteractableAnimationName.GatherHigh
+            );
         }
 
         protected override void OnAnimationComplete()

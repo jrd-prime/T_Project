@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Animations.Interfaces;
 using Core.Character.Common.Interfaces;
 using Core.Character.Player;
 using Core.Currency;
@@ -51,10 +52,5 @@ namespace Game.Gameplay.Character.Player.Impls
         {
             _playerAnimationService.AnimateWithTrigger(triggerName, animationStateName, onAnimationComplete);
         }
-    }
-
-    public interface IPlayerAnimationService
-    {
-        void AnimateWithTrigger(string triggerName, string animationStateName, Action onAnimationComplete);
     }
 }
